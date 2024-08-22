@@ -6,11 +6,20 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenuTrigger
 } from "../ui/dropdown-menu";
 import { LogOut } from "lucide-react";
+import { User } from "@/types";
+import { logout } from "@/api/identity";
+import { useContext } from "react";
+import { AuthContext } from "@/context/Auth";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "@/pages/routes";
+import { toast } from "sonner";
 
-export const UserMenu = () => {
+export const UserMenu = ({ user }: { user: User | null }) => {
+  const email = user?.email ?? "";
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -18,7 +27,7 @@ export const UserMenu = () => {
           variant="outline"
           className="hover:bg-slate-300 border-2 border-slate-600 items-center justify-center flex"
         >
-          <p>emksakashili@gmail.com</p>
+          <p>{email.length > 25 ? email?.substring(0, 25) + "..." : email}</p>
           <CircleUserRound className="h-16 w-6 ml-2" />
         </Button>
       </DropdownMenuTrigger>
@@ -41,8 +50,36 @@ export const UserMenu = () => {
 };
 
 const LogoutButton = () => {
+  const navigate = useNavigate();
+  const { setAuthState } = useContext(AuthContext);
+
+  const handleSignOut = async () => {
+    try {
+      const request = await logout();
+
+      if (request.ok) {
+        setAuthState({ isAuthenticated: false, user: null });
+        navigate(ROUTES.index);
+        toast.success("Signed out!", {
+          className: "bg-green-500",
+          duration: 3000
+        });
+      } else {
+        toast.error("Something went wrong!", {
+          duration: 3000
+        });
+      }
+    } catch (error) {
+      console.warn("Sign Out failed!");
+      console.error(error);
+      toast.error("Something went wrong!", {
+        duration: 3000
+      });
+    }
+  };
+
   return (
-    <div className="flex items-center">
+    <div className="flex items-center w-full" onClick={handleSignOut}>
       <LogOut className="h-4 w-4 mr-2" />
       Sign Out
     </div>
