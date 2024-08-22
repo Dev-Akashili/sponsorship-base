@@ -66,6 +66,7 @@ const LogoutButton = () => {
         });
       } else {
         toast.error("Something went wrong!", {
+          className: "bg-red-500",
           duration: 3000
         });
       }
@@ -73,6 +74,7 @@ const LogoutButton = () => {
       console.warn("Sign Out failed!");
       console.error(error);
       toast.error("Something went wrong!", {
+        className: "bg-red-500",
         duration: 3000
       });
     }

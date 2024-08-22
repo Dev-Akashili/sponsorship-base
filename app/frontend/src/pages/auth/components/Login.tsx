@@ -97,7 +97,10 @@ export const Login = () => {
           }
         } catch {
           console.warn("Sending email verification link failed!");
-          toast.error("Something went wrong! Please try again later");
+          toast.error("Something went wrong! Please try again later", {
+            className: "bg-red-500",
+            duration: 3000
+          });
         }
         setIsLoading(false);
       }}

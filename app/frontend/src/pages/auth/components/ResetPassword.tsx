@@ -87,12 +87,14 @@ const VerifyEmailForm = () => {
         });
       } else {
         toast.error("Something went wrong! Please try again later", {
+          className: "bg-red-500",
           duration: 3000
         });
       }
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong! Please try again later", {
+        className: "bg-red-500",
         duration: 3000
       });
     }
