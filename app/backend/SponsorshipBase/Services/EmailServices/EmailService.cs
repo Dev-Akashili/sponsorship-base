@@ -73,6 +73,9 @@ public class EmailService : IEmailService
     
     public async Task<string> ValidateCode(ValidateEmailModel model, bool reset)
     {
+        // Clear out all expired codes
+        await RemoveExpiredCodes();
+        
         var verificationCode = await _db.VerificationCodes.FirstOrDefaultAsync(x => x.CodeId == model.CodeId);
         
         if (verificationCode == null) return "expired";
@@ -96,5 +99,21 @@ public class EmailService : IEmailService
         }
 
         return "success";
+    }
+
+    private async Task RemoveExpiredCodes()
+    {
+        const int expired = 5;
+        var currentTime = DateTime.UtcNow;
+
+        var expiredCodes = await _db.VerificationCodes
+            .Where(x => currentTime >= x.TimeSent.AddMinutes(expired))
+            .ToListAsync();
+
+        if (expiredCodes.Count > 0)
+        {
+            _db.RemoveRange(expiredCodes);
+            await _db.SaveChangesAsync();
+        }
     }
 }
