@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Login } from "./components/Login";
 import { Register } from "./components/Register";
+import { VerifyEmail } from "./components/VerifyEmail";
+import { ResetPassword } from "./components/ResetPassword";
 
 export const Auth = () => {
   const [searchParams] = useSearchParams();
@@ -17,6 +19,10 @@ export const Auth = () => {
         return <Login />;
       case "register":
         return <Register />;
+      case "verify-email":
+        return <VerifyEmail />;
+      case "reset-password":
+        return <ResetPassword />;
       default:
         return <Login />;
     }
