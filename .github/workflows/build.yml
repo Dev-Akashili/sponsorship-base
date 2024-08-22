@@ -1,0 +1,48 @@
+name: Build Frontend and Backend
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  FRONTEND_ROOT: app/frontend
+  NODE_VERSION: 20
+  BACKEND_PROJECT: app/backend/SponsorshipBase/SponsorshipBase.csproj
+  DOTNET_VERSION: 8.x
+
+jobs:
+  build_frontend:
+    name: Build Frontend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install Dependencies
+        run: npm install
+        working-directory: ${{ env.FRONTEND_ROOT }}
+
+      - name: Build
+        run: npm run build
+        working-directory: ${{ env.FRONTEND_ROOT }}
+
+  build_backend:
+    name: Build Backend
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: dotnet build
+        run: >-
+          dotnet build
+          ${{ env.DOTNET_VERSION }}
