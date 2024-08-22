@@ -19,20 +19,6 @@ export async function login(formData: { email: string; password: string }) {
     identity: false,
   });
 }
-export async function register(formData: {
-  email: string;
-  country: string;
-  username: string;
-}) {
-  return await request(fetchKeys.register, {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(formData),
-    identity: false,
-  });
-}
 
 export async function verifyEmail(formData: {
   codeId: number;
