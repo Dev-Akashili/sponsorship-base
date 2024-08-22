@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SponsorshipBase", "SponsorshipBase\SponsorshipBase.csproj", "{D7F683FA-0A40-4A76-8F08-6B92C20A7BC2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SponsorshipBase", "app\backend\SponsorshipBase\SponsorshipBase.csproj", "{D7F683FA-0A40-4A76-8F08-6B92C20A7BC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
