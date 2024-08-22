@@ -16,18 +16,21 @@ public class AccountController : ControllerBase
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly ApplicationDbContext _db;
     private readonly IEmailService _emailService;
+    private readonly IConfiguration _config;
     private const string ErrorMsg = "Something went wrong. Please try again";
     private const string DefaultErrorMsg = "Something went wrong! Please try again later or contact us.";
 
     public AccountController(
         UserManager<ApplicationUser> userManager, 
         ApplicationDbContext db, 
-        IEmailService emailService
+        IEmailService emailService,
+        IConfiguration config
         )
     {
         _userManager = userManager;
         _db = db;
         _emailService = emailService;
+        _config = config;
     }
 
     [HttpPost("login")]
@@ -72,7 +75,6 @@ public class AccountController : ControllerBase
         catch (Exception e)
         {
             Console.WriteLine(e.Message);
-            
             return BadRequest(DefaultErrorMsg);
         }
     }
@@ -86,14 +88,14 @@ public class AccountController : ControllerBase
             
             // Assign role to user
             var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null) throw new Exception("Something went wrong! Please try again.");
+            if (user == null) return NotFound();
             
             if (message.Equals("success"))
             { 
                 var roles = await _userManager.GetRolesAsync(user); 
                 
                 // Role assigning rule
-                var role = model.Email.Equals("emksakashili@gmail.com") ? "Admin" : "Basic";
+                var role = model.Email.Equals(_config["Admin:Email"]) ? "Admin" : "User";
                 
                // Add the role if the user doesn't already have it
                if (!roles.Contains(role)) await _userManager.AddToRoleAsync(user, role);
@@ -132,7 +134,7 @@ public class AccountController : ControllerBase
                 Email = model.Email
             }, true);
 
-            if (!message.Equals("success")) return BadRequest(new { Errors = message });
+            if (!message.Equals("success")) return BadRequest(new { Name = "error", Message = message });
                 
             // Reset Password
             var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
@@ -151,7 +153,7 @@ public class AccountController : ControllerBase
             {
                 // If resetting the password failed, return error messages
                 var errors = result.Errors.Select(error => error.Description).ToArray();
-                return BadRequest(new { Errors = errors });
+                return BadRequest(new { Name = "error", Message = errors });
             }
         }
         catch (Exception e)
