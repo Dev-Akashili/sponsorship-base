@@ -36,7 +36,7 @@ export const VerifyEmail = () => {
           if (response.ok) {
             navigate(AUTH_ROUTES.login);
             toast.success("Email successfully verified!", {
-              className: "bg-green-400",
+              className: "toast-success",
               duration: 3000
             });
           } else {
@@ -79,7 +79,7 @@ export const VerifyEmail = () => {
             toast.success(
               "Email verification link successfully sent! Please check your email to confirm your account",
               {
-                className: "bg-green-400",
+                className: "toast-success",
                 duration: 3000
               }
             );

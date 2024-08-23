@@ -52,7 +52,7 @@ export const Register = () => {
           toast.success(
             "Registration Successful! Please check your email to confirm your account",
             {
-              className: "bg-green-400",
+              className: "toast-success",
               duration: 3000
             }
           );
@@ -108,10 +108,7 @@ export const Register = () => {
             label="Confirm Password"
             type="password"
           />
-          <Button
-            type="submit"
-            className="bg-blue-600 hover:bg-blue-500 mt-4 w-full"
-          >
+          <Button type="submit" className="sponsorship-base mt-4 w-full">
             {isLoading ? <Spinner /> : "Submit"}
           </Button>
           <div className="flex mt-4 justify-center">

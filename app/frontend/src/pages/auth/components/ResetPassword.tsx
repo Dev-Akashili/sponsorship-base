@@ -82,19 +82,19 @@ const VerifyEmailForm = () => {
       if (send.ok) {
         reset();
         toast.success("Password reset link has been sent to your email", {
-          className: "bg-green-400",
+          className: "toast-success",
           duration: 3000
         });
       } else {
         toast.error("Something went wrong! Please try again later", {
-          className: "bg-red-500",
+          className: "toast-error",
           duration: 3000
         });
       }
     } catch (error) {
       console.error(error);
       toast.error("Something went wrong! Please try again later", {
-        className: "bg-red-500",
+        className: "toast-error",
         duration: 3000
       });
     }
@@ -110,7 +110,7 @@ const VerifyEmailForm = () => {
           <Button
             type="submit"
             disabled={isLoading}
-            className="bg-blue-600 hover:bg-blue-500 mt-4 w-full"
+            className="sponsorship-base mt-4 w-full"
           >
             {isLoading ? <Spinner /> : "Submit"}
           </Button>
@@ -164,7 +164,7 @@ const ResetPasswordForm = ({ codeId, code, email }: ResetPasswordFormProps) => {
       if (request.ok) {
         navigate(AUTH_ROUTES.login);
         toast.success("Password has successfully been changed", {
-          className: "bg-green-400",
+          className: "toast-success",
           duration: 3000
         });
       } else {
@@ -224,7 +224,7 @@ const ResetPasswordForm = ({ codeId, code, email }: ResetPasswordFormProps) => {
           <Button
             type="submit"
             disabled={isLoading}
-            className="bg-blue-600 hover:bg-blue-500 mt-4 w-full"
+            className="sponsorship-base mt-4 w-full"
           >
             {isLoading ? <Spinner /> : "Reset password"}
           </Button>

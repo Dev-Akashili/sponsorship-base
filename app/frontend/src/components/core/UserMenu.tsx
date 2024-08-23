@@ -61,12 +61,12 @@ const LogoutButton = () => {
         setAuthState({ isAuthenticated: false, user: null });
         navigate(ROUTES.index);
         toast.success("Signed out!", {
-          className: "bg-green-500",
+          className: "toast-success",
           duration: 3000
         });
       } else {
         toast.error("Something went wrong!", {
-          className: "bg-red-500",
+          className: "toast-error",
           duration: 3000
         });
       }
@@ -74,7 +74,7 @@ const LogoutButton = () => {
       console.warn("Sign Out failed!");
       console.error(error);
       toast.error("Something went wrong!", {
-        className: "bg-red-500",
+        className: "toast-error",
         duration: 3000
       });
     }

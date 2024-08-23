@@ -23,7 +23,7 @@ export const Navbar = ({ user }: { user: User | null }) => {
         <UserMenu user={user} />
       ) : (
         <Link to={AUTH_ROUTES.login}>
-          <Button className="bg-blue-600 hover:bg-blue-500">
+          <Button className="sponsorship-base">
             Login/Register
           </Button>
         </Link>

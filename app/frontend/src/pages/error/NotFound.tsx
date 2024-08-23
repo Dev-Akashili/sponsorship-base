@@ -11,7 +11,7 @@ export const NotFound = () => {
           Sorry, the page you're looking for cannot be found
         </p>
         <Link to={"/"}>
-          <Button className="bg-blue-600 hover:bg-blue-500 mt-6">
+          <Button className="sponsorship-base mt-6">
             Go back to homepage
           </Button>
         </Link>

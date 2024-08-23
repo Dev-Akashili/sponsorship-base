@@ -17,12 +17,12 @@ export const IndexPage = () => {
         </p>
         <div className="text-center">
           <Link to={ROUTES.sponsorshipList}>
-            <Button className="mx-2 bg-blue-600 hover:bg-blue-500">
+            <Button className="mx-2 sponsorship-base">
               View Sponsorship list
             </Button>
           </Link>
           <Link to={ROUTES.contribute}>
-            <Button className="mx-2 bg-blue-600 hover:bg-blue-500">
+            <Button className="mx-2 sponsorship-base">
               Add Your Sponsored Job
             </Button>
           </Link>
