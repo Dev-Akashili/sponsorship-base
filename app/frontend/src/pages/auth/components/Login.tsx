@@ -51,7 +51,7 @@ export const Login = () => {
           setAuthState({ isAuthenticated: true, user: user });
           navigate(ROUTES.sponsorshipList);
           toast.success("Logged in successfully!", {
-            className: "bg-green-500",
+            className: "bg-green-500 text-slate-100",
             duration: 3000
           });
         }
@@ -66,7 +66,10 @@ export const Login = () => {
       console.warn("Login failed!");
       console.error(error);
       setIsLoading(false);
-      setResponse({ name: "error", message: "Network error" });
+      toast.error("Something went wrong! Please try again later", {
+        className: "bg-red-500 text-slate-100",
+        duration: 3000
+      });
     }
   }
 
