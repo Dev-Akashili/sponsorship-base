@@ -3,7 +3,7 @@ const basePath = "";
 export const ROUTES = {
   index: `${basePath}/`,
   sponsorshipList: `${basePath}/sponsorship-list`,
-  contribute: `${basePath}/sponsorship-list/add`,
+  contribute: `${basePath}/add`,
   about: `${basePath}/about`,
   contact: `${basePath}/contact`
 };

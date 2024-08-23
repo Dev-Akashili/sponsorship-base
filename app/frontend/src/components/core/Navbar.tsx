@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Helmet } from "./Helmet";
 import { AUTH_ROUTES, ROUTES } from "@/pages/routes";
@@ -11,7 +11,12 @@ export const Navbar = ({ user }: { user: User | null }) => {
       <Helmet />
       <div className="flex lg:space-x-10 md:space-x-4">
         {navLinks.map((navLink, index) => (
-          <NavLink key={index} text={navLink.text} link={navLink.link} />
+          <NavLink
+            key={index}
+            path={navLink.path}
+            text={navLink.text}
+            link={navLink.link}
+          />
         ))}
       </div>
       {user ? (
@@ -28,16 +33,33 @@ export const Navbar = ({ user }: { user: User | null }) => {
 };
 
 const navLinks = [
-  { text: "Sponsorship List", link: ROUTES.sponsorshipList },
-  { text: "Contribute", link: ROUTES.contribute },
-  { text: "Contact", link: ROUTES.contact },
-  { text: "About", link: ROUTES.about }
+  {
+    path: "sponsorship-list",
+    text: "Sponsorship List",
+    link: ROUTES.sponsorshipList
+  },
+  { path: "add", text: "Contribute", link: ROUTES.contribute },
+  { path: "contact", text: "Contact", link: ROUTES.contact },
+  { path: "about", text: "About", link: ROUTES.about }
 ];
 
-const NavLink = ({ text, link }: { text: string; link: string }) => {
+interface NavLinkProps {
+  path: string;
+  text: string;
+  link: string;
+}
+
+const NavLink = ({ path, text, link }: NavLinkProps) => {
+  const location = useLocation();
+  const isCurrentPath = location.pathname.includes(path);
+
   return (
     <Link to={link}>
-      <p className="text-md font-bold font-mono hover:text-blue-600 hover:underline hover:cursor-pointer">
+      <p
+        className={`text-md font-semibold hover:text-blue-600 hover:underline hover:cursor-pointer ${
+          isCurrentPath ? "text-blue-600 underline" : ""
+        }`}
+      >
         {text}
       </p>
     </Link>
