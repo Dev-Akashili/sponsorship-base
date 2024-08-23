@@ -35,7 +35,7 @@ export const Navbar = ({ user }: { user: User | null }) => {
 const navLinks = [
   {
     path: "sponsorship-list",
-    text: "Sponsorship List",
+    text: "Sponsorship list",
     link: ROUTES.sponsorshipList
   },
   { path: "add", text: "Contribute", link: ROUTES.contribute },
