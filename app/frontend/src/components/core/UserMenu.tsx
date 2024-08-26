@@ -25,7 +25,7 @@ export const UserMenu = ({ user }: { user: User | null }) => {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="hover:bg-slate-300 border-2 border-slate-600 items-center justify-center flex"
+          className="hover:bg-slate-300 border-2 border-slate-600 hidden sm:flex items-center justify-center"
         >
           <p>{email.length > 25 ? email?.substring(0, 25) + "..." : email}</p>
           <CircleUserRound className="h-16 w-6 ml-2" />
@@ -49,7 +49,7 @@ export const UserMenu = ({ user }: { user: User | null }) => {
   );
 };
 
-const LogoutButton = () => {
+export const LogoutButton = ({ sidebar = false }: { sidebar?: boolean }) => {
   const navigate = useNavigate();
   const { setAuthState } = useContext(AuthContext);
 
@@ -80,7 +80,18 @@ const LogoutButton = () => {
     }
   };
 
-  return (
+  return sidebar ? (
+    <Button
+      variant={"ghost"}
+      className="w-full hover:text-blue-600"
+      onClick={handleSignOut}
+    >
+      <div className="mr-auto flex justify-center items-center">
+        <LogOut />
+        <p className="ml-4">Sign out</p>
+      </div>
+    </Button>
+  ) : (
     <div className="flex items-center w-full" onClick={handleSignOut}>
       <LogOut className="h-4 w-4 mr-2" />
       Sign Out

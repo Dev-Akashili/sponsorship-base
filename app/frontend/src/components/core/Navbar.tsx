@@ -4,12 +4,14 @@ import { Helmet } from "./Helmet";
 import { AUTH_ROUTES, ROUTES } from "@/pages/routes";
 import { User } from "@/types";
 import { UserMenu } from "./UserMenu";
+import { Sidebar } from "./Sidebar";
+import { Menu } from "lucide-react";
 
 export const Navbar = ({ user }: { user: User | null }) => {
   return (
     <div className="fixed top-0 left-0 right-0 h-20 px-8 shadow-md flex justify-between items-center z-10 bg-white">
       <Helmet />
-      <div className="flex lg:space-x-10 md:space-x-4">
+      <div className="hidden sm:flex lg:space-x-10 md:space-x-4">
         {navLinks.map((navLink, index) => (
           <NavLink
             key={index}
@@ -22,12 +24,18 @@ export const Navbar = ({ user }: { user: User | null }) => {
       {user ? (
         <UserMenu user={user} />
       ) : (
-        <Link to={AUTH_ROUTES.login}>
-          <Button className="sponsorship-base">
-            Login/Register
-          </Button>
+        <Link to={AUTH_ROUTES.login} className="hidden sm:block">
+          <Button className="sponsorship-base">Login/Register</Button>
         </Link>
       )}
+      <Sidebar
+        user={user}
+        menuButton={
+          <Button variant={"ghost"} size={"icon"} className="block sm:hidden">
+            <Menu className=" h-8 w-8 m-auto" />
+          </Button>
+        }
+      />
     </div>
   );
 };
