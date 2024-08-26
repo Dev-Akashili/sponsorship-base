@@ -45,4 +45,4 @@ jobs:
       - name: dotnet build
         run: >-
           dotnet build
-          ${{ env.DOTNET_VERSION }}
+          ${{ env.BACKEND_PROJECT }}
