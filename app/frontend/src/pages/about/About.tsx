@@ -1,3 +1,10 @@
+import { PageTitle } from "@/components/core/PageTitle";
+
 export const About = () => {
-  return <div className="h-screen"></div>;
+  return (
+    <>
+      <PageTitle title={"About"} />
+      <div className="h-screen"></div>
+    </>
+  );
 };

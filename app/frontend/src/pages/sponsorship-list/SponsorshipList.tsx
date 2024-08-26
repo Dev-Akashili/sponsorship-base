@@ -1,3 +1,10 @@
+import { PageTitle } from "@/components/core/PageTitle";
+
 export const SponsorshipList = () => {
-  return <div className="h-screen"></div>;
+  return (
+    <>
+      <PageTitle title={"Sponsorship List"} />
+      <div className="h-screen"></div>
+    </>
+  );
 };

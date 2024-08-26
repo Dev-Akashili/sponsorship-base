@@ -11,3 +11,10 @@ export const getResponseErrors = (errors: Errors): string[] => {
   }
   return result;
 };
+
+export const formatPageTitle = (pageTitle: string) => {
+  return pageTitle
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize first letter
+    .join(" ");
+};

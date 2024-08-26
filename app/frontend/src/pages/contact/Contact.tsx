@@ -1,3 +1,10 @@
+import { PageTitle } from "@/components/core/PageTitle";
+
 export const Contact = () => {
-  return <div className="h-screen"></div>;
+  return (
+    <>
+      <PageTitle title={"Contact Us"} />
+      <div className="h-screen"></div>
+    </>
+  );
 };

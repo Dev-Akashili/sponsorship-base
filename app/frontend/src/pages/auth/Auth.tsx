@@ -4,6 +4,7 @@ import { Login } from "./components/Login";
 import { Register } from "./components/Register";
 import { VerifyEmail } from "./components/VerifyEmail";
 import { ResetPassword } from "./components/ResetPassword";
+import { formatPageTitle } from "@/utils";
 
 export const Auth = () => {
   const [searchParams] = useSearchParams();
@@ -11,6 +12,7 @@ export const Auth = () => {
 
   useEffect(() => {
     setPage(searchParams.get("page"));
+    document.title = `SponsorshipBase – ${formatPageTitle(page ?? "")}`;
   }, [page, searchParams]);
 
   const getPage = () => {
@@ -24,6 +26,7 @@ export const Auth = () => {
       case "reset-password":
         return <ResetPassword />;
       default:
+        setPage("login");
         return <Login />;
     }
   };
