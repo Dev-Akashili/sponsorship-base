@@ -508,3 +508,6 @@ $RECYCLE.BIN/
 *.swp
 
 appsettings.Development.json
+
+# Next.js
+.next

@@ -31,7 +31,7 @@ export const Navbar = ({ user }: { user: User | null }) => {
       <Sidebar
         user={user}
         menuButton={
-          <Button variant={"ghost"} size={"icon"} className="block sm:hidden">
+          <Button variant={"ghost"} size={"icon"} className="block sm:hidden bg-slate-100">
             <Menu className=" h-8 w-8 m-auto" />
           </Button>
         }
