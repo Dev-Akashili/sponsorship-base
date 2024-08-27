@@ -6,17 +6,32 @@ const fetchKeys = {
   verifyEmail: "account/verifyEmail",
   sendEmailVerificationEmail: (email: string, name: string) =>
     `account/sendEmailVerificationLink?email=${email}&name=${name}`,
-  resetPassword: "account/resetPassword",
+  resetPassword: "account/resetPassword"
 };
 
 export async function login(formData: { email: string; password: string }) {
   return await request(fetchKeys.login, {
     method: "POST",
     headers: {
-      "Content-type": "application/json",
+      "Content-type": "application/json"
     },
     body: JSON.stringify(formData),
-    identity: false,
+    identity: false
+  });
+}
+
+export async function register(formData: {
+  email: string;
+  gender: string;
+  nationality: string;
+}) {
+  return await request(fetchKeys.register, {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify(formData),
+    identity: false
   });
 }
 
@@ -28,10 +43,10 @@ export async function verifyEmail(formData: {
   return await request(fetchKeys.verifyEmail, {
     method: "POST",
     headers: {
-      "Content-type": "application/json",
+      "Content-type": "application/json"
     },
     body: JSON.stringify(formData),
-    identity: false,
+    identity: false
   });
 }
 
@@ -39,9 +54,9 @@ export async function sendEmail(email: string, name: string) {
   return await request(fetchKeys.sendEmailVerificationEmail(email, name), {
     method: "POST",
     headers: {
-      "Content-type": "application/json",
+      "Content-type": "application/json"
     },
-    identity: false,
+    identity: false
   });
 }
 
@@ -54,9 +69,9 @@ export async function resetPassword(formData: {
   return await request(fetchKeys.resetPassword, {
     method: "POST",
     headers: {
-      "Content-type": "application/json",
+      "Content-type": "application/json"
     },
     body: JSON.stringify(formData),
-    identity: false,
+    identity: false
   });
 }

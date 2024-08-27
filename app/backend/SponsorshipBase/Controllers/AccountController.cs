@@ -32,6 +32,20 @@ public class AccountController : ControllerBase
         _emailService = emailService;
         _config = config;
     }
+    
+    [HttpPost("register")]
+    public async Task<ActionResult> Register(RegisterModel model)
+    {
+        var user = await _userManager.FindByEmailAsync(model.Email);
+        if (user == null) return BadRequest("Something went wrong");
+
+        // Add gender and nationality to user
+        user.Gender = model.Gender;
+        user.Nationality = model.Nationality;
+        await _userManager.UpdateAsync(user);
+
+        return Ok();
+    }
 
     [HttpPost("login")]
     public async Task<ActionResult> Login(LoginModel model)

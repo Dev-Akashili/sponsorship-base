@@ -36,6 +36,8 @@ export const registerFormSchema = z
       .string()
       .email("Invalid email address")
       .min(1, "Email is required"),
+    gender: z.string({ required_error: "Gender is required" }),
+    nationality: z.string({ required_error: "Nationality is required" }),
     password: z
       .string()
       .min(6, { message: "Passwords must be at least 6 characters." })

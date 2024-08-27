@@ -12,11 +12,15 @@ import { useState } from "react";
 import { ResponseMessage } from "@/types";
 import { X } from "lucide-react";
 import { register } from "@/api/identity";
+import { register as custom } from "@/api/custom-auth";
 import { getResponseErrors } from "@/utils";
 import { FormAlert } from "@/components/forms/FormAlert";
 import { Spinner } from "@/components/core/Loader";
 import { sendEmail } from "@/api/custom-auth";
 import { toast } from "sonner";
+import { FormSelect } from "@/components/forms/FormSelect";
+import { genders } from "@/data/forms";
+import { countries } from "@/data/countries";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -41,21 +45,34 @@ export const Register = () => {
     setIsLoading(true);
 
     try {
-      const request = await register({
+      const reg = await register({
         email: values.email,
         password: values.password
       });
-      if (request.ok) {
-        const send = await sendEmail(values.email, "register");
-        if (send.ok) {
-          navigate(AUTH_ROUTES.login);
-          toast.success(
-            "Registration Successful! Please check your email to confirm your account",
-            {
-              className: "toast-success",
-              duration: 3000
-            }
-          );
+      if (reg.ok) {
+        const req = await custom({
+          email: values.email,
+          gender: values.gender,
+          nationality: values.nationality
+        });
+        if (req.ok) {
+          const send = await sendEmail(values.email, "register");
+          if (send.ok) {
+            navigate(AUTH_ROUTES.login);
+            toast.success(
+              "Registration Successful! Please check your email to confirm your account",
+              {
+                className: "toast-success",
+                duration: 3000
+              }
+            );
+          } else {
+            setResponse({
+              name: "error",
+              message: "Something went wrong! Please try again later"
+            });
+            setAlert(true);
+          }
         } else {
           setResponse({
             name: "error",
@@ -64,7 +81,7 @@ export const Register = () => {
           setAlert(true);
         }
       } else {
-        const response = await request.json();
+        const response = await reg.json();
         const errors = getResponseErrors(response.errors);
         setResponse({ name: "error", message: response.title, errors: errors });
         setAlert(true);
@@ -84,43 +101,59 @@ export const Register = () => {
   );
 
   return (
-    <FormLayout title="Create a new account">
-      {alert && (
-        <FormAlert
-          title={response.message}
-          type={response.name}
-          errors={response.errors}
-          closeButton={closeButton}
-        />
-      )}
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <FormInput form={form} name="email" label="Email" />
-          <FormInput
-            form={form}
-            name="password"
-            label="Password"
-            type="password"
+    <div className="my-20">
+      <FormLayout title="Create a new account">
+        {alert && (
+          <FormAlert
+            title={response.message}
+            type={response.name}
+            errors={response.errors}
+            closeButton={closeButton}
           />
-          <FormInput
-            form={form}
-            name="confirm"
-            label="Confirm Password"
-            type="password"
-          />
-          <Button type="submit" className="sponsorship-base mt-4 w-full">
-            {isLoading ? <Spinner /> : "Submit"}
-          </Button>
-          <div className="flex mt-4 justify-center">
-            <p className="text-sm text-slate-600">Already have an account?</p>
-            <Link to={AUTH_ROUTES.login}>
-              <p className="ml-2 text-sm text-blue-700 underline cursor-pointer">
-                Login
-              </p>
-            </Link>
-          </div>
-        </form>
-      </Form>
-    </FormLayout>
+        )}
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <FormInput form={form} name="email" label="Email" />
+            <FormSelect
+              form={form}
+              name="gender"
+              label="Gender"
+              placeholder="Select a gender"
+              options={genders}
+            />
+            <FormSelect
+              form={form}
+              name="nationality"
+              label="Nationality"
+              placeholder="Select a Nationality"
+              options={countries}
+            />
+            <FormInput
+              form={form}
+              name="password"
+              label="Password"
+              type="password"
+            />
+            <FormInput
+              form={form}
+              name="confirm"
+              label="Confirm Password"
+              type="password"
+            />
+            <Button type="submit" className="sponsorship-base mt-4 w-full">
+              {isLoading ? <Spinner /> : "Submit"}
+            </Button>
+            <div className="flex mt-4 justify-center">
+              <p className="text-sm text-slate-600">Already have an account?</p>
+              <Link to={AUTH_ROUTES.login}>
+                <p className="ml-2 text-sm text-blue-700 underline cursor-pointer">
+                  Login
+                </p>
+              </Link>
+            </div>
+          </form>
+        </Form>
+      </FormLayout>
+    </div>
   );
 };
