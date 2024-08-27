@@ -18,28 +18,21 @@ interface FormSelectProps {
   form: any;
   name: string;
   label: string;
-  placeholder: string;
   options: string[];
 }
 
-export const FormSelect = ({
-  form,
-  name,
-  label,
-  placeholder,
-  options
-}: FormSelectProps) => {
+export const FormSelect = ({ form, name, label, options }: FormSelectProps) => {
   return (
     <FormField
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className="mt-2">
+        <FormItem className="mt-2 w-[48%]">
           <FormLabel>{label}</FormLabel>
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder={placeholder} />
+                <SelectValue placeholder={"Select an option"} />
               </SelectTrigger>
             </FormControl>
             <SelectContent>

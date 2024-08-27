@@ -89,6 +89,10 @@ export const Register = () => {
     } catch (error) {
       console.warn("Registration failed!");
       console.error(error);
+      toast.error("Something went wrong! Please try again later", {
+        className: "toast-error",
+        duration: 3000
+      });
     }
 
     setIsLoading(false);
@@ -101,7 +105,7 @@ export const Register = () => {
   );
 
   return (
-    <div className="my-20">
+    <div className="my-10">
       <FormLayout title="Create a new account">
         {alert && (
           <FormAlert
@@ -114,20 +118,20 @@ export const Register = () => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormInput form={form} name="email" label="Email" />
-            <FormSelect
-              form={form}
-              name="gender"
-              label="Gender"
-              placeholder="Select a gender"
-              options={genders}
-            />
-            <FormSelect
-              form={form}
-              name="nationality"
-              label="Nationality"
-              placeholder="Select a Nationality"
-              options={countries}
-            />
+            <div className="flex justify-between">
+              <FormSelect
+                form={form}
+                name="gender"
+                label="Gender"
+                options={genders}
+              />
+              <FormSelect
+                form={form}
+                name="nationality"
+                label="Nationality"
+                options={countries}
+              />
+            </div>
             <FormInput
               form={form}
               name="password"
