@@ -1,5 +1,5 @@
 {
-  "name": "sponsorship-base-dev-docs",
+  "name": "sponsorship-base-docs",
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
