@@ -1,0 +1,25 @@
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using SponsorshipBase.Data.Entities.Identity;
+
+namespace SponsorshipBase.Data.Entities;
+
+public class Sponsorship
+{
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.None)]
+    public string Id { get; set; } = Guid.NewGuid().ToString();
+    public string Gender { get; set; } = string.Empty;
+    public string Nationality { get; set; } = string.Empty;
+    public Company Company { get; set; } = new();
+    public string Country { get; set; } = string.Empty;
+    public string City { get; set; } = string.Empty;
+    public string JobTitle { get; set; } = string.Empty;
+    public string Experience { get; set; } = string.Empty;
+    public string Salary { get; set; } = string.Empty;
+    public string Currency { get; set; } = string.Empty;
+    public string Month { get; set; } = string.Empty;
+    public string Year { get; set; } = string.Empty;
+    public JobBoard JobBoard { get; set; } = new();
+    public ApplicationUser Owner { get; set; } = null!;
+}
