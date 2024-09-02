@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SponsorshipBase.Data;
 using SponsorshipBase.Data.Entities.Identity;
+using SponsorshipBase.Services;
 using SponsorshipBase.Services.Contracts;
 using SponsorshipBase.Services.EmailServices;
 
@@ -61,7 +62,9 @@ builder.Services.AddCors(options =>
 });
 
 // Register services
-builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services
+    .AddTransient<IEmailService, EmailService>()
+    .AddTransient<SponsorshipService>();
 
 var app = builder.Build();
 
@@ -81,6 +84,14 @@ using (var scope = app.Services.CreateScope())
             await roleManager.CreateAsync(new IdentityRole(role));
         }
     }
+    
+    var db = scope.ServiceProvider
+        .GetRequiredService<ApplicationDbContext>();
+    
+    // Seed data
+    var seeder = new DataSeeder(db);
+
+    await seeder.SeedJobBoards();
 }
 
 // Configure the HTTP request pipeline.
