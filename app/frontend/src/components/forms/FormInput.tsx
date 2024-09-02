@@ -5,7 +5,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
+  FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
@@ -15,22 +15,35 @@ interface FormInputProps {
   form: any;
   name: string;
   label: string;
+  placeholder?: string;
+  width?: string;
   type?: string;
 }
 
-export const FormInput = ({ form, name, label, type }: FormInputProps) => {
+export const FormInput = ({
+  form,
+  name,
+  label,
+  placeholder,
+  width = "100%",
+  type
+}: FormInputProps) => {
   return (
     <FormField
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className="mt-2">
+        <FormItem className="mt-2" style={{ width: width }}>
           <FormLabel>{label}</FormLabel>
           <FormControl>
             {type === "password" ? (
               <PasswordInput form={field} />
             ) : (
-              <Input type={type ? type : "text"} {...field} />
+              <Input
+                placeholder={placeholder}
+                type={type ? type : "text"}
+                {...field}
+              />
             )}
           </FormControl>
           <FormMessage />

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { ReactNode } from "react";
 import {
   FormControl,
   FormField,
@@ -18,21 +19,43 @@ interface FormSelectProps {
   form: any;
   name: string;
   label: string;
+  placeholder?: ReactNode | string;
+  width?: string;
+  disabled?: boolean;
+  onChange?: (value: string) => void;
   options: string[];
 }
 
-export const FormSelect = ({ form, name, label, options }: FormSelectProps) => {
+export const FormSelect = ({
+  form,
+  name,
+  label,
+  placeholder = "Select an option",
+  width = "100%",
+  disabled = false,
+  onChange,
+  options
+}: FormSelectProps) => {
   return (
     <FormField
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className="mt-2 w-[48%]">
+        <FormItem className="mt-2" style={{ width: width }}>
           <FormLabel>{label}</FormLabel>
-          <Select onValueChange={field.onChange} defaultValue={field.value}>
+          <Select
+            onValueChange={(value) => {
+              field.onChange(value);
+              if (onChange) {
+                onChange(value);
+              }
+            }}
+            defaultValue={field.value}
+            disabled={disabled}
+          >
             <FormControl>
               <SelectTrigger>
-                <SelectValue placeholder={"Select an option"} />
+                <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>
             <SelectContent>

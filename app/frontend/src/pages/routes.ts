@@ -1,4 +1,4 @@
-const basePath = "";
+export const basePath = "";
 
 export const ROUTES = {
   index: `${basePath}/`,

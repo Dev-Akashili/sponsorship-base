@@ -124,12 +124,14 @@ export const Register = () => {
                 name="gender"
                 label="Gender"
                 options={genders}
+                width={"48%"}
               />
               <FormSelect
                 form={form}
                 name="nationality"
                 label="Nationality"
                 options={countries}
+                width={"48%"}
               />
             </div>
             <FormInput
