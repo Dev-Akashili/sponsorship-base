@@ -6,11 +6,12 @@ import { AUTH_ROUTES } from "@/pages/routes";
 import { ReactNode, useContext } from "react";
 import { Navigate } from "react-router-dom";
 
-export const AuthRoute = ({
-  children
-}: {
+interface AuthRouteProps {
+  redirect?: string;
   children: ReactNode | ReactNode[];
-}) => {
+}
+
+export const AuthRoute = ({ redirect, children }: AuthRouteProps) => {
   const { isAuthenticated } = useContext(AuthContext);
 
   if (isAuthenticated === undefined) {
@@ -18,7 +19,9 @@ export const AuthRoute = ({
   }
 
   if (!isAuthenticated) {
-    return <Navigate to={AUTH_ROUTES.login} replace />;
+    return (
+      <Navigate to={`${AUTH_ROUTES.login}&redirect=${redirect}`} replace />
+    );
   }
 
   return children;

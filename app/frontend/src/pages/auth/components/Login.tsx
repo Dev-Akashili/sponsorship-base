@@ -5,10 +5,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { FormLayout } from "@/layout/FormLayout";
-import { Link, useNavigate } from "react-router-dom";
-import { AUTH_ROUTES, ROUTES } from "@/pages/routes";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { AUTH_ROUTES, basePath, ROUTES } from "@/pages/routes";
 import { FormInput } from "@/components/forms/FormInput";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Spinner } from "@/components/core/Loader";
 import { login } from "@/api/identity";
 import { login as custom, sendEmail } from "@/api/custom-auth";
@@ -21,14 +21,20 @@ import { toast } from "sonner";
 
 export const Login = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { setAuthState } = useContext(AuthContext);
   const [email, setEmail] = useState<string>("");
+  const [redirect, setRedirect] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [response, setResponse] = useState<ResponseMessage>({
     name: "",
     message: ""
   });
   const [alert, setAlert] = useState<boolean>(false);
+
+  useEffect(() => {
+    setRedirect(searchParams.get("redirect"));
+  }, [redirect, searchParams]);
 
   const form = useForm<z.infer<typeof loginFormSchema>>({
     resolver: zodResolver(loginFormSchema),
@@ -49,7 +55,11 @@ export const Login = () => {
         const user = await response.json();
         if (user) {
           setAuthState({ isAuthenticated: true, user: user });
-          navigate(ROUTES.sponsorshipList);
+          if (redirect) {
+            navigate(`${basePath}/${redirect}`);
+          } else {
+            navigate(ROUTES.sponsorshipList);
+          }
           toast.success("Logged in successfully!", {
             className: "toast-success",
             duration: 3000
