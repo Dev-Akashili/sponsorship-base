@@ -12,12 +12,12 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/core/Loader";
 import { useEffect, useState } from "react";
 import { resetPassword, sendEmail } from "@/api/custom-auth";
-import { toast } from "sonner";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { AUTH_ROUTES } from "@/pages/routes";
 import { ResponseMessage } from "@/types";
 import { FormAlert } from "@/components/forms/FormAlert";
 import { X } from "lucide-react";
+import { toast } from "react-toastify";
 
 export const ResetPassword = () => {
   const [searchParams] = useSearchParams();
@@ -81,22 +81,13 @@ const VerifyEmailForm = () => {
       const send = await sendEmail(values.email, "reset");
       if (send.ok) {
         reset();
-        toast.success("Password reset link has been sent to your email", {
-          className: "toast-success",
-          duration: 3000
-        });
+        toast.success("Password reset link has been sent to your email");
       } else {
-        toast.error("Something went wrong! Please try again later", {
-          className: "toast-error",
-          duration: 3000
-        });
+        toast.error("Something went wrong! Please try again later");
       }
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong! Please try again later", {
-        className: "toast-error",
-        duration: 3000
-      });
+      toast.error("Something went wrong! Please try again later");
     }
 
     setIsLoading(false);
@@ -163,10 +154,7 @@ const ResetPasswordForm = ({ codeId, code, email }: ResetPasswordFormProps) => {
       });
       if (request.ok) {
         navigate(AUTH_ROUTES.login);
-        toast.success("Password has successfully been changed", {
-          className: "toast-success",
-          duration: 3000
-        });
+        toast.success("Password has successfully been changed");
       } else {
         const response = await request.json();
         setResponse({

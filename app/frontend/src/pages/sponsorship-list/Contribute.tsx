@@ -12,7 +12,6 @@ import { useState } from "react";
 import { FormSelect } from "@/components/forms/FormSelect";
 import { addSponsorship } from "@/api/sponsorship-base";
 import { AddSponsorship } from "@/types/sponsorship-base";
-import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../routes";
 import {
@@ -26,6 +25,7 @@ import {
   SALARIES,
   YEARS
 } from "@/constants/Forms.constants";
+import { toast } from "react-toastify";
 
 export const Contribute = () => {
   const navigate = useNavigate();
@@ -62,23 +62,14 @@ export const Contribute = () => {
       const request = await addSponsorship(values as AddSponsorship);
       if (request.ok) {
         reset();
-        toast.success("Successfully added! Thank you for contributing", {
-          className: "toast-success",
-          duration: 3000
-        });
+        toast.success("Successfully added! Thank you for contributing");
         navigate(ROUTES.sponsorshipList);
       } else {
-        toast.error("Something went wrong! Please try again later", {
-          className: "toast-error",
-          duration: 3000
-        });
+        toast.error("Something went wrong! Please try again later");
       }
     } catch (error) {
       console.warn(error);
-      toast.error("Something went wrong! Please try again later", {
-        className: "toast-error",
-        duration: 3000
-      });
+      toast.error("Something went wrong! Please try again later");
     }
     setIsLoading(false);
   }

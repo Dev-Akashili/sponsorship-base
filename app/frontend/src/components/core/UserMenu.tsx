@@ -15,7 +15,7 @@ import { useContext } from "react";
 import { AuthContext } from "@/context/Auth";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/pages/routes";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 
 export const UserMenu = ({ user }: { user: User | null }) => {
   const email = user?.email ?? "";
@@ -60,23 +60,14 @@ export const LogoutButton = ({ sidebar = false }: { sidebar?: boolean }) => {
       if (request.ok) {
         setAuthState({ isAuthenticated: false, user: null });
         navigate(ROUTES.index);
-        toast.success("Signed out!", {
-          className: "toast-success",
-          duration: 3000
-        });
+        toast.success("Signed out!");
       } else {
-        toast.error("Something went wrong!", {
-          className: "toast-error",
-          duration: 3000
-        });
+        toast.error("Something went wrong!");
       }
     } catch (error) {
       console.warn("Sign Out failed!");
       console.error(error);
-      toast.error("Something went wrong!", {
-        className: "toast-error",
-        duration: 3000
-      });
+      toast.error("Something went wrong!");
     }
   };
 

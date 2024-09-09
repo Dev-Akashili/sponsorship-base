@@ -17,7 +17,7 @@ import { AuthContext } from "@/context/Auth";
 import { FormAlert } from "@/components/forms/FormAlert";
 import { X } from "lucide-react";
 import { ResponseMessage } from "@/types";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -60,10 +60,7 @@ export const Login = () => {
           } else {
             navigate(ROUTES.sponsorshipList);
           }
-          toast.success("Logged in successfully!", {
-            className: "toast-success",
-            duration: 3000
-          });
+          toast.success("Logged in successfully!");
         }
       } else {
         const request = await custom(values);
@@ -76,10 +73,7 @@ export const Login = () => {
       console.warn("Login failed!");
       console.error(error);
       setIsLoading(false);
-      toast.error("Something went wrong! Please try again later", {
-        className: "toast-error",
-        duration: 3000
-      });
+      toast.error("Something went wrong! Please try again later");
     }
   }
 
@@ -110,10 +104,7 @@ export const Login = () => {
           }
         } catch {
           console.warn("Sending email verification link failed!");
-          toast.error("Something went wrong! Please try again later", {
-            className: "toast-error",
-            duration: 3000
-          });
+          toast.error("Something went wrong! Please try again later");
         }
         setIsLoading(false);
       }}

@@ -6,7 +6,7 @@ import { AUTH_ROUTES } from "@/pages/routes";
 import { ResponseMessage } from "@/types";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
 
 export const VerifyEmail = () => {
   const navigate = useNavigate();
@@ -35,10 +35,7 @@ export const VerifyEmail = () => {
           });
           if (response.ok) {
             navigate(AUTH_ROUTES.login);
-            toast.success("Email successfully verified!", {
-              className: "toast-success",
-              duration: 3000
-            });
+            toast.success("Email successfully verified!");
           } else {
             const result = await response.text();
             if (result === "expired") {
@@ -77,11 +74,7 @@ export const VerifyEmail = () => {
           if (send.ok) {
             navigate(AUTH_ROUTES.login);
             toast.success(
-              "Email verification link successfully sent! Please check your email to confirm your account",
-              {
-                className: "toast-success",
-                duration: 3000
-              }
+              "Email verification link successfully sent! Please check your email to confirm your account"
             );
           } else {
             const msg = await send.text();

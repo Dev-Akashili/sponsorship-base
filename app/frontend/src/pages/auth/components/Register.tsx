@@ -17,10 +17,9 @@ import { getResponseErrors } from "@/utils";
 import { FormAlert } from "@/components/forms/FormAlert";
 import { Spinner } from "@/components/core/Loader";
 import { sendEmail } from "@/api/custom-auth";
-import { toast } from "sonner";
 import { FormSelect } from "@/components/forms/FormSelect";
-import { genders } from "@/data/forms";
-import { countries } from "@/data/countries";
+import { toast } from "react-toastify";
+import { COUNTRIES, GENDERS } from "@/constants/Forms.constants";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -60,11 +59,7 @@ export const Register = () => {
           if (send.ok) {
             navigate(AUTH_ROUTES.login);
             toast.success(
-              "Registration Successful! Please check your email to confirm your account",
-              {
-                className: "toast-success",
-                duration: 3000
-              }
+              "Registration Successful! Please check your email to confirm your account"
             );
           } else {
             setResponse({
@@ -89,10 +84,7 @@ export const Register = () => {
     } catch (error) {
       console.warn("Registration failed!");
       console.error(error);
-      toast.error("Something went wrong! Please try again later", {
-        className: "toast-error",
-        duration: 3000
-      });
+      toast.error("Something went wrong! Please try again later");
     }
 
     setIsLoading(false);
@@ -123,14 +115,14 @@ export const Register = () => {
                 form={form}
                 name="gender"
                 label="Gender"
-                options={genders}
+                options={GENDERS}
                 width={"48%"}
               />
               <FormSelect
                 form={form}
                 name="nationality"
                 label="Nationality"
-                options={countries}
+                options={COUNTRIES}
                 width={"48%"}
               />
             </div>
