@@ -8,6 +8,67 @@ namespace SponsorshipBase.Services;
 
 public class SponsorshipService(ApplicationDbContext db)
 {
+    public async Task<PaginatedResponse<SponsorshipModel>> List(string? filter, int pageNumber, int pageSize)
+    {
+        var entity = db.Sponsorships
+            .Include(x => x.Company)
+            .Include(x => x.JobBoard)
+            .AsNoTracking();
+        
+        // Filtering
+        if (!string.IsNullOrWhiteSpace(filter))
+        {
+            filter = filter.Trim().ToLower();
+            entity = entity.Where(x =>
+                x.Company.Name.Trim().ToLower().Contains(filter) ||
+                x.Country.Trim().ToLower().Contains(filter) ||
+                x.City.Trim().ToLower().Contains(filter)
+            );
+        }
+        
+        var totalRecords = await entity.CountAsync();
+        
+        // Pagination
+        var list = await entity
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        var sponsorships = list.Select(x => new SponsorshipModel
+        {
+            Id = x.Id,
+            Gender = x.Gender,
+            Nationality = x.Nationality,
+            Company = new CompanyModel
+            {
+                Name = x.Company.Name,
+                Logo = x.Company.Logo,
+                CareerPage = x.Company.CareerPage
+            },
+            Country = x.Country,
+            City = x.City,
+            JobTitle = x.JobTitle,
+            Experience = x.Experience,
+            Salary = x.Salary,
+            Currency = x.Currency,
+            Month = x.Month,
+            Year = x.Year,
+            JobBoard = new JobBoardModel
+            {
+                Name = x.JobBoard.Name,
+                Link = x.JobBoard.Link
+            }
+        }).ToList();
+            
+        var result = new PaginatedResponse<SponsorshipModel>
+        {
+            Count = totalRecords,
+            List = sponsorships,
+        };
+
+        return result;
+    }
+    
     public async Task<Sponsorship> Create(CreateSponsorship model, ApplicationUser user)
     {
         var jobBoard = await db.JobBoards

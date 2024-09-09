@@ -26,6 +26,17 @@ public class SponsorshipController : ControllerBase
         _userManager = userManager;
         _logger = logger;
     }
+    
+    [HttpGet]
+    public async Task<ActionResult<PaginatedResponse<SponsorshipModel>>> List(
+        [FromQuery] string? filter, 
+        int pageNumber = 1, 
+        int pageSize = 1
+        )
+    {
+        var result = await _sponsorshipService.List(filter, pageNumber, pageSize);
+        return Ok(result);
+    }
 
     [Authorize]
     [HttpPost]
