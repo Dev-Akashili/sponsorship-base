@@ -10,21 +10,22 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/core/Loader";
 import { useState } from "react";
 import { FormSelect } from "@/components/forms/FormSelect";
-import { countries, countriesAndCities } from "@/data/countries";
-import {
-  currencies,
-  education,
-  experience,
-  jobBoards,
-  months,
-  salaries,
-  years
-} from "@/data/forms";
 import { addSponsorship } from "@/api/sponsorship-base";
 import { AddSponsorship } from "@/types/sponsorship-base";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../routes";
+import {
+  COUNTRIES,
+  COUNTRIES_AND_CITIES,
+  CURRENCIES,
+  EDUCATION,
+  EXPERIENCE,
+  JOB_BOARDS,
+  MONTHS,
+  SALARIES,
+  YEARS
+} from "@/constants/Forms.constants";
 
 export const Contribute = () => {
   const navigate = useNavigate();
@@ -84,7 +85,7 @@ export const Contribute = () => {
 
   const handleCountryChange = (selectedCountry: string) => {
     setCityDisabled(false);
-    const country = countriesAndCities.find(
+    const country = COUNTRIES_AND_CITIES.find(
       (item) => item.country === selectedCountry
     );
     setCityOptions(country ? country.cities : []);
@@ -117,7 +118,7 @@ export const Contribute = () => {
                   label="Country"
                   name="country"
                   width={"49%"}
-                  options={countriesAndCities.map((item) => item.country)}
+                  options={COUNTRIES_AND_CITIES.map((item) => item.country)}
                   onChange={handleCountryChange}
                 />
                 <FormSelect
@@ -141,7 +142,7 @@ export const Contribute = () => {
                   form={form}
                   label="Experience level"
                   name="experience"
-                  options={experience}
+                  options={EXPERIENCE}
                   width={"41%"}
                 />
               </div>
@@ -150,7 +151,7 @@ export const Contribute = () => {
                   form={form}
                   label="Salary Range"
                   name="salary"
-                  options={salaries}
+                  options={SALARIES}
                   width={"70%"}
                 />
                 <FormSelect
@@ -158,7 +159,7 @@ export const Contribute = () => {
                   label="Currency"
                   name="currency"
                   placeholder={<p className="text-slate-400">e.g GBP</p>}
-                  options={currencies}
+                  options={CURRENCIES}
                   width={"28%"}
                 />
               </div>
@@ -167,14 +168,14 @@ export const Contribute = () => {
                   form={form}
                   label="Highest level of education"
                   name="education"
-                  options={education}
+                  options={EDUCATION}
                   width={"50%"}
                 />
                 <FormSelect
                   form={form}
                   label="Recent qualification from"
                   name="qualificationCountry"
-                  options={countries}
+                  options={COUNTRIES}
                   width={"48%"}
                 />
               </div>
@@ -187,21 +188,21 @@ export const Contribute = () => {
                   label="Month"
                   name="month"
                   width={"49%"}
-                  options={months}
+                  options={MONTHS}
                 />
                 <FormSelect
                   form={form}
                   label="Year"
                   name="year"
                   width={"49%"}
-                  options={years}
+                  options={YEARS}
                 />
               </div>
               <FormSelect
                 form={form}
                 label="Job board"
                 name="jobBoard"
-                options={jobBoards}
+                options={JOB_BOARDS}
                 onChange={handleJobBoardChange}
               />
               {showNewJobBoard && (

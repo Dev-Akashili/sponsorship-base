@@ -1,4 +1,74 @@
-export const countries = [
+export const GENDERS = ["Male", "Female"];
+
+export const EXPERIENCE = [
+  "Intern",
+  "Junior",
+  "Mid-Level",
+  "Senior",
+  "Manager",
+  "Director"
+];
+
+export const SALARIES = [
+  "20,000 - 25,000",
+  "25,000 - 30,000",
+  "30,000 - 35,000",
+  "35,000 - 40,000",
+  "40,000 - 45,000",
+  "45,000 - 50,000",
+  "50,000 - 55,000",
+  "55,000 - 60,000",
+  "60,000 - 65,000",
+  "65,000 - 70,000",
+  "70,000 - 75,000",
+  "75,000 - 80,000",
+  "80,000 - 85,000",
+  "85,000 - 90,000",
+  "90,000 - 95,000",
+  "95,000 - 100,000",
+  "100,000+"
+];
+
+export const CURRENCIES = ["GBP", "EUR", "CHF"];
+
+export const EDUCATION = [
+  "High School",
+  "Bachelors",
+  "Postgraduate Degree",
+  "Masters",
+  "PHD"
+];
+
+export const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
+
+export const YEARS = Array.from(
+  { length: new Date().getFullYear() - 1979 },
+  (_, i) => (1980 + i).toString()
+).reverse();
+
+export const JOB_BOARDS = [
+  "LinkedIn",
+  "Indeed",
+  "Reed",
+  "Xing",
+  "Company website/career page",
+  "Other"
+];
+
+export const COUNTRIES = [
   "Afghanistan",
   "Albania",
   "Algeria",
@@ -196,7 +266,7 @@ export const countries = [
   "Zimbabwe"
 ];
 
-export const countriesAndCities = [
+export const COUNTRIES_AND_CITIES = [
   {
     country: "France",
     cities: [
