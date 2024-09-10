@@ -10,7 +10,7 @@ export const sponsorshipFormSchema = z
     salary: z.string().min(1, "Salary range is required"),
     currency: z.string().min(1, "Required"),
     education: z.string().min(1, "This is required"),
-    qualificationCountry: z.string().min(1, "This is required"),
+    countryOfQualification: z.string().min(1, "This is required"),
     month: z.string().min(1, "Month is required"),
     year: z.string().min(1, "Year is required"),
     jobBoard: z.string().min(1, "Job board is required"),

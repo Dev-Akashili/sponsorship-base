@@ -10,8 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/core/Loader";
 import { useState } from "react";
 import { FormSelect } from "@/components/forms/FormSelect";
-import { addSponsorship } from "@/api/sponsorship-base";
-import { AddSponsorship } from "@/types/sponsorship-base";
+import { addSponsorship } from "@/api/sponsorship";
+import { AddSponsorship } from "@/types/sponsorship";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../routes";
 import {
@@ -45,7 +45,7 @@ export const Contribute = () => {
       salary: "",
       currency: "",
       education: "",
-      qualificationCountry: "",
+      countryOfQualification: "",
       month: "",
       year: "",
       jobBoard: "",
