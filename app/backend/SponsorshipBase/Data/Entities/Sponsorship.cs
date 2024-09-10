@@ -18,6 +18,8 @@ public class Sponsorship
     public string Experience { get; set; } = string.Empty;
     public string Salary { get; set; } = string.Empty;
     public string Currency { get; set; } = string.Empty;
+    public string Education { get; set; } = string.Empty;
+    public string CountryOfQualification { get; set; } = string.Empty;
     public string Month { get; set; } = string.Empty;
     public string Year { get; set; } = string.Empty;
     public JobBoard JobBoard { get; set; } = new();

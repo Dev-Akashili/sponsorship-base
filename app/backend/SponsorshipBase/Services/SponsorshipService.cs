@@ -51,6 +51,8 @@ public class SponsorshipService(ApplicationDbContext db)
             Experience = x.Experience,
             Salary = x.Salary,
             Currency = x.Currency,
+            Education = x.Education,
+            CountryOfQualification = x.CountryOfQualification,
             Month = x.Month,
             Year = x.Year,
             JobBoard = new JobBoardModel
@@ -113,6 +115,8 @@ public class SponsorshipService(ApplicationDbContext db)
             Experience = model.Experience,
             Salary = model.Salary,
             Currency = model.Currency,
+            Education = model.Education,
+            CountryOfQualification = model.CountryOfQualification,
             Month = model.Month,
             Year = model.Year,
             JobBoard = jobBoard ?? new(),

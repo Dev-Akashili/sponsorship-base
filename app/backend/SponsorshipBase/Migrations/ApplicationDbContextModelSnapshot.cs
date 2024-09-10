@@ -311,7 +311,15 @@ namespace SponsorshipBase.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("CountryOfQualification")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Education")
                         .IsRequired()
                         .HasColumnType("text");
 
