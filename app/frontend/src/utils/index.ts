@@ -18,3 +18,7 @@ export const formatPageTitle = (pageTitle: string) => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize first letter
     .join(" ");
 };
+
+export const convertToSlug = (str: string) => {
+  return str.toLowerCase().replace(/\s+/g, "-");
+};

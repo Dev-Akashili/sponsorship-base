@@ -7,8 +7,8 @@ export const IndexPage = () => {
   return (
     <>
       <PageTitle title={"Add Description Later"} />
-      <div className="h-screen flex flex-col justify-center items-center">
-        <div className="m-auto w-9/12">
+      <div className="h-full flex flex-col justify-center items-center">
+        <div className="mx-auto my-40 w-9/12">
           <h1 className="text-8xl text-center text-slate-800 font-semibold">
             A <span className="text-blue-600 hover:mb-4">directory</span> of{" "}
             <span className="text-blue-600 hover:mb-4">visa sponsorsed</span>{" "}

@@ -84,7 +84,6 @@ export const Contribute = () => {
   };
 
   const handleJobBoardChange = (selectedJobBoard: string) => {
-    console.log(selectedJobBoard);
     if (selectedJobBoard === "Other") {
       setShowNewJobBoard(true);
     } else {
@@ -165,7 +164,7 @@ export const Contribute = () => {
                 <FormSelect
                   form={form}
                   label="Recent qualification from"
-                  name="qualificationCountry"
+                  name="countryOfQualification"
                   options={COUNTRIES}
                   width={"48%"}
                 />
