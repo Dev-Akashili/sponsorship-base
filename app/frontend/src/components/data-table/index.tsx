@@ -38,7 +38,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="p-4 bg-white rounded-md">
-      <div className="flex justify-between my-4">{Filter}</div>
+      <div className="flex justify-between mt-4 mb-8">{Filter}</div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>

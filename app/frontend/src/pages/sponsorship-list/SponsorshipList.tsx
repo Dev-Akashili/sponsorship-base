@@ -3,7 +3,6 @@ import { LoadingPage } from "@/components/core/Loader";
 import { PageTitle } from "@/components/core/PageTitle";
 import { DataTable } from "@/components/data-table";
 import { useQueryParams } from "@/helpers/hooks/useQueryParams";
-import { PageLayout } from "@/layout/PageLayout";
 import { PaginatedResponse } from "@/types";
 import { Sponsorship } from "@/types/sponsorship";
 import { useEffect, useState } from "react";
@@ -44,14 +43,14 @@ export const SponsorshipList = () => {
       {!data ? (
         <LoadingPage />
       ) : (
-        <PageLayout>
+        <div className="h-full flex justify-center items-center my-40">
           <DataTable
             columns={columns}
             count={data.count}
             data={data.list}
             Filter={filter}
           />
-        </PageLayout>
+        </div>
       )}
     </>
   );

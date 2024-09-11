@@ -2,7 +2,7 @@ export interface Sponsorship {
   id: string;
   gender: string;
   nationality: string;
-  company: Company
+  company: Company;
   country: string;
   city: string;
   jobTitle: string;
