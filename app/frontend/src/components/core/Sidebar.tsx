@@ -6,14 +6,6 @@ import {
   SheetTitle,
   SheetTrigger
 } from "../ui/sheet";
-import {
-  CircleHelp,
-  CopyPlus,
-  LayoutDashboard,
-  List,
-  Mail,
-  Settings
-} from "lucide-react";
 import { User } from "@/types";
 import { Helmet } from "./Helmet";
 import { ReactNode } from "react";
@@ -21,7 +13,13 @@ import { Button } from "../ui/button";
 import { LogoutButton } from "./UserMenu";
 import { Separator } from "../ui/separator";
 import { Link, useLocation } from "react-router-dom";
-import { AUTH_ROUTES, ROUTES } from "@/pages/routes";
+import { AUTH_ROUTES } from "@/pages/routes";
+import {
+  SIDEBAR_ITEMS,
+  SIDEBAR_USERMENU_ITEMS,
+  MenuItems as SidebarItemProps
+} from "@/constants/Menu.constants";
+import { ShieldAlert } from "lucide-react";
 
 interface SidebarProps {
   user: User | null;
@@ -41,7 +39,7 @@ export const Sidebar = ({ user, menuButton }: SidebarProps) => {
         <Separator className="my-4 border-t-2" />
         <div className="flex flex-col h-5/6 justify-between">
           <div className="flex flex-col space-y-2">
-            {items.map((item, index) => (
+            {SIDEBAR_ITEMS.map((item, index) => (
               <SidebarItem
                 key={index}
                 path={item.path}
@@ -68,13 +66,6 @@ export const Sidebar = ({ user, menuButton }: SidebarProps) => {
   );
 };
 
-interface SidebarItemProps {
-  path: string;
-  text: string;
-  link: string;
-  icon: ReactNode;
-}
-
 const SidebarItem = ({ path, text, link, icon }: SidebarItemProps) => {
   const location = useLocation();
   const isCurrentPath = location.pathname.includes(path);
@@ -98,44 +89,8 @@ const SidebarItem = ({ path, text, link, icon }: SidebarItemProps) => {
   );
 };
 
-const items = [
-  {
-    path: "sponsorship-list",
-    text: "Sponsorsip list",
-    link: ROUTES.sponsorshipList,
-    icon: <List />
-  },
-  {
-    path: "add",
-    text: "Add your sponsored job",
-    link: ROUTES.contribute,
-    icon: <CopyPlus />
-  },
-  { path: "contact", text: "Contact", link: ROUTES.contact, icon: <Mail /> },
-  {
-    path: "about",
-    text: "About",
-    link: ROUTES.about,
-    icon: <CircleHelp />
-  }
-];
-
 const SidebarUserMenu = ({ user }: { user: User }) => {
   const email = user.email;
-  const items = [
-    {
-      path: "dashboard",
-      text: "Personal dashboard",
-      link: "/",
-      icon: <LayoutDashboard />
-    },
-    {
-      path: "settings",
-      text: "Settings",
-      link: "/",
-      icon: <Settings />
-    }
-  ];
 
   return (
     <div className="flex flex-col space-y-4">
@@ -147,7 +102,7 @@ const SidebarUserMenu = ({ user }: { user: User }) => {
       </div>
       <Separator className="border-t-2" />
       <div className="flex flex-col space-y-2">
-        {items.map((item, index) => (
+        {SIDEBAR_USERMENU_ITEMS.map((item, index) => (
           <SidebarItem
             key={index}
             path={item.path}
@@ -156,7 +111,15 @@ const SidebarUserMenu = ({ user }: { user: User }) => {
             icon={item.icon}
           />
         ))}
-          <LogoutButton sidebar />
+        {user.roles.includes("Admin") && (
+          <SidebarItem
+            path={"admin"}
+            text={"Admin panel"}
+            link={"/"}
+            icon={<ShieldAlert />}
+          />
+        )}
+        <LogoutButton sidebar />
       </div>
     </div>
   );

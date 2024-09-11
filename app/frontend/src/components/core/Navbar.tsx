@@ -1,23 +1,24 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Helmet } from "./Helmet";
-import { AUTH_ROUTES, ROUTES } from "@/pages/routes";
+import { AUTH_ROUTES } from "@/pages/routes";
 import { User } from "@/types";
 import { UserMenu } from "./UserMenu";
 import { Sidebar } from "./Sidebar";
 import { Menu } from "lucide-react";
+import { NAV_LINKS, NavLink as NavLinkProps } from "@/constants/Menu.constants";
 
 export const Navbar = ({ user }: { user: User | null }) => {
   return (
     <div className="fixed top-0 left-0 right-0 h-20 px-8 shadow-md flex justify-between items-center z-10 bg-white">
       <Helmet />
       <div className="hidden sm:flex lg:space-x-10 md:space-x-4">
-        {navLinks.map((navLink, index) => (
+        {NAV_LINKS.map((item) => (
           <NavLink
-            key={index}
-            path={navLink.path}
-            text={navLink.text}
-            link={navLink.link}
+            key={item.path}
+            path={item.path}
+            text={item.text}
+            link={item.link}
           />
         ))}
       </div>
@@ -31,7 +32,11 @@ export const Navbar = ({ user }: { user: User | null }) => {
       <Sidebar
         user={user}
         menuButton={
-          <Button variant={"ghost"} size={"icon"} className="block sm:hidden bg-slate-100">
+          <Button
+            variant={"ghost"}
+            size={"icon"}
+            className="block sm:hidden bg-slate-100"
+          >
             <Menu className=" h-8 w-8 m-auto" />
           </Button>
         }
@@ -39,23 +44,6 @@ export const Navbar = ({ user }: { user: User | null }) => {
     </div>
   );
 };
-
-const navLinks = [
-  {
-    path: "sponsorship-list",
-    text: "Sponsorship list",
-    link: ROUTES.sponsorshipList
-  },
-  { path: "add", text: "Contribute", link: ROUTES.contribute },
-  { path: "contact", text: "Contact", link: ROUTES.contact },
-  { path: "about", text: "About", link: ROUTES.about }
-];
-
-interface NavLinkProps {
-  path: string;
-  text: string;
-  link: string;
-}
 
 const NavLink = ({ path, text, link }: NavLinkProps) => {
   const location = useLocation();

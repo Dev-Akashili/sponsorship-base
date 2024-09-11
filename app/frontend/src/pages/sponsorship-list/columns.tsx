@@ -8,7 +8,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "@/components/data-table/DataTableColumnHeader";
 import { InfoTile } from "@/components/core/InfoTile";
 import { convertToSlug } from "@/utils";
-import { Bookmark, ExternalLink, Share } from "lucide-react";
+import { ExternalLink, FlagTriangleRight, Share, Star } from "lucide-react";
 
 export const columns: ColumnDef<Sponsorship>[] = [
   {
@@ -166,9 +166,10 @@ export const columns: ColumnDef<Sponsorship>[] = [
                 }
               />
             </div>
-            <div className="flex space-x-2">
-              <Bookmark className="size-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded" />
+            <div className="flex space-x-1">
+              <Star className="size-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded" />
               <Share className="ize-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded" />
+              <FlagTriangleRight className="ize-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded" />
             </div>
           </div>
         </div>

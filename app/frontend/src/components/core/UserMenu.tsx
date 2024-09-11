@@ -1,4 +1,4 @@
-import { CircleUserRound, LayoutDashboard } from "lucide-react";
+import { CircleUserRound, ShieldAlert } from "lucide-react";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -13,9 +13,10 @@ import { User } from "@/types";
 import { logout } from "@/api/identity";
 import { useContext } from "react";
 import { AuthContext } from "@/context/Auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "@/pages/routes";
 import { toast } from "react-toastify";
+import { NAVBAR_USERMENU_ITEMS } from "@/constants/Menu.constants";
 
 export const UserMenu = ({ user }: { user: User | null }) => {
   const email = user?.email ?? "";
@@ -34,13 +35,33 @@ export const UserMenu = ({ user }: { user: User | null }) => {
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>My Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer">
-          <div className="flex items-center">
-            <LayoutDashboard className="h-4 w-4 mr-2" />
-            Personal Dashboard
+        {NAVBAR_USERMENU_ITEMS.map((item) => (
+          <div key={item.text}>
+            <Link to={item.link}>
+              <DropdownMenuItem className="cursor-pointer">
+                <div className="flex items-center">
+                  {item.icon}
+                  {item.text}
+                </div>
+              </DropdownMenuItem>
+            </Link>
+            <DropdownMenuSeparator />
           </div>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
+        ))}
+        {user?.roles.includes("Admin") && (
+          <div>
+            {" "}
+            <Link to={"/"}>
+              <DropdownMenuItem className="cursor-pointer">
+                <div className="flex items-center">
+                  <ShieldAlert className="h-4 w-4 mr-2" />
+                  Admin panel
+                </div>
+              </DropdownMenuItem>
+            </Link>
+            <DropdownMenuSeparator />
+          </div>
+        )}
         <DropdownMenuItem className="cursor-pointer">
           <LogoutButton />
         </DropdownMenuItem>

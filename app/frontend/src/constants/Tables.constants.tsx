@@ -19,7 +19,7 @@ export const PROFILE_DESCRIPTION: TableDescription[] = [
   },
   {
     name: "Country of Qualification",
-    icon: <img src="../../coq.png" alt="coq" className="h-4 w-4 " />
+    icon: <img src="../../map-pin.png" alt="map-pin" className="h-4 w-4 " />
   }
 ];
 
@@ -30,7 +30,7 @@ export const COMPANY_DESCRIPTION: TableDescription[] = [
   },
   {
     name: "Location",
-    icon: <img src="../../location.png" alt="location" className="h-4 w-4 " />
+    icon: <img src="../../flag.png" alt="flag" className="h-4 w-4 " />
   },
   {
     name: "Job Title",
