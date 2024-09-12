@@ -23,5 +23,6 @@ public class Sponsorship
     public string Month { get; set; } = string.Empty;
     public string Year { get; set; } = string.Empty;
     public JobBoard JobBoard { get; set; } = new();
+    public List<string>? Favourites { get; set; } = new();
     public ApplicationUser Owner { get; set; } = null!;
 }

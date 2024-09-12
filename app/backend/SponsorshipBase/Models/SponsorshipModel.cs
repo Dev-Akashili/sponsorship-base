@@ -20,4 +20,6 @@ public class SponsorshipModel
     public string Year { get; set; } = string.Empty;
     public JobBoardModel JobBoard { get; set; } = new();
     public bool IsOwner { get; set; } = false;
+    public bool IsFavourite { get; set; } = false;
+    public int FavouriteCount { get; set; }
 }

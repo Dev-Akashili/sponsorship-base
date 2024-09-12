@@ -35,7 +35,8 @@ public class SponsorshipController : ControllerBase
         int pageSize = 1
         )
     {
-        var result = await _sponsorshipService.List(filter, pageNumber, pageSize, "", null);
+        var user = await _userManager.GetUserAsync(User);
+        var result = await _sponsorshipService.List(filter, pageNumber, pageSize, "", user ?? null);
         return Ok(result);
     }
 
@@ -52,20 +53,44 @@ public class SponsorshipController : ControllerBase
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                _logger.LogWarning("User not found.");
-                return StatusCode(500, new { error = "User error occurred." });
-            }       
+                return HandleUserError(ErrorMessages.UserNotFound, ErrorMessages.UserError);
+            }
+
             var result = await _sponsorshipService
                 .List(filter, pageNumber, pageSize, SponsorshipListOptions.UserList, user);
+            
             return Ok(result);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, "Error: {Message}", e.Message);
-            return StatusCode(500, new
+            return HandleException(e, ErrorMessages.Default);
+        }
+    }
+    
+    [Authorize]
+    [HttpGet("favourite")]
+    public async Task<ActionResult<PaginatedResponse<SponsorshipModel>>> GetUserFavouriteSponsorships(
+        [FromQuery] string? filter, 
+        int pageNumber = 1, 
+        int pageSize = 1
+    )
+    {
+        try
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
             {
-                error = "An unexpected error occurred. Please try again later."
-            });
+                return HandleUserError(ErrorMessages.UserNotFound, ErrorMessages.UserError);
+            }
+
+            var result = await _sponsorshipService
+                .List(filter, pageNumber, pageSize, SponsorshipListOptions.FavouriteList, user);
+            
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            return HandleException(e, ErrorMessages.Default);
         }
     }
 
@@ -80,23 +105,79 @@ public class SponsorshipController : ControllerBase
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
-                _logger.LogWarning("User not found.");
-                return StatusCode(500, new
-                {
-                    error = "User error occurred while creating sponsorship"
-                });
+                return HandleUserError(
+                    ErrorMessages.UserNotFound,
+                    $"{ErrorMessages.UserError} while creating sponsorship"
+                );
             }
+
             var created = await _sponsorshipService.Create(model, user);
-            
             return CreatedAtAction(nameof(Create), new { id = created.Id }, created);
         }
         catch (Exception e)
         {
-            _logger.LogError(e, "Error: {Message}", e.Message);
-            return StatusCode(500, new
-            {
-                error = "An unexpected error occurred. Please try again later."
-            });
+            return HandleException(e, ErrorMessages.Default);
         }
+    }
+
+    [Authorize]
+    [HttpPost("favourite/{id}")]
+    public async Task<ActionResult> AddFavourite(string id)
+    {
+        try
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return HandleUserError(
+                    ErrorMessages.UserNotFound,
+                    $"{ErrorMessages.UserError} while adding favorite"
+                );
+            }
+
+            await _sponsorshipService.AddOrRemoveFavourite(user, id, "add");
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            return HandleException(e, ErrorMessages.Default);
+        }
+    }
+    
+    [Authorize]
+    [HttpDelete("favourite/{id}")]
+    public async Task<ActionResult> RemoveFavourite(string id)
+    {
+        try
+        { 
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return HandleUserError(
+                    ErrorMessages.UserNotFound,
+                    $"{ErrorMessages.UserError} while removing favourite"
+                );
+            }
+
+            await _sponsorshipService.AddOrRemoveFavourite(user, id, "remove");
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return HandleException(e, ErrorMessages.Default);
+        }
+    }
+    
+    // Helper methods
+    private ActionResult HandleUserError(string message, string error)
+    {
+        _logger.LogWarning(message);
+        return NotFound(new { error = error });
+    }
+    
+    private ActionResult HandleException(Exception e, string message)
+    {
+        _logger.LogError(e, "Error: {Message}", e.Message);
+        return StatusCode(500, new { error = message });
     }
 }

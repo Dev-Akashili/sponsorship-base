@@ -10,12 +10,12 @@ namespace SponsorshipBase.Services;
 public class SponsorshipService(ApplicationDbContext db)
 {
     public async Task<PaginatedResponse<SponsorshipModel>> List(
-        string? filter, 
-        int pageNumber, 
-        int pageSize, 
+        string? filter,
+        int pageNumber,
+        int pageSize,
         string option,
         ApplicationUser? user
-        )
+    )
     {
         var entity = db.Sponsorships
             .Include(x => x.Company)
@@ -27,7 +27,12 @@ public class SponsorshipService(ApplicationDbContext db)
         {
             entity = entity.Where(x => x.Owner.Id == user.Id);
         }
-        
+
+        if (String.Equals(option, SponsorshipListOptions.FavouriteList) && user != null)
+        {
+            entity = entity.Where(x => x.Favourites.Contains(user.Id));
+        }
+
         // Filtering
         if (!string.IsNullOrWhiteSpace(filter))
         {
@@ -38,9 +43,9 @@ public class SponsorshipService(ApplicationDbContext db)
                 x.City.Trim().ToLower().Contains(filter)
             );
         }
-        
+
         var totalRecords = await entity.CountAsync();
-        
+
         // Pagination
         var list = await entity
             .Skip((pageNumber - 1) * pageSize)
@@ -73,9 +78,11 @@ public class SponsorshipService(ApplicationDbContext db)
                 Name = x.JobBoard.Name,
                 Link = x.JobBoard.Link
             },
-            IsOwner = user?.Id == x.Owner.Id
+            IsOwner = user?.Id == x.Owner.Id,
+            IsFavourite = x.Favourites.Contains(user?.Id ?? ""),
+            FavouriteCount = x.Favourites.Count()
         }).ToList();
-            
+
         var result = new PaginatedResponse<SponsorshipModel>
         {
             Count = totalRecords,
@@ -84,7 +91,7 @@ public class SponsorshipService(ApplicationDbContext db)
 
         return result;
     }
-    
+
     public async Task<Sponsorship> Create(CreateSponsorship model, ApplicationUser user)
     {
         var jobBoard = await db.JobBoards
@@ -134,11 +141,31 @@ public class SponsorshipService(ApplicationDbContext db)
             Month = model.Month,
             Year = model.Year,
             JobBoard = jobBoard ?? new(),
-            Owner = user
+            Owner = user,
+            Favourites = new()
         };
 
         db.Sponsorships.Add(entity);
         await db.SaveChangesAsync();
         return entity;
+    }
+
+    public async Task AddOrRemoveFavourite(ApplicationUser user, string id, string options)
+    {
+        var sponsorship = await db.Sponsorships.FirstOrDefaultAsync(x => x.Id == id);
+
+        if (sponsorship != null && sponsorship.Favourites != null)
+        {
+            if (!sponsorship.Favourites.Contains(user.Id) && (String.Equals(options, "add")))
+            {
+                sponsorship.Favourites.Add(user.Id);
+            } 
+            else if (sponsorship.Favourites.Contains(user.Id) && (String.Equals(options, "remove")))
+            {
+                sponsorship.Favourites.Remove(user.Id);
+            }
+        }
+
+        await db.SaveChangesAsync();
     }
 }

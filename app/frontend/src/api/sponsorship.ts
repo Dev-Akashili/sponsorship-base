@@ -5,6 +5,9 @@ import { PaginatedResponse } from "@/types";
 const fetchKeys = {
   list: (filter?: string) => `sponsorship/?${filter}`,
   manage: (filter?: string) => `sponsorship/manage/?${filter}`,
+  favourite: (filter?: string) => `sponsorship/favourite/?${filter}`,
+  addFavourite: (id: string) => `sponsorship/favourite/${id}`,
+  removeFavourite: (id: string) => `sponsorship/favourite/${id}`,
   create: "sponsorship"
 };
 
@@ -36,6 +39,20 @@ export async function getUserSponsorships(
   }
 }
 
+export async function getUserFavouriteSponsorships(
+  filter: string
+): Promise<PaginatedResponse<Sponsorship>> {
+  try {
+    const response = await request<PaginatedResponse<Sponsorship>>(
+      fetchKeys.favourite(filter)
+    );
+    return await response.json();
+  } catch {
+    console.warn("Failed to fetch data.");
+    return { count: 0, list: [] };
+  }
+}
+
 export async function addSponsorship(formData: AddSponsorship) {
   return await request<AddSponsorship>(fetchKeys.create, {
     method: "POST",
@@ -43,5 +60,23 @@ export async function addSponsorship(formData: AddSponsorship) {
       "Content-type": "application/json"
     },
     body: JSON.stringify(formData)
+  });
+}
+
+export async function addFavourite(id: string) {
+  return await request<AddSponsorship>(fetchKeys.addFavourite(id), {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json"
+    }
+  });
+}
+
+export async function removeFavourite(id: string) {
+  return await request<AddSponsorship>(fetchKeys.removeFavourite(id), {
+    method: "DELETE",
+    headers: {
+      "Content-type": "application/json"
+    }
   });
 }
