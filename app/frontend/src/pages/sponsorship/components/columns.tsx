@@ -8,8 +8,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "@/components/data-table/DataTableColumnHeader";
 import { InfoTile } from "@/components/core/InfoTile";
 import { convertToSlug } from "@/utils";
-import { ExternalLink, FlagTriangleRight, Share, Star } from "lucide-react";
-import { UserActions } from ".";
+import { ExternalLink } from "lucide-react";
+import { ItemActions, UserActions } from ".";
 
 export const columns: ColumnDef<Sponsorship>[] = [
   {
@@ -141,7 +141,15 @@ export const columns: ColumnDef<Sponsorship>[] = [
       );
     },
     cell: ({ row }) => {
-      const { month, year, jobBoard, isOwner } = row.original;
+      const {
+        id,
+        month,
+        year,
+        jobBoard,
+        isOwner,
+        isFavourite,
+        favouriteCount
+      } = row.original;
       const jobBoardSlug = convertToSlug(jobBoard.name);
 
       const website = (
@@ -180,15 +188,12 @@ export const columns: ColumnDef<Sponsorship>[] = [
                 }
               />
             </div>
-            <div className="flex space-x-1">
-              {!isOwner && (
-                <Star className="size-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded" />
-              )}
-              <Share className="ize-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded" />
-              {!isOwner && (
-                <FlagTriangleRight className="ize-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded" />
-              )}
-            </div>
+            <ItemActions
+              id={id}
+              isOwner={isOwner}
+              isFavourite={isFavourite}
+              favouriteCount={favouriteCount}
+            />
           </div>
         </div>
       );
