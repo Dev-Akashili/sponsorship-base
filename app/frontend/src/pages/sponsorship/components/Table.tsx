@@ -1,27 +1,21 @@
-import { getSponsorships } from "@/api/sponsorship";
 import { LoadingPage } from "@/components/core/Loader";
 import { PageTitle } from "@/components/core/PageTitle";
 import { DataTable } from "@/components/data-table";
-import { useQueryParams } from "@/helpers/hooks/useQueryParams";
 import { PaginatedResponse } from "@/types";
-import { Sponsorship } from "@/types/sponsorship";
-import { useEffect, useState } from "react";
 import { columns } from "./columns";
 import { DataTableFilter } from "@/components/data-table/DataTableFilter";
 import { Button } from "@/components/ui/button";
 import { CopyPlus } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ROUTES } from "../routes";
+import { ROUTES } from "../../routes";
+import { Sponsorship } from "@/types/sponsorship";
 
-export const SponsorshipList = () => {
-  const [data, setData] = useState<PaginatedResponse<Sponsorship> | undefined>(
-    undefined
-  );
-  const defaultParams = {
-    pageNumber: 1,
-    pageSize: 10
-  };
-  const query = useQueryParams(defaultParams);
+interface TableProps {
+  data: PaginatedResponse<Sponsorship> | undefined;
+  pageTitle: string;
+}
+
+export function Table({ data, pageTitle }: TableProps) {
   const filter = (
     <DataTableFilter
       placeholder={"Search by company, city..."}
@@ -29,17 +23,9 @@ export const SponsorshipList = () => {
     />
   );
 
-  useEffect(() => {
-    const getData = async () => {
-      const sponsorships = await getSponsorships(query);
-      setData(sponsorships);
-    };
-    getData();
-  }, [query]);
-
   return (
     <>
-      <PageTitle title={"Sponsorship List"} />
+      <PageTitle title={pageTitle} />
       {!data ? (
         <LoadingPage />
       ) : (
@@ -54,7 +40,7 @@ export const SponsorshipList = () => {
       )}
     </>
   );
-};
+}
 
 const options = (
   <Link to={ROUTES.contribute}>

@@ -9,6 +9,7 @@ import { DataTableColumnHeader } from "@/components/data-table/DataTableColumnHe
 import { InfoTile } from "@/components/core/InfoTile";
 import { convertToSlug } from "@/utils";
 import { ExternalLink, FlagTriangleRight, Share, Star } from "lucide-react";
+import { UserActions } from ".";
 
 export const columns: ColumnDef<Sponsorship>[] = [
   {
@@ -20,8 +21,13 @@ export const columns: ColumnDef<Sponsorship>[] = [
       />
     ),
     cell: ({ row }) => {
-      const { gender, nationality, education, countryOfQualification } =
-        row.original;
+      const {
+        gender,
+        nationality,
+        education,
+        countryOfQualification,
+        isOwner
+      } = row.original;
 
       const coq =
         countryOfQualification == nationality
@@ -31,20 +37,28 @@ export const columns: ColumnDef<Sponsorship>[] = [
       const items = [gender, nationality, education, coq];
 
       return (
-        <div className="flex flex-col space-y-2">
-          <div className="flex space-x-2">
-            {PROFILE_DESCRIPTION.slice(0, 2).map((item, index) => (
-              <InfoTile name={items[index]} icon={item.icon} />
-            ))}
+        <div className="flex flex-col space-y-4">
+          <div className="flex flex-col space-y-2">
+            <div className="flex space-x-2">
+              {PROFILE_DESCRIPTION.slice(0, 2).map((item, index) => (
+                <InfoTile
+                  key={item.name}
+                  name={items[index]}
+                  icon={item.icon}
+                />
+              ))}
+            </div>
+            <div className="flex space-x-2">
+              {PROFILE_DESCRIPTION.slice(-2).map((item, index) => (
+                <InfoTile
+                  key={item.name}
+                  name={items[index + (items.length - 2)]}
+                  icon={item.icon}
+                />
+              ))}
+            </div>
           </div>
-          <div className="flex space-x-2">
-            {PROFILE_DESCRIPTION.slice(-2).map((item, index) => (
-              <InfoTile
-                name={items[index + (items.length - 2)]}
-                icon={item.icon}
-              />
-            ))}
-          </div>
+          <UserActions isOwner={isOwner} />
         </div>
       );
     },
@@ -100,10 +114,10 @@ export const columns: ColumnDef<Sponsorship>[] = [
             />
             <InfoTile
               name={
-                <p>
+                <>
                   {salary}
                   <span className="ml-1 font-semibold">{currency}</span>
-                </p>
+                </>
               }
               icon={
                 <img src="../../money.png" alt="money" className="h-4 w-4" />
@@ -127,7 +141,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
       );
     },
     cell: ({ row }) => {
-      const { month, year, jobBoard } = row.original;
+      const { month, year, jobBoard, isOwner } = row.original;
       const jobBoardSlug = convertToSlug(jobBoard.name);
 
       const website = (
@@ -167,9 +181,13 @@ export const columns: ColumnDef<Sponsorship>[] = [
               />
             </div>
             <div className="flex space-x-1">
-              <Star className="size-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded" />
+              {!isOwner && (
+                <Star className="size-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded" />
+              )}
               <Share className="ize-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded" />
-              <FlagTriangleRight className="ize-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded" />
+              {!isOwner && (
+                <FlagTriangleRight className="ize-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded" />
+              )}
             </div>
           </div>
         </div>
