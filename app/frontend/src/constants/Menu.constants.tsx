@@ -1,11 +1,11 @@
 import {
-  CircleHelp,
-  CopyPlus,
   List,
   Mail,
   Star,
   Table,
-  UserCog
+  UserCog,
+  CopyPlus,
+  CircleHelp
 } from "lucide-react";
 import { ROUTES } from "@/pages/routes";
 
@@ -17,9 +17,9 @@ export interface NavLink {
 
 export const NAV_LINKS: NavLink[] = [
   {
-    path: "sponsorship-list",
+    path: "list",
     text: "Sponsorship list",
-    link: ROUTES.sponsorshipList
+    link: ROUTES.list
   },
   { path: "add", text: "Contribute", link: ROUTES.contribute },
   { path: "contact", text: "Contact", link: ROUTES.contact },
@@ -35,9 +35,9 @@ export interface MenuItems {
 
 export const SIDEBAR_ITEMS: MenuItems[] = [
   {
-    path: "sponsorship-list",
+    path: "list",
     text: "Sponsorsip list",
-    link: ROUTES.sponsorshipList,
+    link: ROUTES.list,
     icon: <List />
   },
   {
@@ -57,9 +57,9 @@ export const SIDEBAR_ITEMS: MenuItems[] = [
 
 export const SIDEBAR_USERMENU_ITEMS: MenuItems[] = [
   {
-    path: "***",
+    path: "manage",
     text: "Manage contributions",
-    link: "/",
+    link: ROUTES.manage,
     icon: <Table />
   },
   {
@@ -78,9 +78,9 @@ export const SIDEBAR_USERMENU_ITEMS: MenuItems[] = [
 
 export const NAVBAR_USERMENU_ITEMS: MenuItems[] = [
   {
-    path: "***",
+    path: "manage",
     text: "Manage contributions",
-    link: "/",
+    link: ROUTES.manage,
     icon: <Table className="h-4 w-4 mr-2" />
   },
   {

@@ -14,6 +14,7 @@ export interface Sponsorship {
   month: string;
   year: string;
   jobBoard: JobBoard;
+  isOwner: boolean
 }
 
 export interface Company {

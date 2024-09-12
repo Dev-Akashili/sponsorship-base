@@ -2,7 +2,8 @@ export const basePath = "";
 
 export const ROUTES = {
   index: `${basePath}/`,
-  sponsorshipList: `${basePath}/sponsorship-list`,
+  list: `${basePath}/list`,
+  manage: `${basePath}/manage`,
   contribute: `${basePath}/add`,
   about: `${basePath}/about`,
   contact: `${basePath}/contact`

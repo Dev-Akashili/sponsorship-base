@@ -3,11 +3,11 @@ import { DefaultLayout } from "@/layout/DefaultLayout";
 import { IndexPage } from "@/pages/home/IndexPage";
 import { ROUTES } from "@/pages/routes";
 import { NotFound } from "@/pages/error/NotFound";
-import { SponsorshipList } from "@/pages/sponsorship-list/SponsorshipList";
 import { Contribute } from "@/pages/sponsorship-list/Contribute";
 import { About } from "@/pages/about/About";
 import { Contact } from "@/pages/contact/Contact";
 import { AuthRedirect, AuthRoute } from "./Custom";
+import { Manage, SponsorshipList } from "@/pages/sponsorship";
 
 export const Root = () => {
   return (
@@ -19,7 +19,16 @@ export const Root = () => {
 
         <Route path={"auth"} element={<AuthRedirect />} />
 
-        <Route path={ROUTES.sponsorshipList} element={<SponsorshipList />} />
+        <Route path={ROUTES.list} element={<SponsorshipList />} />
+
+        <Route
+          path={ROUTES.manage}
+          element={
+            <AuthRoute>
+              <Manage />
+            </AuthRoute>
+          }
+        />
 
         <Route
           path={ROUTES.contribute}
