@@ -97,61 +97,59 @@ export const Register = () => {
   );
 
   return (
-    <div className="my-10">
-      <FormLayout title="Create a new account">
-        {alert && (
-          <FormAlert
-            title={response.message}
-            type={response.name}
-            errors={response.errors}
-            closeButton={closeButton}
+    <FormLayout title="Create a new account">
+      {alert && (
+        <FormAlert
+          title={response.message}
+          type={response.name}
+          errors={response.errors}
+          closeButton={closeButton}
+        />
+      )}
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
+          <FormInput form={form} name="email" label="Email" />
+          <div className="flex justify-between">
+            <FormSelect
+              form={form}
+              name="gender"
+              label="Gender"
+              options={GENDERS}
+              width={"48%"}
+            />
+            <FormSelect
+              form={form}
+              name="nationality"
+              label="Nationality"
+              options={COUNTRIES}
+              width={"48%"}
+            />
+          </div>
+          <FormInput
+            form={form}
+            name="password"
+            label="Password"
+            type="password"
           />
-        )}
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <FormInput form={form} name="email" label="Email" />
-            <div className="flex justify-between">
-              <FormSelect
-                form={form}
-                name="gender"
-                label="Gender"
-                options={GENDERS}
-                width={"48%"}
-              />
-              <FormSelect
-                form={form}
-                name="nationality"
-                label="Nationality"
-                options={COUNTRIES}
-                width={"48%"}
-              />
-            </div>
-            <FormInput
-              form={form}
-              name="password"
-              label="Password"
-              type="password"
-            />
-            <FormInput
-              form={form}
-              name="confirm"
-              label="Confirm Password"
-              type="password"
-            />
-            <Button type="submit" className="sponsorship-base mt-4 w-full">
-              {isLoading ? <Spinner /> : "Submit"}
-            </Button>
-            <div className="flex mt-4 justify-center">
-              <p className="text-sm text-slate-600">Already have an account?</p>
-              <Link to={AUTH_ROUTES.login}>
-                <p className="ml-2 text-sm text-blue-700 underline cursor-pointer">
-                  Login
-                </p>
-              </Link>
-            </div>
-          </form>
-        </Form>
-      </FormLayout>
-    </div>
+          <FormInput
+            form={form}
+            name="confirm"
+            label="Confirm Password"
+            type="password"
+          />
+          <Button type="submit" className="sponsorship-base mt-4 w-full">
+            {isLoading ? <Spinner /> : "Submit"}
+          </Button>
+          <div className="flex mt-4 justify-center">
+            <p className="text-sm text-slate-600">Already have an account?</p>
+            <Link to={AUTH_ROUTES.login}>
+              <p className="ml-2 text-sm text-blue-700 underline cursor-pointer">
+                Login
+              </p>
+            </Link>
+          </div>
+        </form>
+      </Form>
+    </FormLayout>
   );
 };

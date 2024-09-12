@@ -12,11 +12,7 @@ export const FormLayout = ({
   children
 }: FormLayoutProps) => {
   return (
-    <div
-      className={`${
-        size === "lg" ? "h-full" : "h-screen"
-      } flex justify-center align-center`}
-    >
+    <div className="h-full flex justify-center align-center my-40">
       <div className={`${size === "lg" ? "w-110" : "w-96"} m-auto`}>
         {title && (
           <h1 className="text-center text-2xl text-slate-600 font-medium my-4">

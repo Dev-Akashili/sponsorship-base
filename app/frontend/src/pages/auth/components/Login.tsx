@@ -6,7 +6,7 @@ import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { FormLayout } from "@/layout/FormLayout";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { AUTH_ROUTES, basePath, ROUTES } from "@/pages/routes";
+import { AUTH_ROUTES, ROUTES } from "@/pages/routes";
 import { FormInput } from "@/components/forms/FormInput";
 import { useContext, useEffect, useState } from "react";
 import { Spinner } from "@/components/core/Loader";
@@ -56,7 +56,7 @@ export const Login = () => {
         if (user) {
           setAuthState({ isAuthenticated: true, user: user });
           if (redirect) {
-            navigate(`${basePath}/${redirect}`);
+            navigate(`${redirect}`);
           } else {
             navigate(ROUTES.list);
           }

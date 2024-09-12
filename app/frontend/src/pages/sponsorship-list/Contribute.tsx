@@ -94,7 +94,6 @@ export const Contribute = () => {
   return (
     <>
       <PageTitle title={"Add Your Sponsorship Job"} />
-      <div className="my-32">
         <FormLayout size="lg">
           <p className="text-slate-600 mb-4">
             Contribute by adding details about your sponsorship
@@ -226,7 +225,6 @@ export const Contribute = () => {
             </form>
           </Form>
         </FormLayout>
-      </div>
     </>
   );
 };

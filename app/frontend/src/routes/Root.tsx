@@ -24,7 +24,7 @@ export const Root = () => {
         <Route
           path={ROUTES.manage}
           element={
-            <AuthRoute>
+            <AuthRoute redirect={ROUTES.manage}>
               <Manage />
             </AuthRoute>
           }
@@ -33,7 +33,7 @@ export const Root = () => {
         <Route
           path={ROUTES.contribute}
           element={
-            <AuthRoute redirect={"add"}>
+            <AuthRoute redirect={ROUTES.contribute}>
               <Contribute />
             </AuthRoute>
           }
