@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using SponsorshipBase.Constants;
 using SponsorshipBase.Data;
 using SponsorshipBase.Data.Entities;
 using SponsorshipBase.Data.Entities.Identity;
@@ -8,12 +9,24 @@ namespace SponsorshipBase.Services;
 
 public class SponsorshipService(ApplicationDbContext db)
 {
-    public async Task<PaginatedResponse<SponsorshipModel>> List(string? filter, int pageNumber, int pageSize)
+    public async Task<PaginatedResponse<SponsorshipModel>> List(
+        string? filter, 
+        int pageNumber, 
+        int pageSize, 
+        string option,
+        ApplicationUser? user
+        )
     {
         var entity = db.Sponsorships
             .Include(x => x.Company)
             .Include(x => x.JobBoard)
+            .Include(x => x.Owner)
             .AsNoTracking();
+
+        if (String.Equals(option, SponsorshipListOptions.UserList) && user != null)
+        {
+            entity = entity.Where(x => x.Owner.Id == user.Id);
+        }
         
         // Filtering
         if (!string.IsNullOrWhiteSpace(filter))
@@ -59,7 +72,8 @@ public class SponsorshipService(ApplicationDbContext db)
             {
                 Name = x.JobBoard.Name,
                 Link = x.JobBoard.Link
-            }
+            },
+            IsOwner = user?.Id == x.Owner.Id
         }).ToList();
             
         var result = new PaginatedResponse<SponsorshipModel>

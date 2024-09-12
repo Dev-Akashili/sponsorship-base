@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SponsorshipBase.Constants;
 using SponsorshipBase.Data.Entities;
 using SponsorshipBase.Data.Entities.Identity;
 using SponsorshipBase.Models;
@@ -34,8 +35,38 @@ public class SponsorshipController : ControllerBase
         int pageSize = 1
         )
     {
-        var result = await _sponsorshipService.List(filter, pageNumber, pageSize);
+        var result = await _sponsorshipService.List(filter, pageNumber, pageSize, "", null);
         return Ok(result);
+    }
+
+    [Authorize]
+    [HttpGet("manage")]
+    public async Task<ActionResult<PaginatedResponse<SponsorshipModel>>> GetUserSponsorships(
+        [FromQuery] string? filter, 
+        int pageNumber = 1, 
+        int pageSize = 1
+    )
+    {
+        try
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                _logger.LogWarning("User not found.");
+                return StatusCode(500, new { error = "User error occurred." });
+            }       
+            var result = await _sponsorshipService
+                .List(filter, pageNumber, pageSize, SponsorshipListOptions.UserList, user);
+            return Ok(result);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e, "Error: {Message}", e.Message);
+            return StatusCode(500, new
+            {
+                error = "An unexpected error occurred. Please try again later."
+            });
+        }
     }
 
     [Authorize]

@@ -4,6 +4,7 @@ import { PaginatedResponse } from "@/types";
 
 const fetchKeys = {
   list: (filter?: string) => `sponsorship/?${filter}`,
+  manage: (filter?: string) => `sponsorship/manage/?${filter}`,
   create: "sponsorship"
 };
 
@@ -13,6 +14,20 @@ export async function getSponsorships(
   try {
     const response = await request<PaginatedResponse<Sponsorship>>(
       fetchKeys.list(filter)
+    );
+    return await response.json();
+  } catch {
+    console.warn("Failed to fetch data.");
+    return { count: 0, list: [] };
+  }
+}
+
+export async function getUserSponsorships(
+  filter: string
+): Promise<PaginatedResponse<Sponsorship>> {
+  try {
+    const response = await request<PaginatedResponse<Sponsorship>>(
+      fetchKeys.manage(filter)
     );
     return await response.json();
   } catch {
