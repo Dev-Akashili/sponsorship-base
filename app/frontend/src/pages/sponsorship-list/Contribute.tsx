@@ -26,6 +26,7 @@ import {
   YEARS
 } from "@/constants/Forms.constants";
 import { toast } from "react-toastify";
+import { DEFAULT_ERROR_MESSAGE } from "@/constants/Messages.constants";
 
 export const Contribute = () => {
   const navigate = useNavigate();
@@ -65,11 +66,11 @@ export const Contribute = () => {
         toast.success("Successfully added! Thank you for contributing");
         navigate(ROUTES.list);
       } else {
-        toast.error("Something went wrong! Please try again later");
+        toast.error(DEFAULT_ERROR_MESSAGE);
       }
     } catch (error) {
       console.warn(error);
-      toast.error("Something went wrong! Please try again later");
+      toast.error(DEFAULT_ERROR_MESSAGE);
     }
     setIsLoading(false);
   }

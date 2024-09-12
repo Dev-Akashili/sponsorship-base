@@ -18,6 +18,7 @@ import { FormAlert } from "@/components/forms/FormAlert";
 import { X } from "lucide-react";
 import { ResponseMessage } from "@/types";
 import { toast } from "react-toastify";
+import { DEFAULT_ERROR_MESSAGE } from "@/constants/Messages.constants";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -73,7 +74,7 @@ export const Login = () => {
       console.warn("Login failed!");
       console.error(error);
       setIsLoading(false);
-      toast.error("Something went wrong! Please try again later");
+      toast.error(DEFAULT_ERROR_MESSAGE);
     }
   }
 
@@ -104,7 +105,7 @@ export const Login = () => {
           }
         } catch {
           console.warn("Sending email verification link failed!");
-          toast.error("Something went wrong! Please try again later");
+          toast.error(DEFAULT_ERROR_MESSAGE);
         }
         setIsLoading(false);
       }}

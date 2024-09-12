@@ -18,6 +18,7 @@ import { ResponseMessage } from "@/types";
 import { FormAlert } from "@/components/forms/FormAlert";
 import { X } from "lucide-react";
 import { toast } from "react-toastify";
+import { DEFAULT_ERROR_MESSAGE } from "@/constants/Messages.constants";
 
 export const ResetPassword = () => {
   const [searchParams] = useSearchParams();
@@ -83,11 +84,11 @@ const VerifyEmailForm = () => {
         reset();
         toast.success("Password reset link has been sent to your email");
       } else {
-        toast.error("Something went wrong! Please try again later");
+        toast.error(DEFAULT_ERROR_MESSAGE);
       }
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong! Please try again later");
+      toast.error(DEFAULT_ERROR_MESSAGE);
     }
 
     setIsLoading(false);
@@ -164,7 +165,7 @@ const ResetPasswordForm = ({ codeId, code, email }: ResetPasswordFormProps) => {
               ? "Link has expired"
               : Array.isArray(response.message)
               ? ""
-              : "Something went wrong! Please try again later",
+              : DEFAULT_ERROR_MESSAGE,
           errors: Array.isArray(response.message) ? response.message : []
         });
         setAlert(true);
@@ -173,7 +174,7 @@ const ResetPasswordForm = ({ codeId, code, email }: ResetPasswordFormProps) => {
       console.error(error);
       setResponse({
         name: "error",
-        message: "Something went wrong! Please try again later"
+        message: DEFAULT_ERROR_MESSAGE
       });
     }
 

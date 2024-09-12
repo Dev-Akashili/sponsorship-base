@@ -5,6 +5,7 @@ import { addFavourite, removeFavourite } from "@/api/sponsorship";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { AUTH_ROUTES } from "@/pages/routes";
+import { DEFAULT_ERROR_MESSAGE } from "@/constants/Messages.constants";
 
 export const UserActions = ({ isOwner }: { isOwner: boolean }) => {
   const { user } = useContext(AuthContext);
@@ -67,12 +68,12 @@ export const ItemActions = ({
           setFavCount((prevState) => prevState - 1);
           toast.success("Removed from favourites");
         } else {
-          toast.error("Something went wrong. Please try again later");
+          toast.error(DEFAULT_ERROR_MESSAGE);
         }
       }
     } catch (error) {
       console.error(error);
-      toast.error("Something went wrong. Please try again later");
+      toast.error(DEFAULT_ERROR_MESSAGE);
     }
   };
 

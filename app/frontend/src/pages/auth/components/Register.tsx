@@ -20,6 +20,7 @@ import { sendEmail } from "@/api/custom-auth";
 import { FormSelect } from "@/components/forms/FormSelect";
 import { toast } from "react-toastify";
 import { COUNTRIES, GENDERS } from "@/constants/Forms.constants";
+import { DEFAULT_ERROR_MESSAGE } from "@/constants/Messages.constants";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -64,14 +65,14 @@ export const Register = () => {
           } else {
             setResponse({
               name: "error",
-              message: "Something went wrong! Please try again later"
+              message: DEFAULT_ERROR_MESSAGE
             });
             setAlert(true);
           }
         } else {
           setResponse({
             name: "error",
-            message: "Something went wrong! Please try again later"
+            message: DEFAULT_ERROR_MESSAGE
           });
           setAlert(true);
         }
@@ -84,7 +85,7 @@ export const Register = () => {
     } catch (error) {
       console.warn("Registration failed!");
       console.error(error);
-      toast.error("Something went wrong! Please try again later");
+      toast.error(DEFAULT_ERROR_MESSAGE);
     }
 
     setIsLoading(false);
