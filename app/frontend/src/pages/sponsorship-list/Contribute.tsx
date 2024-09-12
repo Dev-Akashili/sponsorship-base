@@ -63,7 +63,7 @@ export const Contribute = () => {
       if (request.ok) {
         reset();
         toast.success("Successfully added! Thank you for contributing");
-        navigate(ROUTES.sponsorshipList);
+        navigate(ROUTES.list);
       } else {
         toast.error("Something went wrong! Please try again later");
       }

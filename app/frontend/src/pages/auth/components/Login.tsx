@@ -58,7 +58,7 @@ export const Login = () => {
           if (redirect) {
             navigate(`${basePath}/${redirect}`);
           } else {
-            navigate(ROUTES.sponsorshipList);
+            navigate(ROUTES.list);
           }
           toast.success("Logged in successfully!");
         }

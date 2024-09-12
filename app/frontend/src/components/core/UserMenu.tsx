@@ -106,7 +106,7 @@ export const LogoutButton = ({ sidebar = false }: { sidebar?: boolean }) => {
   ) : (
     <div className="flex items-center w-full" onClick={handleSignOut}>
       <LogOut className="h-4 w-4 mr-2" />
-      Sign Out
+      Sign out
     </div>
   );
 };
