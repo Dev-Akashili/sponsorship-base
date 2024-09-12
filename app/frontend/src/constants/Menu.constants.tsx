@@ -63,9 +63,9 @@ export const SIDEBAR_USERMENU_ITEMS: MenuItems[] = [
     icon: <Table />
   },
   {
-    path: "***",
+    path: "favourite",
     text: "View favourites",
-    link: "/",
+    link: ROUTES.favourite,
     icon: <Star />
   },
   {
@@ -84,9 +84,9 @@ export const NAVBAR_USERMENU_ITEMS: MenuItems[] = [
     icon: <Table className="h-4 w-4 mr-2" />
   },
   {
-    path: "***",
+    path: "favourite",
     text: "View favourites",
-    link: "/",
+    link: ROUTES.favourite,
     icon: <Star className="h-4 w-4 mr-2" />
   },
   {

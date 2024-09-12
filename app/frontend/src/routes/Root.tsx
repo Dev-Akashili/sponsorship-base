@@ -7,7 +7,7 @@ import { Contribute } from "@/pages/sponsorship-list/Contribute";
 import { About } from "@/pages/about/About";
 import { Contact } from "@/pages/contact/Contact";
 import { AuthRedirect, AuthRoute } from "./Custom";
-import { Manage, SponsorshipList } from "@/pages/sponsorship";
+import { Manage, SponsorshipList, Favourite } from "@/pages/sponsorship";
 
 export const Root = () => {
   return (
@@ -26,6 +26,15 @@ export const Root = () => {
           element={
             <AuthRoute redirect={ROUTES.manage}>
               <Manage />
+            </AuthRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.favourite}
+          element={
+            <AuthRoute redirect={ROUTES.favourite}>
+              <Favourite />
             </AuthRoute>
           }
         />
