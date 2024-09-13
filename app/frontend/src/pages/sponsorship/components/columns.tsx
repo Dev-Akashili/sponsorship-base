@@ -9,7 +9,7 @@ import { DataTableColumnHeader } from "@/components/data-table/DataTableColumnHe
 import { InfoTile } from "@/components/core/InfoTile";
 import { convertToSlug } from "@/utils";
 import { ExternalLink } from "lucide-react";
-import { ItemActions, UserActions } from ".";
+import { UserActions, ItemActions } from ".";
 
 export const columns: ColumnDef<Sponsorship>[] = [
   {
@@ -22,6 +22,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
     ),
     cell: ({ row }) => {
       const {
+        id,
         gender,
         nationality,
         education,
@@ -58,7 +59,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
               ))}
             </div>
           </div>
-          <UserActions isOwner={isOwner} />
+          <UserActions id={id} isOwner={isOwner} />
         </div>
       );
     },
