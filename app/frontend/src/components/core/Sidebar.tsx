@@ -19,7 +19,6 @@ import {
   SIDEBAR_USERMENU_ITEMS,
   MenuItems as SidebarItemProps
 } from "@/constants/Menu.constants";
-import { ShieldAlert } from "lucide-react";
 
 interface SidebarProps {
   user: User | null;
@@ -111,14 +110,6 @@ const SidebarUserMenu = ({ user }: { user: User }) => {
             icon={item.icon}
           />
         ))}
-        {user.roles.includes("Admin") && (
-          <SidebarItem
-            path={"admin"}
-            text={"Admin panel"}
-            link={"/"}
-            icon={<ShieldAlert />}
-          />
-        )}
         <LogoutButton sidebar />
       </div>
     </div>

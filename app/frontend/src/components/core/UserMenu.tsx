@@ -1,5 +1,3 @@
-import { CircleUserRound, ShieldAlert } from "lucide-react";
-import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,6 +14,8 @@ import { AuthContext } from "@/context/Auth";
 import { Link, useNavigate } from "react-router-dom";
 import { ROUTES } from "@/pages/routes";
 import { toast } from "react-toastify";
+import { Button } from "../ui/button";
+import { CircleUserRound } from "lucide-react";
 import { NAVBAR_USERMENU_ITEMS } from "@/constants/Menu.constants";
 
 export const UserMenu = ({ user }: { user: User | null }) => {
@@ -48,20 +48,6 @@ export const UserMenu = ({ user }: { user: User | null }) => {
             <DropdownMenuSeparator />
           </div>
         ))}
-        {user?.roles.includes("Admin") && (
-          <div>
-            {" "}
-            <Link to={"/"}>
-              <DropdownMenuItem className="cursor-pointer">
-                <div className="flex items-center">
-                  <ShieldAlert className="h-4 w-4 mr-2" />
-                  Admin panel
-                </div>
-              </DropdownMenuItem>
-            </Link>
-            <DropdownMenuSeparator />
-          </div>
-        )}
         <DropdownMenuItem className="cursor-pointer">
           <LogoutButton />
         </DropdownMenuItem>
