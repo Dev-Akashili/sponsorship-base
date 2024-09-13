@@ -121,6 +121,31 @@ public class SponsorshipController : ControllerBase
     }
 
     [Authorize]
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> Delete(string id)
+    {
+        try
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return HandleUserError(
+                    ErrorMessages.UserNotFound,
+                    $"{ErrorMessages.UserError} while deleting sponsorship"
+                );
+            }
+
+            var result = await _sponsorshipService.Delete(user, id);
+            if (!result) return Unauthorized();
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return HandleException(e, ErrorMessages.Default);
+        }
+    }
+
+    [Authorize]
     [HttpPost("favourite/{id}")]
     public async Task<ActionResult> AddFavourite(string id)
     {

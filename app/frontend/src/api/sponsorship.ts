@@ -3,12 +3,13 @@ import { request } from "./request";
 import { PaginatedResponse } from "@/types";
 
 const fetchKeys = {
+  create: "sponsorship",
+  delete: (id: string) => `sponsorship/${id}`,
   list: (filter?: string) => `sponsorship/?${filter}`,
   manage: (filter?: string) => `sponsorship/manage/?${filter}`,
   favourite: (filter?: string) => `sponsorship/favourite/?${filter}`,
   addFavourite: (id: string) => `sponsorship/favourite/${id}`,
-  removeFavourite: (id: string) => `sponsorship/favourite/${id}`,
-  create: "sponsorship"
+  removeFavourite: (id: string) => `sponsorship/favourite/${id}`
 };
 
 export async function getSponsorships(
@@ -51,6 +52,15 @@ export async function getUserFavouriteSponsorships(
     console.warn("Failed to fetch data.");
     return { count: 0, list: [] };
   }
+}
+
+export async function deleteSponsorship(id: string) {
+  return await request<AddSponsorship>(fetchKeys.delete(id), {
+    method: "DELETE",
+    headers: {
+      "Content-type": "application/json"
+    }
+  });
 }
 
 export async function addSponsorship(formData: AddSponsorship) {

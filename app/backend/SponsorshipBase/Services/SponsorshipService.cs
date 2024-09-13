@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SponsorshipBase.Constants;
 using SponsorshipBase.Data;
@@ -7,7 +8,10 @@ using SponsorshipBase.Models;
 
 namespace SponsorshipBase.Services;
 
-public class SponsorshipService(ApplicationDbContext db)
+public class SponsorshipService(
+    ApplicationDbContext db, 
+    UserManager<ApplicationUser> userManager
+)
 {
     public async Task<PaginatedResponse<SponsorshipModel>> List(
         string? filter,
@@ -95,11 +99,11 @@ public class SponsorshipService(ApplicationDbContext db)
     public async Task<Sponsorship> Create(CreateSponsorship model, ApplicationUser user)
     {
         var jobBoard = await db.JobBoards
-            .FirstOrDefaultAsync(x => x.Name == model.JobBoard);
+            .FirstOrDefaultAsync(x => String.Equals(x.Name, model.JobBoard));
 
         if (jobBoard == null)
         {
-            if (model.JobBoard == "Other")
+            if (String.Equals(model.JobBoard , "Other"))
             {
                 jobBoard = new JobBoard
                 {
@@ -111,7 +115,7 @@ public class SponsorshipService(ApplicationDbContext db)
             else
             {
                 jobBoard = await db.JobBoards
-                    .FirstOrDefaultAsync(x => x.Name == "Company");
+                    .FirstOrDefaultAsync(x => String.Equals(x.Name , "Company"));
             }
         }
 
@@ -150,6 +154,26 @@ public class SponsorshipService(ApplicationDbContext db)
         return entity;
     }
 
+    public async Task<bool> Delete(ApplicationUser user, string id)
+    {
+        var sponsorship = await db.Sponsorships
+            .Include(x => x.Owner)
+            .FirstOrDefaultAsync(x => x.Id == id);
+        
+        var roles = await userManager.GetRolesAsync(user);
+        
+        if (sponsorship != null && roles.Any())
+        {
+            if (sponsorship.Owner.Id == user.Id || roles.Contains("Admin"))
+            {
+                db.Sponsorships.Remove(sponsorship);
+                await db.SaveChangesAsync();
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public async Task AddOrRemoveFavourite(ApplicationUser user, string id, string options)
     {
         var sponsorship = await db.Sponsorships.FirstOrDefaultAsync(x => x.Id == id);
