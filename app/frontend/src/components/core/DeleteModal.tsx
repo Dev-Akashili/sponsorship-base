@@ -9,48 +9,29 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger
 } from "@/components/ui/alert-dialog";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { deleteSponsorship } from "@/api/sponsorship";
-import { toast } from "react-toastify";
-import { DEFAULT_ERROR_MESSAGE } from "@/constants/Messages.constants";
 import { Spinner } from "@/components/core/Loader";
+import { DEFAULT_DELETE_QUESTION } from "@/constants/Messages.constants";
 
 interface DeleteModalProps {
-  id: string;
+  text: string;
   children: JSX.Element | JSX.Element[];
+  handleDelete: () => void;
+  deleting: boolean;
 }
 
-export const DeleteModal = ({ id, children }: DeleteModalProps) => {
-  const navigate = useNavigate();
-  const [submitting, setSubmitting] = useState<boolean>(false);
-
-  const handleDelete = async () => {
-    setSubmitting(true);
-
-    try {
-      const response = await deleteSponsorship(id);
-      if (response.ok) {
-        navigate(0);
-        toast.success("Successfully deleted.");
-      } else {
-        toast.error(DEFAULT_ERROR_MESSAGE);
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error(DEFAULT_ERROR_MESSAGE);
-    }
-
-    setSubmitting(false);
-  };
-
+export const DeleteModal = ({
+  text,
+  children,
+  handleDelete,
+  deleting
+}: DeleteModalProps) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>
-            Are you sure you want to delete this?
+            {`${DEFAULT_DELETE_QUESTION} ${text}`}
           </AlertDialogTitle>
           <AlertDialogDescription>
             This action is permanent and cannot be undone.
@@ -61,9 +42,9 @@ export const DeleteModal = ({ id, children }: DeleteModalProps) => {
           <AlertDialogAction
             onClick={handleDelete}
             className="bg-red-500 hover:bg-red-400"
-            disabled={submitting}
+            disabled={deleting}
           >
-            {submitting ? <Spinner size={"sm"} /> : "Delete"}
+            {deleting ? <Spinner size={"sm"} /> : "Delete"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
