@@ -61,9 +61,10 @@ export async function sendEmail(email: string, name: string) {
 }
 
 export async function resetPassword(formData: {
-  codeId: number;
-  code: string;
-  email: string;
+  codeId?: number;
+  code?: string;
+  email?: string;
+  currentPassword?: string;
   newPassword: string;
 }) {
   return await request(fetchKeys.resetPassword, {

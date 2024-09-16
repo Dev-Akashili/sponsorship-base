@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SponsorshipBase.Constants;
 using SponsorshipBase.Data;
 using SponsorshipBase.Data.Entities.Identity;
 using SponsorshipBase.Models.Account;
@@ -11,38 +12,23 @@ namespace SponsorshipBase.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class AccountController : ControllerBase
-{
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly ApplicationDbContext _db;
-    private readonly IEmailService _emailService;
-    private readonly IConfiguration _config;
-    private const string ErrorMsg = "Something went wrong. Please try again";
-    private const string DefaultErrorMsg = "Something went wrong! Please try again later or contact us.";
-
-    public AccountController(
-        UserManager<ApplicationUser> userManager, 
-        ApplicationDbContext db, 
-        IEmailService emailService,
-        IConfiguration config
-        )
-    {
-        _userManager = userManager;
-        _db = db;
-        _emailService = emailService;
-        _config = config;
-    }
-    
+public class AccountController(
+    UserManager<ApplicationUser> userManager, 
+    ApplicationDbContext db, 
+    IEmailService emailService,
+    IConfiguration config
+) : ControllerBase
+{ 
     [HttpPost("register")]
     public async Task<ActionResult> Register(RegisterModel model)
     {
-        var user = await _userManager.FindByEmailAsync(model.Email);
-        if (user == null) return BadRequest("Something went wrong");
+        var user = await userManager.FindByEmailAsync(model.Email);
+        if (user == null) return BadRequest(ErrorMessages.Default);
 
         // Add gender and nationality to user
         user.Gender = model.Gender;
         user.Nationality = model.Nationality;
-        await _userManager.UpdateAsync(user);
+        await userManager.UpdateAsync(user);
 
         return Ok();
     }
@@ -50,7 +36,7 @@ public class AccountController : ControllerBase
     [HttpPost("login")]
     public async Task<ActionResult> Login(LoginModel model)
     {
-        var user = await _userManager.FindByEmailAsync(model.Email);
+        var user = await userManager.FindByEmailAsync(model.Email);
         
         // If the user does not exist
         if (user == null)
@@ -59,12 +45,12 @@ public class AccountController : ControllerBase
         }
 
         // If user exists check if problem is email is not confirmed or password is wrong
-        var message = await _userManager.CheckPasswordAsync(user, model.Password)
+        var message = await userManager.CheckPasswordAsync(user, model.Password)
             ? user.EmailConfirmed 
                 ? "Username or password is incorrect!"
                 :  "Verify your email to login"
             : "Username or password is incorrect!";
-        var name =  await _userManager.CheckPasswordAsync(user, model.Password)
+        var name =  await userManager.CheckPasswordAsync(user, model.Password)
             ? user.EmailConfirmed ? "error" : "info"
             : "error";
 
@@ -75,7 +61,7 @@ public class AccountController : ControllerBase
     public async Task<IActionResult> SendEmailVerificationLink(string email, string name)
     {
         // Check if user exists
-        var user = await _userManager.FindByEmailAsync(email);
+        var user = await userManager.FindByEmailAsync(email);
         if (user == null) return Ok();
 
         // If user exists but has already been confirmed
@@ -83,13 +69,13 @@ public class AccountController : ControllerBase
         
         try
         { 
-            await _emailService.SendEmailVerificationLink(email, name);
+            await emailService.SendEmailVerificationLink(email, name);
             return Ok();
         }
         catch (Exception e)
         {
             Console.WriteLine(e.Message);
-            return BadRequest(DefaultErrorMsg);
+            return BadRequest(ErrorMessages.Default);
         }
     }
     
@@ -98,23 +84,23 @@ public class AccountController : ControllerBase
     {
         try
         {
-            var message = await _emailService.ValidateCode(model, false);
+            var message = await emailService.ValidateCode(model, false);
             
             // Assign role to user
-            var user = await _userManager.FindByEmailAsync(model.Email);
+            var user = await userManager.FindByEmailAsync(model.Email);
             if (user == null) return NotFound();
             
             if (message.Equals("success"))
             { 
-                var roles = await _userManager.GetRolesAsync(user); 
+                var roles = await userManager.GetRolesAsync(user); 
                 
                 // Role assigning rule
-                var role = model.Email.Equals(_config["Admin:Email"]) ? "Admin" : "User";
+                var role = model.Email.Equals(config["Admin:Email"]) ? "Admin" : "User";
                 
                // Add the role if the user doesn't already have it
-               if (!roles.Contains(role)) await _userManager.AddToRoleAsync(user, role);
+               if (!roles.Contains(role)) await userManager.AddToRoleAsync(user, role);
                
-               await  _db.SaveChangesAsync();
+               await  db.SaveChangesAsync();
             }
 
             if (!message.Equals("success"))
@@ -135,32 +121,59 @@ public class AccountController : ControllerBase
     {
         try
         {
-            var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null)
+            var user = await userManager.GetUserAsync(User);
+            var loggedIn = user != null;
+            
+            if (!loggedIn)
             {
-                return BadRequest(ErrorMsg);
+                user = await userManager.FindByEmailAsync(model.Email);
+                if (user == null)
+                {
+                    return BadRequest(ErrorMessages.UserError);
+                }
+
+                var message = await emailService.ValidateCode(new ValidateEmailModel
+                    {
+                        Code = model.Code,
+                        CodeId = model.CodeId,
+                        Email = model.Email
+                    }, true
+                );
+
+                if (!message.Equals("success")) return BadRequest(new { Name = "error", Message = message });
             }
 
-            var message = await _emailService.ValidateCode(new ValidateEmailModel
+            if (loggedIn)
             {
-                Code = model.Code,
-                CodeId = model.CodeId,
-                Email = model.Email
-            }, true);
-
-            if (!message.Equals("success")) return BadRequest(new { Name = "error", Message = message });
+                if (string.IsNullOrEmpty(model.CurrentPassword))
+                {
+                    return BadRequest(
+                        new { Name = "error", Message = "Invalid request. Current password is required." }
+                    );
+                }
+                
+                var isCurrentPasswordValid = await userManager.CheckPasswordAsync(user, model.CurrentPassword);
+                if (!isCurrentPasswordValid)
+                {
+                    return BadRequest(new { Name = "error", Message = "Current password is incorrect." });
+                }
+            }
                 
             // Reset Password
-            var resetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var result = await _userManager.ResetPasswordAsync(user, resetToken, model.NewPassword);
+            var resetToken = await userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await userManager.ResetPasswordAsync(user, resetToken, model.NewPassword);
             
             if (result.Succeeded)
             {
-                var verificationCode = await _db.VerificationCodes
-                                           .FirstOrDefaultAsync(x => x.CodeId == model.CodeId) ?? 
-                                       throw new KeyNotFoundException(DefaultErrorMsg);
-                _db.VerificationCodes.Remove(verificationCode);
-                await _db.SaveChangesAsync();
+                if (!loggedIn)
+                {
+                    var verificationCode = await db.VerificationCodes
+                                               .FirstOrDefaultAsync(x => x.CodeId == model.CodeId) ??
+                                           throw new KeyNotFoundException(ErrorMessages.Default);
+                    db.VerificationCodes.Remove(verificationCode);
+                    await db.SaveChangesAsync();
+                }
+
                 return Ok("Password has been successfully reset.");
             }
             else
@@ -173,7 +186,7 @@ public class AccountController : ControllerBase
         catch (Exception e)
         {
             Console.WriteLine(e.Message);
-            return BadRequest(DefaultErrorMsg);
+            return BadRequest(ErrorMessages.Default);
         }
     }
 }
