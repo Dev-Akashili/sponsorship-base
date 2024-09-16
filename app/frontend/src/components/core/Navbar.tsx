@@ -1,12 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Helmet } from "./Helmet";
-import { AUTH_ROUTES } from "@/pages/routes";
 import { User } from "@/types";
 import { UserMenu } from "./UserMenu";
 import { Sidebar } from "./Sidebar";
 import { Menu } from "lucide-react";
 import { NAV_LINKS, NavLink as NavLinkProps } from "@/constants/Menu.constants";
+import { AUTH_ROUTES } from "@/pages/routes";
 
 export const Navbar = ({ user }: { user: User | null }) => {
   return (
@@ -25,9 +25,19 @@ export const Navbar = ({ user }: { user: User | null }) => {
       {user ? (
         <UserMenu user={user} />
       ) : (
-        <Link to={AUTH_ROUTES.login} className="hidden sm:block">
-          <Button className="sponsorship-base">Login/Register</Button>
-        </Link>
+        <div className="flex space-x-2">
+          <Link to={AUTH_ROUTES.login} className="hidden sm:block">
+            <Button
+              className="text-blue-600 hover:text-blue-500 border border-blue-600 "
+              variant={"ghost"}
+            >
+              Login
+            </Button>
+          </Link>
+          <Link to={AUTH_ROUTES.register} className="hidden sm:block">
+            <Button className="sponsorship-base">Register</Button>
+          </Link>
+        </div>
       )}
       <Sidebar
         user={user}

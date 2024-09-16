@@ -13,12 +13,12 @@ import { Button } from "../ui/button";
 import { LogoutButton } from "./UserMenu";
 import { Separator } from "../ui/separator";
 import { Link, useLocation } from "react-router-dom";
-import { AUTH_ROUTES } from "@/pages/routes";
 import {
   SIDEBAR_ITEMS,
   SIDEBAR_USERMENU_ITEMS,
   MenuItems as SidebarItemProps
 } from "@/constants/Menu.constants";
+import { AUTH_ROUTES } from "@/pages/routes";
 
 interface SidebarProps {
   user: User | null;
@@ -51,13 +51,23 @@ export const Sidebar = ({ user, menuButton }: SidebarProps) => {
           {user ? (
             <SidebarUserMenu user={user} />
           ) : (
-            <SheetClose asChild>
-              <Link to={AUTH_ROUTES.login} className="w-full">
-                <Button className="sponsorship-base w-full">
-                  Login/Register
-                </Button>
+            <div className="flex justify-between space-x-2">
+              <Link to={AUTH_ROUTES.login} className="w-[48%]">
+                <SheetClose asChild>
+                  <Button
+                    className="text-blue-600 hover:text-blue-500 border border-blue-600 w-full"
+                    variant={"ghost"}
+                  >
+                    Login
+                  </Button>
+                </SheetClose>
               </Link>
-            </SheetClose>
+              <Link to={AUTH_ROUTES.register} className="w-[48%]">
+                <SheetClose asChild>
+                  <Button className="sponsorship-base w-full">Register</Button>
+                </SheetClose>
+              </Link>
+            </div>
           )}
         </div>
       </SheetContent>
