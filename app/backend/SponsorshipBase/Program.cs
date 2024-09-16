@@ -64,7 +64,8 @@ builder.Services.AddCors(options =>
 // Register services
 builder.Services
     .AddTransient<IEmailService, EmailService>()
-    .AddTransient<SponsorshipService>();
+    .AddTransient<SponsorshipService>()
+    .AddTransient<UserService>();
 
 var app = builder.Build();
 
