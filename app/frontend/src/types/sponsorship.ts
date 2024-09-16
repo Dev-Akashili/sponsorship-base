@@ -2,7 +2,7 @@ export interface Sponsorship {
   id: string;
   gender: string;
   nationality: string;
-  company: Company;
+  company?: Company;
   country: string;
   city: string;
   jobTitle: string;
@@ -13,10 +13,10 @@ export interface Sponsorship {
   countryOfQualification: string;
   month: string;
   year: string;
-  jobBoard: JobBoard;
-  isOwner: boolean;
-  isFavourite: boolean;
-  favouriteCount: number;
+  jobBoard?: JobBoard;
+  isOwner?: boolean;
+  isFavourite?: boolean;
+  favouriteCount?: number;
 }
 
 export interface Company {

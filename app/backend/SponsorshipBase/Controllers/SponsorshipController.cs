@@ -11,23 +11,12 @@ namespace SponsorshipBase.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class SponsorshipController : ControllerBase
+public class SponsorshipController(
+    SponsorshipService sponsorshipService,
+    UserManager<ApplicationUser> userManager,
+    ILogger<SponsorshipController> logger
+) : ControllerBase
 {
-    private readonly SponsorshipService _sponsorshipService;
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly ILogger<SponsorshipController> _logger;
-
-    public SponsorshipController(
-        SponsorshipService sponsorshipService, 
-        UserManager<ApplicationUser> userManager,
-        ILogger<SponsorshipController> logger
-        )
-    {
-        _sponsorshipService = sponsorshipService;
-        _userManager = userManager;
-        _logger = logger;
-    }
-    
     [HttpGet]
     public async Task<ActionResult<PaginatedResponse<SponsorshipModel>>> List(
         [FromQuery] string? filter, 
@@ -35,8 +24,8 @@ public class SponsorshipController : ControllerBase
         int pageSize = 1
         )
     {
-        var user = await _userManager.GetUserAsync(User);
-        var result = await _sponsorshipService.List(filter, pageNumber, pageSize, "", user ?? null);
+        var user = await userManager.GetUserAsync(User);
+        var result = await sponsorshipService.List(filter, pageNumber, pageSize, "", user ?? null);
         return Ok(result);
     }
 
@@ -50,13 +39,13 @@ public class SponsorshipController : ControllerBase
     {
         try
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await userManager.GetUserAsync(User);
             if (user == null)
             {
                 return HandleUserError(ErrorMessages.UserNotFound, ErrorMessages.UserError);
             }
 
-            var result = await _sponsorshipService
+            var result = await sponsorshipService
                 .List(filter, pageNumber, pageSize, SponsorshipListOptions.UserList, user);
             
             return Ok(result);
@@ -65,6 +54,13 @@ public class SponsorshipController : ControllerBase
         {
             return HandleException(e, ErrorMessages.Default);
         }
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Sponsorship>> Get(string id)
+    {
+        var result = await sponsorshipService.Get(id);
+        return result == null ? NotFound() : Ok(result);
     }
     
     [Authorize]
@@ -77,13 +73,13 @@ public class SponsorshipController : ControllerBase
     {
         try
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await userManager.GetUserAsync(User);
             if (user == null)
             {
                 return HandleUserError(ErrorMessages.UserNotFound, ErrorMessages.UserError);
             }
 
-            var result = await _sponsorshipService
+            var result = await sponsorshipService
                 .List(filter, pageNumber, pageSize, SponsorshipListOptions.FavouriteList, user);
             
             return Ok(result);
@@ -102,7 +98,7 @@ public class SponsorshipController : ControllerBase
 
         try
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await userManager.GetUserAsync(User);
             if (user == null)
             {
                 return HandleUserError(
@@ -111,7 +107,7 @@ public class SponsorshipController : ControllerBase
                 );
             }
 
-            var created = await _sponsorshipService.Create(model, user);
+            var created = await sponsorshipService.Create(model, user);
             return CreatedAtAction(nameof(Create), new { id = created.Id }, created);
         }
         catch (Exception e)
@@ -126,7 +122,7 @@ public class SponsorshipController : ControllerBase
     {
         try
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await userManager.GetUserAsync(User);
             if (user == null)
             {
                 return HandleUserError(
@@ -135,7 +131,7 @@ public class SponsorshipController : ControllerBase
                 );
             }
 
-            var result = await _sponsorshipService.Delete(user, id);
+            var result = await sponsorshipService.Delete(user, id);
             if (!result) return Unauthorized();
             return Ok();
         }
@@ -151,7 +147,7 @@ public class SponsorshipController : ControllerBase
     {
         try
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await userManager.GetUserAsync(User);
             if (user == null)
             {
                 return HandleUserError(
@@ -160,7 +156,7 @@ public class SponsorshipController : ControllerBase
                 );
             }
 
-            await _sponsorshipService.AddOrRemoveFavourite(user, id, "add");
+            await sponsorshipService.AddOrRemoveFavourite(user, id, "add");
             return NoContent();
         }
         catch (Exception e)
@@ -175,7 +171,7 @@ public class SponsorshipController : ControllerBase
     {
         try
         { 
-            var user = await _userManager.GetUserAsync(User);
+            var user = await userManager.GetUserAsync(User);
             if (user == null)
             {
                 return HandleUserError(
@@ -184,7 +180,7 @@ public class SponsorshipController : ControllerBase
                 );
             }
 
-            await _sponsorshipService.AddOrRemoveFavourite(user, id, "remove");
+            await sponsorshipService.AddOrRemoveFavourite(user, id, "remove");
             return Ok();
         }
         catch (Exception e)
@@ -196,13 +192,13 @@ public class SponsorshipController : ControllerBase
     // Helper methods
     private ActionResult HandleUserError(string message, string error)
     {
-        _logger.LogWarning(message);
+        logger.LogWarning(message);
         return NotFound(new { error = error });
     }
     
     private ActionResult HandleException(Exception e, string message)
     {
-        _logger.LogError(e, "Error: {Message}", e.Message);
+        logger.LogError(e, "Error: {Message}", e.Message);
         return StatusCode(500, new { error = message });
     }
 }

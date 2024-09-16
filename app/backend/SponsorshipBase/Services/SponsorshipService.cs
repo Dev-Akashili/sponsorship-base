@@ -34,7 +34,7 @@ public class SponsorshipService(
 
         if (String.Equals(option, SponsorshipListOptions.FavouriteList) && user != null)
         {
-            entity = entity.Where(x => x.Favourites.Contains(user.Id));
+            entity = entity.Where(x => x.Favourites != null && x.Favourites.Contains(user.Id));
         }
 
         // Filtering
@@ -94,6 +94,45 @@ public class SponsorshipService(
         };
 
         return result;
+    }
+
+    public async Task<SponsorshipModel?> Get(string id)
+    {
+        var entity = await db.Sponsorships
+            .Include(x => x.Company)
+            .Include(x => x.JobBoard)
+            .FirstOrDefaultAsync(x => x.Id == id);
+        
+        if (entity == null) return null;
+
+        var sponsorship = new SponsorshipModel
+        {
+            Id = entity.Id,
+            Gender = entity.Gender,
+            Nationality = entity.Nationality,
+            Company = new CompanyModel
+            {
+                Name = entity.Company.Name,
+                Logo = entity.Company.Logo,
+                CareerPage = entity.Company.CareerPage
+            },
+            Country = entity.Country,
+            City = entity.City,
+            JobTitle = entity.JobTitle,
+            Experience = entity.Experience,
+            Salary = entity.Salary,
+            Currency = entity.Currency,
+            Education = entity.Education,
+            CountryOfQualification = entity.CountryOfQualification,
+            Month = entity.Month,
+            Year = entity.Year,
+            JobBoard = new JobBoardModel
+            {
+                Name = entity.JobBoard.Name,
+                Link = entity.JobBoard.Link
+            },
+        };
+        return sponsorship;
     }
 
     public async Task<Sponsorship> Create(CreateSponsorship model, ApplicationUser user)

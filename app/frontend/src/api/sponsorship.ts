@@ -4,6 +4,7 @@ import { PaginatedResponse } from "@/types";
 
 const fetchKeys = {
   create: "sponsorship",
+  get: (id: string) => `sponsorship/${id}`,
   delete: (id: string) => `sponsorship/${id}`,
   list: (filter?: string) => `sponsorship/?${filter}`,
   manage: (filter?: string) => `sponsorship/manage/?${filter}`,
@@ -23,6 +24,34 @@ export async function getSponsorships(
   } catch {
     console.warn("Failed to fetch data.");
     return { count: 0, list: [] };
+  }
+}
+
+export async function getSponsorship(id: string): Promise<Sponsorship> {
+  try {
+    const response = await request<PaginatedResponse<Sponsorship>>(
+      fetchKeys.get(id)
+    );
+    return await response.json();
+  } catch {
+    console.warn("Failed to fetch data.");
+    return {
+      id: "",
+      gender: "",
+      nationality: "",
+      company: undefined,
+      country: "",
+      city: "",
+      jobTitle: "",
+      experience: "",
+      salary: "",
+      currency: "",
+      education: "",
+      countryOfQualification: "",
+      month: "",
+      year: "",
+      jobBoard: undefined
+    };
   }
 }
 
