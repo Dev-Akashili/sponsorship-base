@@ -21,7 +21,7 @@ export const NAV_LINKS: NavLink[] = [
     text: "Sponsorship list",
     link: ROUTES.list
   },
-  { path: "add", text: "Contribute", link: ROUTES.contribute },
+  { path: "add", text: "Contribute", link: ROUTES.add },
   { path: "contact", text: "Contact", link: ROUTES.contact },
   { path: "about", text: "About", link: ROUTES.about }
 ];
@@ -43,7 +43,7 @@ export const SIDEBAR_ITEMS: MenuItems[] = [
   {
     path: "add",
     text: "Add your sponsored job",
-    link: ROUTES.contribute,
+    link: ROUTES.add,
     icon: <CopyPlus />
   },
   { path: "contact", text: "Contact", link: ROUTES.contact, icon: <Mail /> },
@@ -71,7 +71,7 @@ export const SIDEBAR_USERMENU_ITEMS: MenuItems[] = [
   {
     path: "settings",
     text: "Profile settings",
-    link: "/",
+    link: ROUTES.settings,
     icon: <UserCog />
   }
 ];
@@ -92,7 +92,7 @@ export const NAVBAR_USERMENU_ITEMS: MenuItems[] = [
   {
     path: "settings",
     text: "Profile settings",
-    link: "/",
+    link: ROUTES.settings,
     icon: <UserCog className="h-4 w-4 mr-2" />
   }
 ];

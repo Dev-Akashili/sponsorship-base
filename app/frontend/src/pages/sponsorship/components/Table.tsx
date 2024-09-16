@@ -43,7 +43,7 @@ export function Table({ data, pageTitle }: TableProps) {
 }
 
 const options = (
-  <Link to={ROUTES.contribute}>
+  <Link to={ROUTES.add}>
     <Button className="sponsorship-base my-auto" size={"sm"}>
       <CopyPlus className="h-4 w-4 mr-2" /> Add a contribution
     </Button>

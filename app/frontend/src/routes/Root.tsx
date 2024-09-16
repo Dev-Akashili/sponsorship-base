@@ -3,11 +3,12 @@ import { DefaultLayout } from "@/layout/DefaultLayout";
 import { IndexPage } from "@/pages/home/IndexPage";
 import { ROUTES } from "@/pages/routes";
 import { NotFound } from "@/pages/error/NotFound";
-import { Contribute } from "@/pages/sponsorship-list/Contribute";
+import { AddOrEdit } from "@/pages/contribution/AddOrEdit";
 import { About } from "@/pages/about/About";
 import { Contact } from "@/pages/contact/Contact";
 import { AuthRedirect, AuthRoute } from "./Custom";
 import { Manage, SponsorshipList, Favourite } from "@/pages/sponsorship";
+import { Settings } from "@/pages/settings/Settings";
 
 export const Root = () => {
   return (
@@ -40,10 +41,28 @@ export const Root = () => {
         />
 
         <Route
-          path={ROUTES.contribute}
+          path={ROUTES.add}
           element={
-            <AuthRoute redirect={ROUTES.contribute}>
-              <Contribute />
+            <AuthRoute redirect={ROUTES.add}>
+              <AddOrEdit />
+            </AuthRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.edit}
+          element={
+            <AuthRoute redirect={ROUTES.edit}>
+              <AddOrEdit />
+            </AuthRoute>
+          }
+        />
+
+        <Route
+          path={ROUTES.settings}
+          element={
+            <AuthRoute redirect={ROUTES.settings}>
+              <Settings />
             </AuthRoute>
           }
         />

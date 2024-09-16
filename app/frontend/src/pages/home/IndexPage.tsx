@@ -20,12 +20,12 @@ export const IndexPage = () => {
             pulled it off and serve as a guide.
           </p>
           <div className="text-center">
-            <Link to={ROUTES.sponsorshipList}>
+            <Link to={ROUTES.list}>
               <Button className="mx-2 sponsorship-base">
                 View Sponsorship list
               </Button>
             </Link>
-            <Link to={ROUTES.contribute}>
+            <Link to={ROUTES.add}>
               <Button className="mx-2 sponsorship-base">
                 Add Your Sponsored Job
               </Button>

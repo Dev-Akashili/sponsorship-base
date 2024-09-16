@@ -5,7 +5,9 @@ export const ROUTES = {
   list: `${basePath}/list`,
   manage: `${basePath}/manage`,
   favourite: `${basePath}/favourite`,
-  contribute: `${basePath}/add`,
+  add: `${basePath}/add`,
+  edit: `${basePath}/edit`,
+  settings: `${basePath}/settings`,
   about: `${basePath}/about`,
   contact: `${basePath}/contact`
 };
