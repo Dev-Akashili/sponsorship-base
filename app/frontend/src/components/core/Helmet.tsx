@@ -6,8 +6,8 @@ export const Helmet = ({ sidebar = false }: { sidebar?: boolean }) => {
       <div className="flex gap-2 items-center hover:cursor-pointer">
         <img
           className={`${sidebar ? "h-8 w-8" : "h-12 w-12}"}`}
-          src="././globe.png"
-          alt="globe"
+          src="././sb-logo.png"
+          alt="sb"
         />
         <h1
           className={`${sidebar ? "text-blue-600" : "text-gray-800"} ${
