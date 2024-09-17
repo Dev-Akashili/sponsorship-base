@@ -18,6 +18,7 @@ interface FormInputProps {
   placeholder?: string;
   width?: string;
   type?: string;
+  disabled?: boolean;
 }
 
 export const FormInput = ({
@@ -26,6 +27,7 @@ export const FormInput = ({
   label,
   placeholder,
   width = "100%",
+  disabled = false,
   type
 }: FormInputProps) => {
   return (
@@ -42,6 +44,7 @@ export const FormInput = ({
               <Input
                 placeholder={placeholder}
                 type={type ? type : "text"}
+                disabled={disabled}
                 {...field}
               />
             )}

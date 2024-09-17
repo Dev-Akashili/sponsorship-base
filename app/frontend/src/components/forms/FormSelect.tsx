@@ -44,13 +44,13 @@ export const FormSelect = ({
         <FormItem className="mt-2" style={{ width: width }}>
           <FormLabel>{label}</FormLabel>
           <Select
+            value={field.value || ""}
             onValueChange={(value) => {
               field.onChange(value);
               if (onChange) {
                 onChange(value);
               }
             }}
-            defaultValue={field.value}
             disabled={disabled}
           >
             <FormControl>
