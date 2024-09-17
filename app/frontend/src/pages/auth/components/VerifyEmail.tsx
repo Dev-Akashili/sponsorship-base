@@ -1,7 +1,7 @@
 import { sendEmail, verifyEmail } from "@/api/custom-auth";
 import { Spinner } from "@/components/core/Loader";
 import { FormAlert } from "@/components/forms/FormAlert";
-import { PageLayout } from "@/layout/PageLayout";
+import { FormLayout } from "@/layout/FormLayout";
 import { AUTH_ROUTES } from "@/pages/routes";
 import { ResponseMessage } from "@/types";
 import { useEffect, useState } from "react";
@@ -106,7 +106,7 @@ export const VerifyEmail = () => {
   );
 
   return (
-    <PageLayout>
+    <FormLayout>
       {alert ? (
         <div className="m-auto">
           <FormAlert
@@ -126,6 +126,6 @@ export const VerifyEmail = () => {
           <Spinner size="lg" />
         </div>
       )}
-    </PageLayout>
+    </FormLayout>
   );
 };
