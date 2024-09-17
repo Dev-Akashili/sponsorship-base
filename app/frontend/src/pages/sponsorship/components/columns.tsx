@@ -77,7 +77,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
       );
     },
     cell: ({ row }) => {
-      const { company, country, city, jobTitle, salary, currency } =
+      const { company, country, city, jobTitle, experience, salary, currency } =
         row.original;
       const companyLogoSlug = convertToSlug(company.name);
       const countryLogoSlug = convertToSlug(country);
@@ -111,6 +111,12 @@ export const columns: ColumnDef<Sponsorship>[] = [
                   alt="sitcase"
                   className="h-4 w-4"
                 />
+              }
+            />
+            <InfoTile
+              name={experience}
+              icon={
+                <img src="../../level.png" alt="level" className="h-4 w-4" />
               }
             />
             <InfoTile
