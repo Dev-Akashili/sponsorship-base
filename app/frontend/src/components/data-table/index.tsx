@@ -21,6 +21,8 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   Filter?: JSX.Element;
+  Sorting?: JSX.Element;
+  actions?: JSX.Element | JSX.Element[];
   count: number;
 }
 
@@ -28,6 +30,8 @@ export function DataTable<TData, TValue>({
   columns,
   data,
   Filter,
+  Sorting,
+  actions,
   count
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
@@ -38,7 +42,11 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="p-4 bg-white rounded-md">
-      <div className="flex justify-between mt-4 mb-8">{Filter}</div>
+      <div className="flex justify-between mt-4 mb-8">
+        {Filter}
+        {Sorting}
+        {actions}
+      </div>
       <div className="rounded-md border">
         <Table>
           <TableHeader>
