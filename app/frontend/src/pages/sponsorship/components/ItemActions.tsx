@@ -40,7 +40,7 @@ export const ItemActions = ({
       if (!isFav) {
         await addFavourite(id);
         setIsFav(true);
-        setFavCount((prevState) => prevState + 1);
+        setFavCount((prevState) => (prevState < 1 ? prevState + 1 : prevState));
         toast.success("Added to favourites");
       } else {
         const response = await removeFavourite(id);
