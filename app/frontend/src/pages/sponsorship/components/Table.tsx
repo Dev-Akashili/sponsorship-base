@@ -9,18 +9,24 @@ import { CopyPlus } from "lucide-react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../routes";
 import { Sponsorship } from "@/types/sponsorship";
+import { DataTableSorting } from "@/components/data-table/DataTableSorting";
 
 interface TableProps {
   data: PaginatedResponse<Sponsorship> | undefined;
   pageTitle: string;
+  fetchCount: number;
+  noContentPage: JSX.Element;
 }
 
-export function Table({ data, pageTitle }: TableProps) {
-  const filter = (
-    <DataTableFilter
-      placeholder={"Search by company, city..."}
-      options={options}
-    />
+export function Table({
+  data,
+  pageTitle,
+  fetchCount,
+  noContentPage
+}: TableProps) {
+  const filter = <DataTableFilter placeholder={"Search by company, city..."} />;
+  const sorting = (
+    <DataTableSorting options={sortOptions} defaultSort={"year"} />
   );
 
   return (
@@ -29,23 +35,33 @@ export function Table({ data, pageTitle }: TableProps) {
       {!data ? (
         <LoadingPage />
       ) : (
-        <div className="h-full flex justify-center items-center my-40">
-          <DataTable
-            columns={columns}
-            count={data.count}
-            data={data.list}
-            Filter={filter}
-          />
-        </div>
+        <>
+          {data.count <= 0 && fetchCount <= 0 ? (
+            noContentPage
+          ) : (
+            <div className="h-full flex justify-center items-center my-40">
+              <DataTable
+                columns={columns}
+                count={data.count}
+                data={data.list}
+                Filter={filter}
+                Sorting={sorting}
+                actions={tableAction}
+              />
+            </div>
+          )}
+        </>
       )}
     </>
   );
 }
 
-const options = (
+const tableAction = (
   <Link to={ROUTES.add}>
-    <Button className="sponsorship-base my-auto" size={"sm"}>
+    <Button className="sponsorship-base h-full" size={"sm"}>
       <CopyPlus className="h-4 w-4 mr-2" /> Add a contribution
     </Button>
   </Link>
 );
+
+const sortOptions = ["Year", "Salary"];
