@@ -216,6 +216,25 @@ public class SponsorshipController(
             return HandleException(e, ErrorMessages.Default);
         }
     }
+
+    [Authorize(Policy = "RequireAdmin")]
+    [HttpPatch("approve/{id}")]
+    public async Task<ActionResult> ApproveOrDisable(string id)
+    {
+        try
+        {
+            await sponsorshipService.ApproveOrDisable(id);
+            return Ok();
+        }
+        catch (KeyNotFoundException e)
+        {
+            return HandleException(e, ErrorMessages.Default);
+        }
+        catch (Exception e)
+        {
+            return HandleException(e, ErrorMessages.Default);
+        }
+    }
     
     // Helper methods
     private ActionResult HandleUserError(string message, string error)

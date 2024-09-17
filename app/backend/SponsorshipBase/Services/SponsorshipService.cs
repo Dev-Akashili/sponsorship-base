@@ -26,6 +26,14 @@ public class SponsorshipService(
             .Include(x => x.JobBoard)
             .Include(x => x.Owner)
             .AsNoTracking();
+        
+        var roles = user != null ? await userManager.GetRolesAsync(user) : new List<string>();
+
+        // Apply IsApproved filter unless user is Admin or option is UserList
+        if (!roles.Contains("Admin") && !String.Equals(option, SponsorshipListOptions.UserList))
+        {
+            entity = entity.Where(x => x.IsApproved);
+        }
 
         if (String.Equals(option, SponsorshipListOptions.UserList) && user != null)
         {
@@ -83,7 +91,8 @@ public class SponsorshipService(
             },
             IsOwner = user?.Id == x.Owner.Id,
             IsFavourite = x.Favourites != null && x.Favourites.Contains(user?.Id ?? ""),
-            FavouriteCount = x.Favourites != null ? x.Favourites.Count(): 0
+            FavouriteCount = x.Favourites != null ? x.Favourites.Count() : 0,
+            IsApproved = x.IsApproved
         }).ToList();
 
         var result = new PaginatedResponse<SponsorshipModel>
@@ -135,6 +144,8 @@ public class SponsorshipService(
 
     public async Task<Sponsorship> Create(CreateOrEditSponsorship model, ApplicationUser user)
     {
+        var roles = await userManager.GetRolesAsync(user);
+        
         var jobBoard = await db.JobBoards
             .FirstOrDefaultAsync(x => String.Equals(x.Name, model.JobBoard));
 
@@ -183,7 +194,8 @@ public class SponsorshipService(
             Year = model.Year,
             JobBoard = jobBoard ?? new(),
             Owner = user,
-            Favourites = new()
+            Favourites = new(),
+            IsApproved = roles.Contains("Admin")
         };
 
         db.Sponsorships.Add(entity);
@@ -300,7 +312,10 @@ public class SponsorshipService(
 
         if (sponsorship != null && sponsorship.Favourites != null)
         {
-            if (!sponsorship.Favourites.Contains(user.Id) && (String.Equals(options, "add")))
+            if (!sponsorship.Favourites.Contains(user.Id)
+                && (String.Equals(options, "add")) 
+                && sponsorship.IsApproved
+               )
             {
                 sponsorship.Favourites.Add(user.Id);
             } 
@@ -308,6 +323,19 @@ public class SponsorshipService(
             {
                 sponsorship.Favourites.Remove(user.Id);
             }
+        }
+
+        await db.SaveChangesAsync();
+    }
+
+    public async Task ApproveOrDisable(string id)
+    {
+        var sponsorship = await db.Sponsorships.FirstOrDefaultAsync(x => x.Id == id);
+        if (sponsorship == null) throw new KeyNotFoundException("Sponsorship not found");
+        sponsorship.IsApproved = !sponsorship.IsApproved;
+        if (sponsorship.Favourites != null)
+        { 
+            sponsorship.Favourites.Clear();
         }
 
         await db.SaveChangesAsync();

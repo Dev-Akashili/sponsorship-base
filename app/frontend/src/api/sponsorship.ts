@@ -8,6 +8,7 @@ const fetchKeys = {
   edit: (id: string) => `sponsorship/${id}`,
   delete: (id: string) => `sponsorship/${id}`,
   list: (filter?: string) => `sponsorship/?${filter}`,
+  approve: (id: string) => `sponsorship/approve/${id}`,
   manage: (filter?: string) => `sponsorship/manage/?${filter}`,
   favourite: (filter?: string) => `sponsorship/favourite/?${filter}`,
   addFavourite: (id: string) => `sponsorship/favourite/${id}`,
@@ -51,7 +52,8 @@ export async function getSponsorship(id: string): Promise<Sponsorship> {
       countryOfQualification: "",
       month: "",
       year: "",
-      jobBoard: undefined
+      jobBoard: undefined,
+      isApproved: false
     };
   }
 }
@@ -128,6 +130,15 @@ export async function addFavourite(id: string) {
 export async function removeFavourite(id: string) {
   return await request(fetchKeys.removeFavourite(id), {
     method: "DELETE",
+    headers: {
+      "Content-type": "application/json"
+    }
+  });
+}
+
+export async function approveOrDisable(id: string) {
+  return await request(fetchKeys.approve(id), {
+    method: "PATCH",
     headers: {
       "Content-type": "application/json"
     }

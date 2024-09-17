@@ -17,6 +17,7 @@ export interface Sponsorship {
   isOwner?: boolean;
   isFavourite?: boolean;
   favouriteCount?: number;
+  isApproved: boolean;
 }
 
 export interface Company {
