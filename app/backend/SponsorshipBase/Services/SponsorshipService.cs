@@ -64,7 +64,6 @@ public class SponsorshipService(
             Company = new CompanyModel
             {
                 Name = x.Company.Name,
-                Logo = x.Company.Logo,
                 CareerPage = x.Company.CareerPage
             },
             Country = x.Country,
@@ -83,8 +82,8 @@ public class SponsorshipService(
                 Link = x.JobBoard.Link
             },
             IsOwner = user?.Id == x.Owner.Id,
-            IsFavourite = x.Favourites.Contains(user?.Id ?? ""),
-            FavouriteCount = x.Favourites.Count()
+            IsFavourite = x.Favourites != null && x.Favourites.Contains(user?.Id ?? ""),
+            FavouriteCount = x.Favourites != null ? x.Favourites.Count(): 0
         }).ToList();
 
         var result = new PaginatedResponse<SponsorshipModel>
@@ -113,7 +112,6 @@ public class SponsorshipService(
             Company = new CompanyModel
             {
                 Name = entity.Company.Name,
-                Logo = entity.Company.Logo,
                 CareerPage = entity.Company.CareerPage
             },
             Country = entity.Country,
@@ -135,7 +133,7 @@ public class SponsorshipService(
         return sponsorship;
     }
 
-    public async Task<Sponsorship> Create(CreateSponsorship model, ApplicationUser user)
+    public async Task<Sponsorship> Create(CreateOrEditSponsorship model, ApplicationUser user)
     {
         var jobBoard = await db.JobBoards
             .FirstOrDefaultAsync(x => String.Equals(x.Name, model.JobBoard));
@@ -191,6 +189,89 @@ public class SponsorshipService(
         db.Sponsorships.Add(entity);
         await db.SaveChangesAsync();
         return entity;
+    }
+
+    public async Task<Sponsorship> Edit(CreateOrEditSponsorship model, ApplicationUser user, string id)
+    { 
+        var sponsorship = await db.Sponsorships
+            .Include(x => x.Company)
+            .Include(x => x.JobBoard)
+            .FirstOrDefaultAsync(x => x.Id == id);
+
+        if (sponsorship == null) throw new KeyNotFoundException("Sponsorship not found");
+        
+        // Admin update
+        var roles = await userManager.GetRolesAsync(user);
+        
+        if (roles.Contains("Admin"))
+        {
+            if (!String.Equals(model.Company, sponsorship.Company.Name))
+            {
+                var company = await db.Companies
+                    .FirstOrDefaultAsync(x => String.Equals(x.Name, sponsorship.Company.Name));
+                
+                var updateCompany = await db.Companies
+                    .FirstOrDefaultAsync(x => String.Equals(x.Name, model.Company));
+
+                if (company == null) throw new KeyNotFoundException("Company not found");
+
+                if (updateCompany == null)
+                {
+                    updateCompany = new Company
+                    {
+                        Name = model.Company,
+                        CareerPage = model.NewJobBoardLink
+                    };
+                    sponsorship.Company = updateCompany;
+                    db.Add(updateCompany);
+                }
+                else
+                {
+                    sponsorship.Company = updateCompany;
+                }
+                
+                db.Companies.Remove(company);
+            }
+            
+            if (!String.Equals(model.JobBoard, sponsorship.JobBoard.Name))
+            {
+                var jobBoard = await db.JobBoards
+                    .FirstOrDefaultAsync(x => String.Equals(x.Name, sponsorship.JobBoard.Name));
+
+                var updateJobBoard = await db.JobBoards
+                    .FirstOrDefaultAsync(x => String.Equals(x.Name, model.JobBoard));
+
+                if (jobBoard == null)  throw new KeyNotFoundException("Job board not found");
+
+                if (updateJobBoard == null)
+                {
+                    updateJobBoard = new JobBoard
+                    {
+                        Name = model.NewJobBoardName,
+                        Link = model.NewJobBoardLink
+                    };
+                    sponsorship.JobBoard = updateJobBoard;
+                    db.Add(updateJobBoard);
+                }
+                else
+                {
+                    sponsorship.JobBoard = updateJobBoard;
+                }
+
+                db.Remove(jobBoard);
+            }
+        }
+
+        // User update
+        sponsorship.JobTitle = model.JobTitle;
+        sponsorship.Experience = model.Experience;
+        sponsorship.Month = model.Month;
+        sponsorship.Year = model.Year;
+        sponsorship.LastUpdated = DateTime.UtcNow;
+        sponsorship.IsApproved = sponsorship.IsApproved && roles.Contains("Admin");
+
+        await db.SaveChangesAsync();
+        return sponsorship;
     }
 
     public async Task<bool> Delete(ApplicationUser user, string id)

@@ -2,7 +2,7 @@ using SponsorshipBase.Data.Entities;
 
 namespace SponsorshipBase.Models;
 
-public class CreateSponsorship
+public class CreateOrEditSponsorship
 {
     public string Company { get; set; } = string.Empty;
     public string Country { get; set; } = string.Empty;

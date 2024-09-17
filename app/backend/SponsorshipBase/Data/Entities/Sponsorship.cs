@@ -24,5 +24,8 @@ public class Sponsorship
     public string Year { get; set; } = string.Empty;
     public JobBoard JobBoard { get; set; } = new();
     public List<string>? Favourites { get; set; } = new();
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
+    public bool IsApproved { get; set; }
     public ApplicationUser Owner { get; set; } = null!;
 }

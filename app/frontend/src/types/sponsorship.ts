@@ -30,7 +30,7 @@ export interface JobBoard {
   link: string;
 }
 
-export interface AddSponsorship {
+export interface AddOrEditSponsorship {
   company: string;
   country: string;
   city: string;

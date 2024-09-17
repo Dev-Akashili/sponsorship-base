@@ -92,7 +92,7 @@ public class SponsorshipController(
 
     [Authorize]
     [HttpPost]
-    public async Task<ActionResult<Sponsorship>> Create(CreateSponsorship model)
+    public async Task<ActionResult<Sponsorship>> Create(CreateOrEditSponsorship model)
     {
         if (!ModelState.IsValid) return BadRequest(ModelState);
 
@@ -109,6 +109,34 @@ public class SponsorshipController(
 
             var created = await sponsorshipService.Create(model, user);
             return CreatedAtAction(nameof(Create), new { id = created.Id }, created);
+        }
+        catch (Exception e)
+        {
+            return HandleException(e, ErrorMessages.Default);
+        }
+    }
+
+    [Authorize]
+    [HttpPatch("{id}")]
+    public async Task<ActionResult<Sponsorship>> Edit(string id, CreateOrEditSponsorship model)
+    {
+        try
+        {
+            var user = await userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return HandleUserError(
+                    ErrorMessages.UserNotFound,
+                    $"{ErrorMessages.UserError} while deleting sponsorship"
+                );
+            }
+
+            var result = await sponsorshipService.Edit(model, user, id);
+            return CreatedAtAction(nameof(Edit), new { id = result.Id }, result);
+        }
+        catch (KeyNotFoundException e)
+        {
+            return HandleException(e, ErrorMessages.Default);
         }
         catch (Exception e)
         {

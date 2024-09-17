@@ -1,10 +1,11 @@
-import { AddSponsorship, Sponsorship } from "@/types/sponsorship";
+import { AddOrEditSponsorship, Sponsorship } from "@/types/sponsorship";
 import { request } from "./request";
 import { PaginatedResponse } from "@/types";
 
 const fetchKeys = {
   create: "sponsorship",
   get: (id: string) => `sponsorship/${id}`,
+  edit: (id: string) => `sponsorship/${id}`,
   delete: (id: string) => `sponsorship/${id}`,
   list: (filter?: string) => `sponsorship/?${filter}`,
   manage: (filter?: string) => `sponsorship/manage/?${filter}`,
@@ -84,7 +85,7 @@ export async function getUserFavouriteSponsorships(
 }
 
 export async function deleteSponsorship(id: string) {
-  return await request<AddSponsorship>(fetchKeys.delete(id), {
+  return await request(fetchKeys.delete(id), {
     method: "DELETE",
     headers: {
       "Content-type": "application/json"
@@ -92,8 +93,8 @@ export async function deleteSponsorship(id: string) {
   });
 }
 
-export async function addSponsorship(formData: AddSponsorship) {
-  return await request<AddSponsorship>(fetchKeys.create, {
+export async function addSponsorship(formData: AddOrEditSponsorship) {
+  return await request<AddOrEditSponsorship>(fetchKeys.create, {
     method: "POST",
     headers: {
       "Content-type": "application/json"
@@ -102,8 +103,21 @@ export async function addSponsorship(formData: AddSponsorship) {
   });
 }
 
+export async function updateSponsorship(
+  formData: AddOrEditSponsorship,
+  id: string
+) {
+  return await request<AddOrEditSponsorship>(fetchKeys.edit(id), {
+    method: "PATCH",
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify(formData)
+  });
+}
+
 export async function addFavourite(id: string) {
-  return await request<AddSponsorship>(fetchKeys.addFavourite(id), {
+  return await request(fetchKeys.addFavourite(id), {
     method: "POST",
     headers: {
       "Content-type": "application/json"
@@ -112,7 +126,7 @@ export async function addFavourite(id: string) {
 }
 
 export async function removeFavourite(id: string) {
-  return await request<AddSponsorship>(fetchKeys.removeFavourite(id), {
+  return await request(fetchKeys.removeFavourite(id), {
     method: "DELETE",
     headers: {
       "Content-type": "application/json"
