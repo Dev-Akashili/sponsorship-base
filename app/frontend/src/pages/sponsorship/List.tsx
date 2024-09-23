@@ -23,5 +23,5 @@ export const SponsorshipList = () => {
     getData();
   }, [query]);
 
-  return <Table pageTitle={"Sponsorship List"} data={data} />;
+  return <Table pageTitle={"Sponsorship List"} data={data} fetchCount={2} />;
 };
