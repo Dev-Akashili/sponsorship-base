@@ -27,7 +27,8 @@ export const columns: ColumnDef<Sponsorship>[] = [
         nationality,
         education,
         countryOfQualification,
-        isOwner
+        isOwner,
+        isApproved
       } = row.original;
 
       const coq =
@@ -59,7 +60,11 @@ export const columns: ColumnDef<Sponsorship>[] = [
               ))}
             </div>
           </div>
-          <UserActions id={id} isOwner={isOwner} />
+          <UserActions
+            id={id}
+            isOwner={isOwner ?? false}
+            isApproved={isApproved}
+          />
         </div>
       );
     },
@@ -79,7 +84,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
     cell: ({ row }) => {
       const { company, country, city, jobTitle, experience, salary, currency } =
         row.original;
-      const companyLogoSlug = convertToSlug(company.name);
+      const companyLogoSlug = convertToSlug(company?.name ?? "");
       const countryLogoSlug = convertToSlug(country);
 
       return (
@@ -101,7 +106,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
           </div>
           <div className="flex flex-col space-y-2">
             <p className="text-xs font-semibold text-slate-500">
-              {company.name}
+              {company?.name}
             </p>
             <InfoTile
               name={jobTitle}
@@ -155,17 +160,18 @@ export const columns: ColumnDef<Sponsorship>[] = [
         jobBoard,
         isOwner,
         isFavourite,
-        favouriteCount
+        favouriteCount,
+        isApproved
       } = row.original;
-      const jobBoardSlug = convertToSlug(jobBoard.name);
+      const jobBoardSlug = convertToSlug(jobBoard?.name ?? "");
 
       const website = (
         <a
-          href={jobBoard.link}
+          href={jobBoard?.link}
           target="_blank"
           className="flex text-slate-500 font-semibold underline cursor-pointer"
         >
-          {jobBoard.name}
+          {jobBoard?.name}
           <ExternalLink className="size-3 my-auto ml-1" />
         </a>
       );
@@ -197,9 +203,10 @@ export const columns: ColumnDef<Sponsorship>[] = [
             </div>
             <ItemActions
               id={id}
-              isOwner={isOwner}
-              isFavourite={isFavourite}
-              favouriteCount={favouriteCount}
+              isOwner={isOwner ?? false}
+              isFavourite={isFavourite ?? false}
+              favouriteCount={favouriteCount ?? 0}
+              isApproved={isApproved}
             />
           </div>
         </div>
