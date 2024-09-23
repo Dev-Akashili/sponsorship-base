@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { sponsorshipFormSchema } from "./validationSchema";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Spinner } from "@/components/core/Loader";
+import { LoadingPage, Spinner } from "@/components/core/Loader";
 import { useContext, useEffect, useState } from "react";
 import { FormSelect } from "@/components/forms/FormSelect";
 import {
@@ -40,6 +40,7 @@ export const AddOrEdit = () => {
   const { user } = useContext(AuthContext);
   const searchParams = new URLSearchParams(location.search);
   const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [pageLoaded, setPageLoaded] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [cityDisabled, setCityDisabled] = useState<boolean>(true);
   const [showNewJobBoard, setShowNewJobBoard] = useState<boolean>(false);
@@ -73,6 +74,7 @@ export const AddOrEdit = () => {
           form.setValue("city", result.city);
           setCityDisabled(true);
         }
+        setPageLoaded(true);
       } else {
         navigate(-1);
         toast.error(DEFAULT_ERROR_MESSAGE);
@@ -101,6 +103,7 @@ export const AddOrEdit = () => {
         newJobBoardName: "",
         newJobBoardLink: ""
       });
+      setPageLoaded(true);
     }
   }, [location.pathname]);
 
@@ -180,148 +183,152 @@ export const AddOrEdit = () => {
   return (
     <>
       <PageTitle title={"Add Your Sponsorship Job"} />
-      <FormLayout size="lg">
-        <p className="text-slate-600 mb-4">
-          Contribute by adding details about your sponsorship
-        </p>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <FormInput
-              form={form}
-              name="company"
-              label="Company"
-              disabled={isEdit ? !user?.roles.includes(ROLES.Admin) : false}
-            />
-            <div className="flex justify-between">
-              <FormSelect
-                form={form}
-                label="Country"
-                name="country"
-                width={"49%"}
-                options={COUNTRIES_AND_CITIES.map((item) => item.country)}
-                onChange={handleCountryChange}
-                disabled={isEdit}
-              />
-              <FormSelect
-                form={form}
-                label="City"
-                name="city"
-                width={"49%"}
-                disabled={cityDisabled}
-                options={cityOptions}
-              />
-            </div>
-            <div className="flex justify-between">
+      {!pageLoaded ? (
+        <LoadingPage />
+      ) : (
+        <FormLayout size="lg">
+          <p className="text-slate-600 mb-4">
+            Contribute by adding details about your sponsorship
+          </p>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
               <FormInput
                 form={form}
-                label="Job Title"
-                name="jobTitle"
-                placeholder="e.g Software Engineer"
-                width={"57%"}
+                name="company"
+                label="Company"
+                disabled={isEdit ? !user?.roles.includes(ROLES.Admin) : false}
               />
+              <div className="flex justify-between">
+                <FormSelect
+                  form={form}
+                  label="Country"
+                  name="country"
+                  width={"49%"}
+                  options={COUNTRIES_AND_CITIES.map((item) => item.country)}
+                  onChange={handleCountryChange}
+                  disabled={isEdit}
+                />
+                <FormSelect
+                  form={form}
+                  label="City"
+                  name="city"
+                  width={"49%"}
+                  disabled={cityDisabled}
+                  options={cityOptions}
+                />
+              </div>
+              <div className="flex justify-between">
+                <FormInput
+                  form={form}
+                  label="Job Title"
+                  name="jobTitle"
+                  placeholder="e.g Software Engineer"
+                  width={"57%"}
+                />
+                <FormSelect
+                  form={form}
+                  label="Experience level"
+                  name="experience"
+                  options={EXPERIENCE}
+                  width={"41%"}
+                />
+              </div>
+              <div className="flex justify-between">
+                <FormSelect
+                  form={form}
+                  label="Salary Range"
+                  name="salary"
+                  options={SALARIES}
+                  width={"70%"}
+                  disabled={isEdit}
+                />
+                <FormSelect
+                  form={form}
+                  label="Currency"
+                  name="currency"
+                  placeholder={<p className="text-slate-400">e.g GBP</p>}
+                  options={CURRENCIES}
+                  width={"28%"}
+                  disabled={isEdit}
+                />
+              </div>
+              <div className="flex justify-between">
+                <FormSelect
+                  form={form}
+                  label="Highest level of education"
+                  name="education"
+                  options={EDUCATION}
+                  width={"50%"}
+                  disabled={isEdit}
+                />
+                <FormSelect
+                  form={form}
+                  label="Recent qualification from"
+                  name="countryOfQualification"
+                  options={COUNTRIES}
+                  width={"48%"}
+                  disabled={isEdit}
+                />
+              </div>
+              <p className="mt-4 text-slate-700 text-sm font-medium">
+                Date of sponsorship
+              </p>
+              <div className="flex justify-between">
+                <FormSelect
+                  form={form}
+                  label="Month"
+                  name="month"
+                  width={"49%"}
+                  options={MONTHS}
+                />
+                <FormSelect
+                  form={form}
+                  label="Year"
+                  name="year"
+                  width={"49%"}
+                  options={YEARS}
+                />
+              </div>
               <FormSelect
                 form={form}
-                label="Experience level"
-                name="experience"
-                options={EXPERIENCE}
-                width={"41%"}
+                label="Job board"
+                name="jobBoard"
+                options={JOB_BOARDS}
+                onChange={handleJobBoardChange}
+                disabled={isEdit ? !user?.roles.includes(ROLES.Admin) : false}
               />
-            </div>
-            <div className="flex justify-between">
-              <FormSelect
-                form={form}
-                label="Salary Range"
-                name="salary"
-                options={SALARIES}
-                width={"70%"}
-                disabled={isEdit}
-              />
-              <FormSelect
-                form={form}
-                label="Currency"
-                name="currency"
-                placeholder={<p className="text-slate-400">e.g GBP</p>}
-                options={CURRENCIES}
-                width={"28%"}
-                disabled={isEdit}
-              />
-            </div>
-            <div className="flex justify-between">
-              <FormSelect
-                form={form}
-                label="Highest level of education"
-                name="education"
-                options={EDUCATION}
-                width={"50%"}
-                disabled={isEdit}
-              />
-              <FormSelect
-                form={form}
-                label="Recent qualification from"
-                name="countryOfQualification"
-                options={COUNTRIES}
-                width={"48%"}
-                disabled={isEdit}
-              />
-            </div>
-            <p className="mt-4 text-slate-700 text-sm font-medium">
-              Date of sponsorship
-            </p>
-            <div className="flex justify-between">
-              <FormSelect
-                form={form}
-                label="Month"
-                name="month"
-                width={"49%"}
-                options={MONTHS}
-              />
-              <FormSelect
-                form={form}
-                label="Year"
-                name="year"
-                width={"49%"}
-                options={YEARS}
-              />
-            </div>
-            <FormSelect
-              form={form}
-              label="Job board"
-              name="jobBoard"
-              options={JOB_BOARDS}
-              onChange={handleJobBoardChange}
-              disabled={isEdit ? !user?.roles.includes(ROLES.Admin) : false}
-            />
-            {showNewJobBoard && (
-              <>
-                <p className="mt-4 text-slate-700 text-sm font-medium">
-                  If 'Other' please specify
-                </p>
-                <div className="flex justify-between">
-                  <FormInput
-                    form={form}
-                    label="Name"
-                    name="newJobBoardName"
-                    width={"48%"}
-                  />
-                  <FormInput
-                    form={form}
-                    label="Link to website"
-                    name="newJobBoardLink"
-                    width={"48%"}
-                  />
-                </div>
-              </>
-            )}
-            <Button
-              type="submit"
-              disabled={isLoading}
-              className="sponsorship-base mt-6 w-full"
-            >
-              {isLoading ? <Spinner /> : isEdit ? "Update" : "Submit"}
-            </Button>
-          </form>
-        </Form>
-      </FormLayout>
+              {showNewJobBoard && (
+                <>
+                  <p className="mt-4 text-slate-700 text-sm font-medium">
+                    If 'Other' please specify
+                  </p>
+                  <div className="flex justify-between">
+                    <FormInput
+                      form={form}
+                      label="Name"
+                      name="newJobBoardName"
+                      width={"48%"}
+                    />
+                    <FormInput
+                      form={form}
+                      label="Link to website"
+                      name="newJobBoardLink"
+                      width={"48%"}
+                    />
+                  </div>
+                </>
+              )}
+              <Button
+                type="submit"
+                disabled={isLoading}
+                className="sponsorship-base mt-6 w-full"
+              >
+                {isLoading ? <Spinner /> : isEdit ? "Update" : "Submit"}
+              </Button>
+            </form>
+          </Form>
+        </FormLayout>
+      )}
     </>
   );
 };
