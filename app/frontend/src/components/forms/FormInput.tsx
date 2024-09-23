@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
+import { Textarea } from "../ui/textarea";
 
 interface FormInputProps {
   form: any;
@@ -40,6 +41,13 @@ export const FormInput = ({
           <FormControl>
             {type === "password" ? (
               <PasswordInput form={field} />
+            ) : type === "textarea" ? (
+              <Textarea
+                placeholder={placeholder}
+                className="resize-none"
+                rows={6}
+                {...field}
+              />
             ) : (
               <Input
                 placeholder={placeholder}

@@ -5,8 +5,8 @@ export const Helmet = ({ sidebar = false }: { sidebar?: boolean }) => {
     <Link to={"/"}>
       <div className="flex gap-2 items-center hover:cursor-pointer">
         <img
-          className={`${sidebar ? "h-8 w-8" : "h-12 w-12}"}`}
-          src="././sb-logo.png"
+          className={`${sidebar ? "h-8 w-8" : "h-12 w-12}"} rounded-md`}
+          src="././sb.png"
           alt="sb"
         />
         <h1
