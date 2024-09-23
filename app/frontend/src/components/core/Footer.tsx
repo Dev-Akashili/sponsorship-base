@@ -1,4 +1,4 @@
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { BookText, Github, Linkedin, ShieldAlert, Twitter } from "lucide-react";
 
 export const Footer = () => {
   return (
@@ -9,17 +9,19 @@ export const Footer = () => {
           <Linkedin className="h-5 w-5 text-slate-200" />
           <Twitter className="h-5 w-5 text-slate-200" />
         </div>
-        <p className="mt-4 text-xs text-white font-light">
+        <p className="mt-4 text-sm text-white ">
           © SponsorshipBase {new Date().getFullYear()}
         </p>
         <div className="mt-4 flex items-center gap-1 justify-center">
-          <p className="text-xs text-white font-light cursor-pointer hover:underline">
-            Contact
-          </p>
+          <div className="flex space-x-1 text-xs text-white cursor-pointer hover:underline">
+            <BookText className="size-4" />
+            <p>Terms and Conditions</p>
+          </div>
           <p className="text-white">|</p>
-          <p className="text-xs text-white font-light cursor-pointer hover:underline">
-            Privacy Policy
-          </p>
+          <div className="flex space-x-1 text-xs text-white cursor-pointer hover:underline">
+            <ShieldAlert className="size-4" />
+            <p>Privacy Policy</p>
+          </div>
         </div>
       </div>
     </div>
