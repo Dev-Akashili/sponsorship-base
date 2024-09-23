@@ -1,29 +1,31 @@
-import { useContext, useEffect, useState } from "react";
-import { FlagTriangleRight, Share, Star } from "lucide-react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { Clock, FlagTriangleRight, Share, Star } from "lucide-react";
 import { AuthContext } from "@/context/Auth";
 import { addFavourite, removeFavourite } from "@/api/sponsorship";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
-import { AUTH_ROUTES } from "@/pages/routes";
 import { DEFAULT_ERROR_MESSAGE } from "@/constants/Messages.constants";
+import { AuthInfoModal } from "@/components/core/AuthInfoModal";
+import { Button } from "@/components/ui/button";
 
 interface ItemActionProps {
   id: string;
   isOwner: boolean;
   isFavourite: boolean;
   favouriteCount: number;
+  isApproved: boolean;
 }
 
 export const ItemActions = ({
   id,
   isOwner,
   isFavourite,
-  favouriteCount
+  favouriteCount,
+  isApproved
 }: ItemActionProps) => {
-  const navigate = useNavigate();
   const { isAuthenticated } = useContext(AuthContext);
   const [isFav, setIsFav] = useState<boolean>(false);
   const [favCount, setFavCount] = useState<number>(0);
+  const btnRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     setIsFav(isFavourite);
@@ -32,7 +34,7 @@ export const ItemActions = ({
 
   const handleFavouriteChange = async () => {
     if (!isAuthenticated) {
-      navigate(AUTH_ROUTES.login);
+      btnRef.current?.click();
       return;
     }
 
@@ -59,22 +61,34 @@ export const ItemActions = ({
   };
 
   return (
-    <div className="flex space-x-1">
-      <div className="flex">
-        {favCount > 0 && (
-          <p className="text-sm text-slate-500 my-auto">{favCount}</p>
-        )}
-        <Star
-          onClick={handleFavouriteChange}
-          className={`size-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded ${
-            isFav ? "text-yellow-400" : ""
-          }`}
-        />
-      </div>
-      <Share className="ize-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded" />
-      {!isOwner && (
-        <FlagTriangleRight className="ize-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded" />
+    <>
+      <AuthInfoModal>
+        <Button ref={btnRef} className="hidden"></Button>
+      </AuthInfoModal>
+      {isApproved ? (
+        <div className="flex space-x-1">
+          <div className="flex">
+            {favCount > 0 && (
+              <p className="text-sm text-slate-500 my-auto">{favCount}</p>
+            )}
+            <Star
+              onClick={handleFavouriteChange}
+              className={`size-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded ${
+                isFav ? "text-yellow-400" : ""
+              }`}
+            />
+          </div>
+          <Share className="ize-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded" />
+          {!isOwner && (
+            <FlagTriangleRight className="ize-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded" />
+          )}
+        </div>
+      ) : (
+        <div className="flex justify-center items-center space-x-1 text-slate-500 italic">
+          <Clock className="size-4" />
+          <p className="text-xs">Pending approval</p>
+        </div>
       )}
-    </div>
+    </>
   );
 };
