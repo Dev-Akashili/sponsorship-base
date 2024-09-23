@@ -31,7 +31,7 @@ export const Favourite = () => {
 
   return (
     <Table
-      pageTitle={"Manage contribution"}
+      pageTitle={"Favourites"}
       data={data}
       fetchCount={fetchCount}
       noContentPage={

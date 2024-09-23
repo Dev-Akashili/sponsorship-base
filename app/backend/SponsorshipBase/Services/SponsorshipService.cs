@@ -81,7 +81,19 @@ public class SponsorshipService(
                         ? entity.OrderByDescending(x => x.MinimumSalary)
                         : entity.OrderBy(x => x.MinimumSalary);
                     break;
+                case "date": 
+                    entity = order?.ToLower() == "desc"
+                        ? entity.OrderByDescending(x => x.LastUpdated)
+                        : entity.OrderBy(x => x.LastUpdated);
+                    break;
+                default:
+                    entity = entity.OrderByDescending(x => x.LastUpdated);
+                    break;
             }
+        }
+        else
+        {
+           entity = entity.OrderByDescending(x => x.LastUpdated);
         }
 
         var totalRecords = await entity.CountAsync();

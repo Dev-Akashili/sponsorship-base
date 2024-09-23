@@ -31,7 +31,7 @@ export function Table({
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { isAuthenticated } = useContext(AuthContext);
-  const sortOptions = ["Year", "Salary"];
+  const sortOptions = ["Year", "Salary", "Date", "None"];
   const sorting = (
     <DataTableSorting options={sortOptions} defaultSort={"year"} />
   );
