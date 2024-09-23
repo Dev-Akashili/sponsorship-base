@@ -17,6 +17,7 @@ public class Sponsorship
     public string JobTitle { get; set; } = string.Empty;
     public string Experience { get; set; } = string.Empty;
     public string Salary { get; set; } = string.Empty;
+    public int MinimumSalary { get; set; }
     public string Currency { get; set; } = string.Empty;
     public string Education { get; set; } = string.Empty;
     public string CountryOfQualification { get; set; } = string.Empty;

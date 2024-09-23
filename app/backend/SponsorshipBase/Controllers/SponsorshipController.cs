@@ -20,12 +20,22 @@ public class SponsorshipController(
     [HttpGet]
     public async Task<ActionResult<PaginatedResponse<SponsorshipModel>>> List(
         [FromQuery] string? filter, 
-        int pageNumber = 1, 
-        int pageSize = 1
-        )
+        [FromQuery] string? sortBy = null,
+        [FromQuery] string? order = "asc",
+        [FromQuery] int pageNumber = 1, 
+        [FromQuery] int pageSize = 10
+    )
     {
         var user = await userManager.GetUserAsync(User);
-        var result = await sponsorshipService.List(filter, pageNumber, pageSize, "", user ?? null);
+        var result = await sponsorshipService.List(
+            filter,
+            pageNumber, 
+            pageSize, 
+            "",
+            user ?? null,
+            sortBy,
+            order
+        );
         return Ok(result);
     }
 
@@ -33,8 +43,10 @@ public class SponsorshipController(
     [HttpGet("manage")]
     public async Task<ActionResult<PaginatedResponse<SponsorshipModel>>> GetUserSponsorships(
         [FromQuery] string? filter, 
-        int pageNumber = 1, 
-        int pageSize = 1
+        [FromQuery] string? sortBy = null,
+        [FromQuery] string? order = "asc",
+        [FromQuery] int pageNumber = 1, 
+        [FromQuery] int pageSize = 1
     )
     {
         try
@@ -46,7 +58,15 @@ public class SponsorshipController(
             }
 
             var result = await sponsorshipService
-                .List(filter, pageNumber, pageSize, SponsorshipListOptions.UserList, user);
+                .List(
+                    filter,
+                    pageNumber, 
+                    pageSize, 
+                    SponsorshipListOptions.UserList,
+                    user ?? null,
+                    sortBy,
+                    order
+                );
             
             return Ok(result);
         }
@@ -67,8 +87,10 @@ public class SponsorshipController(
     [HttpGet("favourite")]
     public async Task<ActionResult<PaginatedResponse<SponsorshipModel>>> GetUserFavouriteSponsorships(
         [FromQuery] string? filter, 
-        int pageNumber = 1, 
-        int pageSize = 1
+        [FromQuery] string? sortBy = null,
+        [FromQuery] string? order = "asc",
+        [FromQuery] int pageNumber = 1, 
+        [FromQuery] int pageSize = 1
     )
     {
         try
@@ -80,7 +102,15 @@ public class SponsorshipController(
             }
 
             var result = await sponsorshipService
-                .List(filter, pageNumber, pageSize, SponsorshipListOptions.FavouriteList, user);
+                .List(
+                    filter,
+                    pageNumber, 
+                    pageSize, 
+                    SponsorshipListOptions.FavouriteList,
+                    user ?? null,
+                    sortBy,
+                    order
+                );
             
             return Ok(result);
         }

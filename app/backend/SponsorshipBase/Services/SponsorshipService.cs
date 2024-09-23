@@ -1,3 +1,4 @@
+using System.Globalization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SponsorshipBase.Constants;
@@ -18,7 +19,9 @@ public class SponsorshipService(
         int pageNumber,
         int pageSize,
         string option,
-        ApplicationUser? user
+        ApplicationUser? user,
+        string? sortBy,
+        string? order
     )
     {
         var entity = db.Sponsorships
@@ -54,6 +57,24 @@ public class SponsorshipService(
                 x.Country.Trim().ToLower().Contains(filter) ||
                 x.City.Trim().ToLower().Contains(filter)
             );
+        }
+        
+        // Sorting
+        if (!string.IsNullOrEmpty(sortBy))
+        {
+            switch (sortBy.ToLower())
+            { 
+                case "year": 
+                    entity = order?.ToLower() == "desc"
+                        ? entity.OrderByDescending(x => x.Year)
+                        : entity.OrderBy(x => x.Year);
+                    break;
+                case "salary": 
+                    entity = order?.ToLower() == "desc"
+                        ? entity.OrderByDescending(x => x.MinimumSalary)
+                        : entity.OrderBy(x => x.MinimumSalary);
+                    break;
+            }
         }
 
         var totalRecords = await entity.CountAsync();
@@ -187,6 +208,7 @@ public class SponsorshipService(
             JobTitle = model.JobTitle,
             Experience = model.Experience,
             Salary = model.Salary,
+            MinimumSalary = ConvertSalary(model.Salary),
             Currency = model.Currency,
             Education = model.Education,
             CountryOfQualification = model.CountryOfQualification,
@@ -275,6 +297,7 @@ public class SponsorshipService(
         }
 
         // User update
+        sponsorship.MinimumSalary = ConvertSalary(sponsorship.Salary);
         sponsorship.JobTitle = model.JobTitle;
         sponsorship.Experience = model.Experience;
         sponsorship.Month = model.Month;
@@ -339,5 +362,27 @@ public class SponsorshipService(
         }
 
         await db.SaveChangesAsync();
+    }
+    
+    // Helper methods
+    private static int ConvertSalary(string salaryRange)
+    {
+        salaryRange = salaryRange.Replace(" ", string.Empty);
+        string[] parts = salaryRange.Split(new[] { '-', '–' }, StringSplitOptions.RemoveEmptyEntries);
+
+        if (parts.Length > 1)
+        {
+            salaryRange = parts[0];
+        }
+        else if (parts[0].EndsWith("+"))
+        {
+            salaryRange = parts[0].TrimEnd('+');
+        }
+        else
+        {
+            throw new FormatException("Invalid salary format.");
+        }
+        
+        return int.Parse(salaryRange, NumberStyles.AllowThousands);
     }
 }
