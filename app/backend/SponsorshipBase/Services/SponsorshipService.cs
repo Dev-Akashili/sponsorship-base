@@ -21,7 +21,8 @@ public class SponsorshipService(
         string option,
         ApplicationUser? user,
         string? sortBy,
-        string? order
+        string? order,
+        string? approval
     )
     {
         var entity = db.Sponsorships
@@ -46,6 +47,12 @@ public class SponsorshipService(
         if (String.Equals(option, SponsorshipListOptions.FavouriteList) && user != null)
         {
             entity = entity.Where(x => x.Favourites != null && x.Favourites.Contains(user.Id));
+        }
+        
+        // Admin Filter
+        if (roles.Contains("Admin") && String.Equals(approval, "show"))
+        {
+            entity = entity.Where(x => !x.IsApproved);
         }
 
         // Filtering

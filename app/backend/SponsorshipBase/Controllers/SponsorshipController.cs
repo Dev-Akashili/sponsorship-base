@@ -23,7 +23,8 @@ public class SponsorshipController(
         [FromQuery] string? sortBy = null,
         [FromQuery] string? order = "asc",
         [FromQuery] int pageNumber = 1, 
-        [FromQuery] int pageSize = 10
+        [FromQuery] int pageSize = 10,
+        [FromQuery] string? approval = "hide"
     )
     {
         var user = await userManager.GetUserAsync(User);
@@ -34,7 +35,8 @@ public class SponsorshipController(
             "",
             user ?? null,
             sortBy,
-            order
+            order,
+            approval
         );
         return Ok(result);
     }
@@ -46,7 +48,8 @@ public class SponsorshipController(
         [FromQuery] string? sortBy = null,
         [FromQuery] string? order = "asc",
         [FromQuery] int pageNumber = 1, 
-        [FromQuery] int pageSize = 1
+        [FromQuery] int pageSize = 1,
+        [FromQuery] string approval = "hide"
     )
     {
         try
@@ -65,7 +68,8 @@ public class SponsorshipController(
                     SponsorshipListOptions.UserList,
                     user ?? null,
                     sortBy,
-                    order
+                    order,
+                    approval
                 );
             
             return Ok(result);
@@ -90,7 +94,8 @@ public class SponsorshipController(
         [FromQuery] string? sortBy = null,
         [FromQuery] string? order = "asc",
         [FromQuery] int pageNumber = 1, 
-        [FromQuery] int pageSize = 1
+        [FromQuery] int pageSize = 1,
+        [FromQuery] string approval = "hide"
     )
     {
         try
@@ -109,7 +114,8 @@ public class SponsorshipController(
                     SponsorshipListOptions.FavouriteList,
                     user ?? null,
                     sortBy,
-                    order
+                    order,
+                    approval
                 );
             
             return Ok(result);

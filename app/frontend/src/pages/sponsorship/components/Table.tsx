@@ -6,13 +6,14 @@ import { columns } from "./columns";
 import { DataTableFilter } from "@/components/data-table/DataTableFilter";
 import { Button } from "@/components/ui/button";
 import { CopyPlus } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { ROUTES } from "../../routes";
 import { Sponsorship } from "@/types/sponsorship";
 import { useContext } from "react";
 import { AuthContext } from "@/context/Auth";
 import { AuthInfoModal } from "@/components/core/AuthInfoModal";
 import { DataTableSorting } from "@/components/data-table/DataTableSorting";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface TableProps {
   data: PaginatedResponse<Sponsorship> | undefined;
@@ -27,6 +28,8 @@ export function Table({
   fetchCount = 0,
   noContentPage
 }: TableProps) {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { isAuthenticated } = useContext(AuthContext);
   const sortOptions = ["Year", "Salary"];
   const sorting = (
@@ -48,6 +51,27 @@ export function Table({
     </AuthInfoModal>
   );
 
+  const handleCheckChange = (checked: boolean | string) => {
+    if (checked) {
+      searchParams.set("approval", "show".toString());
+    } else {
+      searchParams.set("approval", "hide".toString());
+    }
+    navigate({ search: searchParams.toString() }, { replace: true });
+  };
+
+  const adminOption = (
+    <div className="flex items-center space-x-2 mb-4 ml-auto">
+      <Checkbox
+        id="approval"
+        onCheckedChange={(checked) => handleCheckChange(checked)}
+      />
+      <label htmlFor="approval" className="text-sm font-medium">
+        Approval
+      </label>
+    </div>
+  );
+
   return (
     <>
       <PageTitle title={pageTitle} />
@@ -66,6 +90,7 @@ export function Table({
                 Filter={filter}
                 Sorting={sorting}
                 actions={tableAction}
+                adminOptions={isAuthenticated ? adminOption : <></>}
               />
             </div>
           )}
