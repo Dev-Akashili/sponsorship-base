@@ -14,6 +14,7 @@ import { AuthContext } from "@/context/Auth";
 import { AuthInfoModal } from "@/components/core/AuthInfoModal";
 import { DataTableSorting } from "@/components/data-table/DataTableSorting";
 import { Checkbox } from "@/components/ui/checkbox";
+import { ROLES } from "@/constants/Auth.constants";
 
 interface TableProps {
   data: PaginatedResponse<Sponsorship> | undefined;
@@ -30,7 +31,7 @@ export function Table({
 }: TableProps) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { isAuthenticated } = useContext(AuthContext);
+  const { user, isAuthenticated } = useContext(AuthContext);
   const sortOptions = ["Year", "Salary", "Date", "None"];
   const sorting = (
     <DataTableSorting options={sortOptions} defaultSort={"year"} />
@@ -90,7 +91,9 @@ export function Table({
                 Filter={filter}
                 Sorting={sorting}
                 actions={tableAction}
-                adminOptions={isAuthenticated ? adminOption : <></>}
+                adminOptions={
+                  user?.roles.includes(ROLES.Admin) ? adminOption : null
+                }
               />
             </div>
           )}

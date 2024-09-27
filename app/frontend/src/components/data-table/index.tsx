@@ -23,7 +23,7 @@ interface DataTableProps<TData, TValue> {
   Filter?: JSX.Element;
   Sorting?: JSX.Element;
   actions?: JSX.Element | JSX.Element[];
-  adminOptions?: JSX.Element | JSX.Element[];
+  adminOptions?: JSX.Element | JSX.Element[] | null;
   count: number;
 }
 
