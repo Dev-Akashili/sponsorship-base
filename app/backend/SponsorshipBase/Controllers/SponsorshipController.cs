@@ -20,6 +20,11 @@ public class SponsorshipController(
     [HttpGet]
     public async Task<ActionResult<PaginatedResponse<SponsorshipModel>>> List(
         [FromQuery] string? filter, 
+        [FromQuery] string? country,
+        [FromQuery] string? city,
+        [FromQuery] string? experience,
+        [FromQuery] string? industry,
+        [FromQuery] string? sex,
         [FromQuery] string? sortBy = null,
         [FromQuery] string? order = "asc",
         [FromQuery] int pageNumber = 1, 
@@ -30,6 +35,11 @@ public class SponsorshipController(
         var user = await userManager.GetUserAsync(User);
         var result = await sponsorshipService.List(
             filter,
+            country,
+            city,
+            experience,
+            industry,
+            sex,
             pageNumber, 
             pageSize, 
             "",
@@ -45,6 +55,11 @@ public class SponsorshipController(
     [HttpGet("manage")]
     public async Task<ActionResult<PaginatedResponse<SponsorshipModel>>> GetUserSponsorships(
         [FromQuery] string? filter, 
+        [FromQuery] string? country,
+        [FromQuery] string? city,
+        [FromQuery] string? experience,
+        [FromQuery] string? industry,
+        [FromQuery] string? sex,
         [FromQuery] string? sortBy = null,
         [FromQuery] string? order = "asc",
         [FromQuery] int pageNumber = 1, 
@@ -63,6 +78,11 @@ public class SponsorshipController(
             var result = await sponsorshipService
                 .List(
                     filter,
+                    country,
+                    city,
+                    experience,
+                    industry,
+                    sex,
                     pageNumber, 
                     pageSize, 
                     SponsorshipListOptions.UserList,
@@ -79,18 +99,16 @@ public class SponsorshipController(
             return HandleException(e, ErrorMessages.Default);
         }
     }
-
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Sponsorship>> Get(string id)
-    {
-        var result = await sponsorshipService.Get(id);
-        return result == null ? NotFound() : Ok(result);
-    }
     
     [Authorize]
     [HttpGet("favourite")]
     public async Task<ActionResult<PaginatedResponse<SponsorshipModel>>> GetUserFavouriteSponsorships(
         [FromQuery] string? filter, 
+        [FromQuery] string? country,
+        [FromQuery] string? city,
+        [FromQuery] string? experience,
+        [FromQuery] string? industry,
+        [FromQuery] string? sex,
         [FromQuery] string? sortBy = null,
         [FromQuery] string? order = "asc",
         [FromQuery] int pageNumber = 1, 
@@ -109,6 +127,11 @@ public class SponsorshipController(
             var result = await sponsorshipService
                 .List(
                     filter,
+                    country,
+                    city,
+                    experience,
+                    industry,
+                    sex,
                     pageNumber, 
                     pageSize, 
                     SponsorshipListOptions.FavouriteList,
@@ -124,6 +147,13 @@ public class SponsorshipController(
         {
             return HandleException(e, ErrorMessages.Default);
         }
+    }
+    
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Sponsorship>> Get(string id)
+    {
+        var result = await sponsorshipService.Get(id);
+        return result == null ? NotFound() : Ok(result);
     }
 
     [Authorize]

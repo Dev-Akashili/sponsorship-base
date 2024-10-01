@@ -21,7 +21,6 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   Filter?: JSX.Element;
-  Sorting?: JSX.Element;
   actions?: JSX.Element | JSX.Element[];
   adminOptions?: JSX.Element | JSX.Element[] | null;
   count: number;
@@ -31,7 +30,6 @@ export function DataTable<TData, TValue>({
   columns,
   data,
   Filter,
-  Sorting,
   actions,
   adminOptions,
   count
@@ -47,7 +45,6 @@ export function DataTable<TData, TValue>({
       <div className="flex flex-col">
         <div className="flex justify-between mt-4 mb-8">
           {Filter}
-          {Sorting}
           {actions}
         </div>
         {adminOptions}

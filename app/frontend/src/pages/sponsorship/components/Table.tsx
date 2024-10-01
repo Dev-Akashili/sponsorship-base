@@ -5,16 +5,17 @@ import { PaginatedResponse } from "@/types";
 import { columns } from "./columns";
 import { DataTableFilter } from "@/components/data-table/DataTableFilter";
 import { Button } from "@/components/ui/button";
-import { CopyPlus } from "lucide-react";
+import { CopyPlus, SlidersHorizontal } from "lucide-react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { ROUTES } from "../../routes";
 import { Sponsorship } from "@/types/sponsorship";
 import { useContext } from "react";
 import { AuthContext } from "@/context/Auth";
 import { AuthInfoModal } from "@/components/core/AuthInfoModal";
-import { DataTableSorting } from "@/components/data-table/DataTableSorting";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ROLES } from "@/constants/Auth.constants";
+import { DataTableFilterPanel } from "@/components/data-table/DataTableFilterPanel";
+import { SPONSORSHIP_TABLE_FILTER_OPTIONS } from "@/constants/Tables.constants";
 
 interface TableProps {
   data: PaginatedResponse<Sponsorship> | undefined;
@@ -32,11 +33,23 @@ export function Table({
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { user, isAuthenticated } = useContext(AuthContext);
-  const sortOptions = ["Year", "Salary", "Date", "None"];
-  const sorting = (
-    <DataTableSorting options={sortOptions} defaultSort={"year"} />
+
+  const filterPanel = (
+    <DataTableFilterPanel options={SPONSORSHIP_TABLE_FILTER_OPTIONS}>
+      <Button
+        variant={"outline"}
+        className="text-blue-600 hover:text-blue-500 border-blue-600 w-[18%]"
+      >
+        <SlidersHorizontal className="mr-1" /> Filters
+      </Button>
+    </DataTableFilterPanel>
   );
-  const filter = <DataTableFilter placeholder={"Search by company, city..."} />;
+  const filter = (
+    <DataTableFilter
+      actions={filterPanel}
+      placeholder={"Search by company, country, city, job title..."}
+    />
+  );
 
   const tableAction = isAuthenticated ? (
     <Link to={ROUTES.add}>
@@ -89,7 +102,6 @@ export function Table({
                 count={data.count}
                 data={data.list}
                 Filter={filter}
-                Sorting={sorting}
                 actions={tableAction}
                 adminOptions={
                   user?.roles.includes(ROLES.Admin) ? adminOption : null

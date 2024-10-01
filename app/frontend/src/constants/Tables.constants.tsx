@@ -1,4 +1,11 @@
+import { DataTableFilterSelectProps } from "@/components/data-table/DataTableFilterSelect";
 import { ReactNode } from "react";
+import {
+  EXPERIENCE,
+  SEX,
+  INDUSTRIES,
+  COUNTRIES_AND_CITIES
+} from "./Forms.constants";
 
 interface TableDescription {
   name: string;
@@ -6,8 +13,8 @@ interface TableDescription {
 }
 export const PROFILE_DESCRIPTION: TableDescription[] = [
   {
-    name: "Gender",
-    icon: <img src="../../gender.png" alt="gender" className="h-4 w-4" />
+    name: "Sex",
+    icon: <img src="../../sex.png" alt="sex" className="h-4 w-4" />
   },
   {
     name: "Nationality",
@@ -53,4 +60,38 @@ export const SPONSORSHIP_DETAILS_DESCRIPTION: TableDescription[] = [
     name: "Job Board Website",
     icon: <img src="../../website.png" alt="website" className="h-4 w-4 " />
   }
+];
+
+export const SPONSORSHIP_TABLE_FILTER_OPTIONS: DataTableFilterSelectProps[] = [
+  {
+    label: "Sort By",
+    param: "sortBy",
+    options: ["Year", "Salary", "Date", "None"]
+  },
+  {
+    label: "Order",
+    param: "order",
+    options: ["asc", "desc"]
+  },
+  {
+    label: "Country",
+    param: "country",
+    options: COUNTRIES_AND_CITIES.map((item) => item.country)
+  },
+  {
+    label: "City",
+    param: "city",
+    options: []
+  },
+  {
+    label: "Experience",
+    param: "experience",
+    options: EXPERIENCE
+  },
+  {
+    label: "Industry",
+    param: "industry",
+    options: INDUSTRIES
+  },
+  { label: "Sex", param: "sex", options: SEX }
 ];

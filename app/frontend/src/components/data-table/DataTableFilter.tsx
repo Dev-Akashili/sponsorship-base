@@ -5,9 +5,13 @@ import { Search } from "lucide-react";
 
 interface DataTableFilterProps {
   placeholder: string;
+  actions: JSX.Element | JSX.Element[];
 }
 
-export const DataTableFilter = ({ placeholder }: DataTableFilterProps) => {
+export const DataTableFilter = ({
+  placeholder,
+  actions
+}: DataTableFilterProps) => {
   const [inputValue, setInputValue] = useState<string>("");
   const location = useLocation();
   const navigate = useNavigate();
@@ -31,16 +35,19 @@ export const DataTableFilter = ({ placeholder }: DataTableFilterProps) => {
   }, [location.search]);
 
   return (
-    <div className="w-[40%] h-full relative">
-      <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-        <Search className="w-5 h-5 text-slate-500" />
-      </span>
-      <Input
-        className="pl-10"
-        placeholder={placeholder}
-        value={inputValue}
-        onChange={handleInputChange}
-      />
+    <div className="flex justify-between w-[70%]">
+      <div className="w-[78%] h-full relative">
+        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+          <Search className="w-5 h-5 text-slate-500" />
+        </span>
+        <Input
+          className="pl-10"
+          placeholder={placeholder}
+          value={inputValue}
+          onChange={handleInputChange}
+        />
+      </div>
+      {actions}
     </div>
   );
 };

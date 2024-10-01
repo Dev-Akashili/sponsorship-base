@@ -16,6 +16,11 @@ public class SponsorshipService(
 {
     public async Task<PaginatedResponse<SponsorshipModel>> List(
         string? filter,
+        string? country,
+        string? city,
+        string? experience,
+        string? industry,
+        string? sex,
         int pageNumber,
         int pageSize,
         string option,
@@ -95,6 +100,13 @@ public class SponsorshipService(
         {
            entity = entity.OrderByDescending(x => x.LastUpdated);
         }
+        
+        // Additional Filters
+        if (!string.IsNullOrEmpty(country)) entity = entity.Where(x => String.Equals(x.Country.ToLower(), country));
+        if (!string.IsNullOrEmpty(city)) entity = entity.Where(x => String.Equals(x.City.ToLower(), city));
+        if (!string.IsNullOrEmpty(experience)) entity = entity.Where(x => String.Equals(x.Experience.ToLower(), experience));
+        if (!string.IsNullOrEmpty(industry)) entity = entity.Where(x => String.Equals(x.Industry.ToLower(), industry));
+        if (!string.IsNullOrEmpty(sex)) entity = entity.Where(x => String.Equals(x.Sex.ToLower(), sex));
 
         var totalRecords = await entity.CountAsync();
 
