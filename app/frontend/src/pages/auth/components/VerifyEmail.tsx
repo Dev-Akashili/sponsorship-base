@@ -1,7 +1,6 @@
 import { sendEmail, verifyEmail } from "@/api/custom-auth";
-import { Spinner } from "@/components/core/Loader";
+import { LoadingPage } from "@/components/core/Loader";
 import { FormAlert } from "@/components/forms/FormAlert";
-import { FormLayout } from "@/layout/FormLayout";
 import { AUTH_ROUTES } from "@/pages/routes";
 import { ResponseMessage } from "@/types";
 import { useEffect, useState } from "react";
@@ -69,6 +68,7 @@ export const VerifyEmail = () => {
     <div
       className="mt-2 underline cursor-pointer hover:text-blue-500 inline-block"
       onClick={async () => {
+        setAlert(false);
         try {
           const send = await sendEmail(email ?? "", "register");
           if (send.ok) {
@@ -83,6 +83,7 @@ export const VerifyEmail = () => {
                 name: "success",
                 message: msg
               });
+              setAlert(true);
             } else {
               setError("error");
             }
@@ -90,6 +91,7 @@ export const VerifyEmail = () => {
         } catch {
           console.warn("Sending email verification link failed!");
           setError("error");
+          setAlert(true);
         }
       }}
     >
@@ -106,9 +108,9 @@ export const VerifyEmail = () => {
   );
 
   return (
-    <FormLayout>
+    <>
       {alert ? (
-        <div className="m-auto">
+        <div className="my-80 w-96 m-auto">
           <FormAlert
             type={response.name}
             title={response.message}
@@ -122,10 +124,8 @@ export const VerifyEmail = () => {
           />
         </div>
       ) : (
-        <div className="m-auto">
-          <Spinner size="lg" />
-        </div>
+        <LoadingPage />
       )}
-    </FormLayout>
+    </>
   );
 };
