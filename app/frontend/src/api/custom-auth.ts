@@ -22,7 +22,7 @@ export async function login(formData: { email: string; password: string }) {
 
 export async function register(formData: {
   email: string;
-  gender: string;
+  sex: string;
   nationality: string;
 }) {
   return await request(fetchKeys.register, {

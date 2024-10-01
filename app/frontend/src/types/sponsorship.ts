@@ -1,10 +1,11 @@
 export interface Sponsorship {
   id: string;
-  gender: string;
+  sex: string;
   nationality: string;
   company?: Company;
   country: string;
   city: string;
+  industry: string;
   jobTitle: string;
   experience: string;
   salary: string;
@@ -35,6 +36,7 @@ export interface AddOrEditSponsorship {
   company: string;
   country: string;
   city: string;
+  industry: string;
   jobTitle: string;
   experience: string;
   salary: string;

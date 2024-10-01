@@ -25,8 +25,8 @@ public class AccountController(
         var user = await userManager.FindByEmailAsync(model.Email);
         if (user == null) return BadRequest(ErrorMessages.Default);
 
-        // Add gender and nationality to user
-        user.Gender = model.Gender;
+        // Add sex and nationality to user
+        user.Sex = model.Sex;
         user.Nationality = model.Nationality;
         await userManager.UpdateAsync(user);
 

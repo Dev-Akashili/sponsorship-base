@@ -5,6 +5,7 @@ export const sponsorshipFormSchema = z
     company: z.string().min(1, "Company name is required"),
     country: z.string().min(1, "Country is required"),
     city: z.string().min(1, "City is required"),
+    industry: z.string().min(1, "Industry is required"),
     jobTitle: z.string().min(1, "Job title is required"),
     experience: z.string().min(1, "Experience is required"),
     salary: z.string().min(1, "Salary range is required"),

@@ -19,7 +19,7 @@ import { Spinner } from "@/components/core/Loader";
 import { sendEmail } from "@/api/custom-auth";
 import { FormSelect } from "@/components/forms/FormSelect";
 import { toast } from "react-toastify";
-import { COUNTRIES, GENDERS } from "@/constants/Forms.constants";
+import { COUNTRIES, SEX } from "@/constants/Forms.constants";
 import { DEFAULT_ERROR_MESSAGE } from "@/constants/Messages.constants";
 
 export const Register = () => {
@@ -52,7 +52,7 @@ export const Register = () => {
       if (reg.ok) {
         const req = await custom({
           email: values.email,
-          gender: values.gender,
+          sex: values.sex,
           nationality: values.nationality
         });
         if (req.ok) {
@@ -113,9 +113,9 @@ export const Register = () => {
           <div className="flex justify-between">
             <FormSelect
               form={form}
-              name="gender"
-              label="Gender"
-              options={GENDERS}
+              name="sex"
+              label="Sex"
+              options={SEX}
               width={"48%"}
             />
             <FormSelect

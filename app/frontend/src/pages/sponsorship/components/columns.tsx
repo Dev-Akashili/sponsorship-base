@@ -23,7 +23,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
     cell: ({ row }) => {
       const {
         id,
-        gender,
+        sex,
         nationality,
         education,
         countryOfQualification,
@@ -36,7 +36,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
           ? "Home country"
           : countryOfQualification;
 
-      const items = [gender, nationality, education, coq];
+      const items = [sex, nationality, education, coq];
 
       return (
         <div className="flex flex-col space-y-4">

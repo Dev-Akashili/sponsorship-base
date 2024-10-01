@@ -39,11 +39,12 @@ export async function getSponsorship(id: string): Promise<Sponsorship> {
     console.warn("Failed to fetch data.");
     return {
       id: "",
-      gender: "",
+      sex: "",
       nationality: "",
       company: undefined,
       country: "",
       city: "",
+      industry: "",
       jobTitle: "",
       experience: "",
       salary: "",

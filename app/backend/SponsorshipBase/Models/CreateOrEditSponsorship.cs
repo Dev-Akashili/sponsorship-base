@@ -7,6 +7,7 @@ public class CreateOrEditSponsorship
     public string Company { get; set; } = string.Empty;
     public string Country { get; set; } = string.Empty;
     public string City { get; set; } = string.Empty;
+    public string Industry { get; set; } = string.Empty;
     public string JobTitle { get; set; } = string.Empty;
     public string Experience { get; set; } = string.Empty;
     public string Salary { get; set; } = string.Empty;

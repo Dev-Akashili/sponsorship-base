@@ -107,7 +107,7 @@ public class SponsorshipService(
         var sponsorships = list.Select(x => new SponsorshipModel
         {
             Id = x.Id,
-            Gender = x.Gender,
+            Sex = x.Sex,
             Nationality = x.Nationality,
             Company = new CompanyModel
             {
@@ -116,6 +116,7 @@ public class SponsorshipService(
             },
             Country = x.Country,
             City = x.City,
+            Industry = x.Industry,
             JobTitle = x.JobTitle,
             Experience = x.Experience,
             Salary = x.Salary,
@@ -156,7 +157,7 @@ public class SponsorshipService(
         var sponsorship = new SponsorshipModel
         {
             Id = entity.Id,
-            Gender = entity.Gender,
+            Sex = entity.Sex,
             Nationality = entity.Nationality,
             Company = new CompanyModel
             {
@@ -165,6 +166,7 @@ public class SponsorshipService(
             },
             Country = entity.Country,
             City = entity.City,
+            Industry = entity.Industry,
             JobTitle = entity.JobTitle,
             Experience = entity.Experience,
             Salary = entity.Salary,
@@ -219,7 +221,7 @@ public class SponsorshipService(
 
         var entity = new Sponsorship
         {
-            Gender = user.Gender,
+            Sex = user.Sex,
             Nationality = user.Nationality,
             Company = company,
             Country = model.Country,

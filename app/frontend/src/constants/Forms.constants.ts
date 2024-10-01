@@ -1,4 +1,6 @@
-export const GENDERS = ["Male", "Female"];
+export const SEX = ["Male", "Female"];
+
+export const INDUSTRIES = ["Tech", "Finance", "Healthcare"];
 
 export const EXPERIENCE = [
   "Intern",

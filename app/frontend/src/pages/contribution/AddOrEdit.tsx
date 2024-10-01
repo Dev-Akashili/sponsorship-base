@@ -24,6 +24,7 @@ import {
   CURRENCIES,
   EDUCATION,
   EXPERIENCE,
+  INDUSTRIES,
   JOB_BOARDS,
   MONTHS,
   SALARIES,
@@ -56,6 +57,7 @@ export const AddOrEdit = () => {
           company: result.company?.name || "",
           country: result.country || "",
           city: result.city || "",
+          industry: result.industry || "",
           jobTitle: result.jobTitle || "",
           experience: result.experience || "",
           salary: result.salary || "",
@@ -91,6 +93,7 @@ export const AddOrEdit = () => {
         company: "",
         country: "",
         city: "",
+        industry: "",
         jobTitle: "",
         experience: "",
         salary: "",
@@ -113,6 +116,7 @@ export const AddOrEdit = () => {
       company: data ? data.company?.name : "",
       country: data ? data.country : "",
       city: data ? data.city : "",
+      industry: data ? data.industry : "",
       jobTitle: data ? data.jobTitle : "",
       experience: data ? data.experience : "",
       salary: data ? data.salary : "",
@@ -217,12 +221,18 @@ export const AddOrEdit = () => {
                   options={cityOptions}
                 />
               </div>
+              <FormInput
+                form={form}
+                label="Job Title"
+                name="jobTitle"
+                placeholder="e.g Software Engineer"
+              />
               <div className="flex justify-between">
-                <FormInput
+                <FormSelect
                   form={form}
-                  label="Job Title"
-                  name="jobTitle"
-                  placeholder="e.g Software Engineer"
+                  label="Industry"
+                  name="industry"
+                  options={INDUSTRIES}
                   width={"57%"}
                 />
                 <FormSelect
