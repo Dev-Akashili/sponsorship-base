@@ -26,6 +26,7 @@ export const ItemActions = ({
   const [isFav, setIsFav] = useState<boolean>(false);
   const [favCount, setFavCount] = useState<number>(0);
   const btnRef = useRef<HTMLButtonElement>(null);
+  const url = import.meta.env.VITE_CLIENT_LOCAL_URL;
 
   useEffect(() => {
     setIsFav(isFavourite);
@@ -60,6 +61,16 @@ export const ItemActions = ({
     }
   };
 
+  const copysShareLink = async (id: string) => {
+    try {
+      navigator.clipboard.writeText(`${url}/list?id=${id}`);
+      toast.success("Copied link to clipboard");
+    } catch (error) {
+      console.error(error);
+      toast.error(DEFAULT_ERROR_MESSAGE);
+    }
+  };
+
   return (
     <>
       <AuthInfoModal>
@@ -78,7 +89,10 @@ export const ItemActions = ({
               }`}
             />
           </div>
-          <Share className="ize-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded" />
+          <Share
+            onClick={() => copysShareLink(id)}
+            className="ize-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded"
+          />
           {!isOwner && (
             <FlagTriangleRight className="ize-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded" />
           )}

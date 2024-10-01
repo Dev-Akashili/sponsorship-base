@@ -96,7 +96,7 @@ export function Table({
           {data.count <= 0 && fetchCount <= 0 ? (
             noContentPage ?? <></>
           ) : (
-            <div className="h-full flex justify-center items-center my-40">
+            <div className="h-full flex flex-col justify-center items-center my-40">
               <DataTable
                 columns={columns}
                 count={data.count}
@@ -106,6 +106,7 @@ export function Table({
                 adminOptions={
                   user?.roles.includes(ROLES.Admin) ? adminOption : null
                 }
+                link={ROUTES.list}
               />
             </div>
           )}

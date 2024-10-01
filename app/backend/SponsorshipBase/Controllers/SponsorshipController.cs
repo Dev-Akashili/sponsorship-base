@@ -19,7 +19,8 @@ public class SponsorshipController(
 {
     [HttpGet]
     public async Task<ActionResult<PaginatedResponse<SponsorshipModel>>> List(
-        [FromQuery] string? filter, 
+        [FromQuery] string? filter,
+        [FromQuery] string? id,
         [FromQuery] string? country,
         [FromQuery] string? city,
         [FromQuery] string? experience,
@@ -35,6 +36,7 @@ public class SponsorshipController(
         var user = await userManager.GetUserAsync(User);
         var result = await sponsorshipService.List(
             filter,
+            id,
             country,
             city,
             experience,
@@ -54,7 +56,8 @@ public class SponsorshipController(
     [Authorize]
     [HttpGet("manage")]
     public async Task<ActionResult<PaginatedResponse<SponsorshipModel>>> GetUserSponsorships(
-        [FromQuery] string? filter, 
+        [FromQuery] string? filter,
+        [FromQuery] string? id,
         [FromQuery] string? country,
         [FromQuery] string? city,
         [FromQuery] string? experience,
@@ -78,6 +81,7 @@ public class SponsorshipController(
             var result = await sponsorshipService
                 .List(
                     filter,
+                    id,
                     country,
                     city,
                     experience,
@@ -103,7 +107,8 @@ public class SponsorshipController(
     [Authorize]
     [HttpGet("favourite")]
     public async Task<ActionResult<PaginatedResponse<SponsorshipModel>>> GetUserFavouriteSponsorships(
-        [FromQuery] string? filter, 
+        [FromQuery] string? filter,
+        [FromQuery] string? id,
         [FromQuery] string? country,
         [FromQuery] string? city,
         [FromQuery] string? experience,
@@ -127,6 +132,7 @@ public class SponsorshipController(
             var result = await sponsorshipService
                 .List(
                     filter,
+                    id,
                     country,
                     city,
                     experience,

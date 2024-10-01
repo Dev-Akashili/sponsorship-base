@@ -16,6 +16,7 @@ public class SponsorshipService(
 {
     public async Task<PaginatedResponse<SponsorshipModel>> List(
         string? filter,
+        string? id,
         string? country,
         string? city,
         string? experience,
@@ -102,6 +103,7 @@ public class SponsorshipService(
         }
         
         // Additional Filters
+        if (!string.IsNullOrEmpty(id)) entity = entity.Where(x => String.Equals(x.Id.ToLower(), id));
         if (!string.IsNullOrEmpty(country)) entity = entity.Where(x => String.Equals(x.Country.ToLower(), country));
         if (!string.IsNullOrEmpty(city)) entity = entity.Where(x => String.Equals(x.City.ToLower(), city));
         if (!string.IsNullOrEmpty(experience)) entity = entity.Where(x => String.Equals(x.Experience.ToLower(), experience));

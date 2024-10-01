@@ -16,6 +16,10 @@ import {
   TableRow
 } from "@/components/ui/table";
 import { DataTablePagination } from "./DataTablePagination";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { Button } from "../ui/button";
+import { NotebookText } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -24,6 +28,7 @@ interface DataTableProps<TData, TValue> {
   actions?: JSX.Element | JSX.Element[];
   adminOptions?: JSX.Element | JSX.Element[] | null;
   count: number;
+  link?: string;
 }
 
 export function DataTable<TData, TValue>({
@@ -32,7 +37,8 @@ export function DataTable<TData, TValue>({
   Filter,
   actions,
   adminOptions,
-  count
+  count,
+  link
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -40,8 +46,19 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel()
   });
 
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [id, setId] = useState<string>("");
+  const shared = searchParams.get("id");
+
+  useEffect(() => {
+    if (shared) {
+      setId(shared);
+    }
+  }, [shared]);
+
   return (
-    <div className="p-4 bg-white rounded-md">
+    <div className="flex flex-col p-4 bg-white rounded-md">
       <div className="flex flex-col">
         <div className="flex justify-between mt-4 mb-8">
           {Filter}
@@ -102,6 +119,18 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center justify-center space-x-2 py-4">
         <DataTablePagination count={count} />
       </div>
+      {id && (
+        <Button
+          onClick={() => {
+            navigate(link ?? "");
+            setId("");
+          }}
+          variant={"outline"}
+          className="mx-auto my-2 border-blue-600 text-blue-600 hover:text-blue-500"
+        >
+          <NotebookText className="mr-2" /> See full list
+        </Button>
+      )}
     </div>
   );
 }
