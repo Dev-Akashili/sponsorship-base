@@ -7,9 +7,14 @@ export default {
       }}
     >
       <img
-        src="./globe.png"
-        alt="globe"
-        style={{ marginRight: "8px", height: "25px", width: "25px" }}
+        src="./sb-logo.png"
+        alt="sb-logo"
+        style={{
+          marginRight: "8px",
+          height: "25px",
+          width: "25px",
+          borderRadius: "6px"
+        }}
       />
       <strong>SponsorshipBase</strong>
     </span>
@@ -19,7 +24,7 @@ export default {
   },
   head: (
     <>
-      <link rel="icon" type="image/svg+xml" href="./globe.png" />
+      <link rel="icon" type="image/svg+xml" href="./sb-icon.png" />
     </>
   ),
   footer: {
