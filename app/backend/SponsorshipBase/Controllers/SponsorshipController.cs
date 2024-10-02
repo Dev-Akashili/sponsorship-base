@@ -90,7 +90,7 @@ public class SponsorshipController(
                     pageNumber, 
                     pageSize, 
                     SponsorshipListOptions.UserList,
-                    user ?? null,
+                    user,
                     sortBy,
                     order,
                     approval
@@ -141,7 +141,7 @@ public class SponsorshipController(
                     pageNumber, 
                     pageSize, 
                     SponsorshipListOptions.FavouriteList,
-                    user ?? null,
+                    user,
                     sortBy,
                     order,
                     approval
@@ -282,6 +282,24 @@ public class SponsorshipController(
 
             await sponsorshipService.AddOrRemoveFavourite(user, id, "remove");
             return Ok();
+        }
+        catch (Exception e)
+        {
+            return HandleException(e, ErrorMessages.Default);
+        }
+    }
+
+    [HttpPost("report/{id}")]
+    public async Task<ActionResult> AddReport(string id, AddReportModel model)
+    {
+        try
+        {
+            await sponsorshipService.AddReport(id, model);
+            return NoContent();
+        }
+        catch (KeyNotFoundException e)
+        {
+            return HandleException(e, ErrorMessages.Default);
         }
         catch (Exception e)
         {

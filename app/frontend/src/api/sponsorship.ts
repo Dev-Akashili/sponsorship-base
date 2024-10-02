@@ -1,4 +1,8 @@
-import { AddOrEditSponsorship, Sponsorship } from "@/types/sponsorship";
+import {
+  AddOrEditSponsorship,
+  AddReport,
+  Sponsorship
+} from "@/types/sponsorship";
 import { request } from "./request";
 import { PaginatedResponse } from "@/types";
 
@@ -12,7 +16,8 @@ const fetchKeys = {
   manage: (filter?: string) => `sponsorship/manage/?${filter}`,
   favourite: (filter?: string) => `sponsorship/favourite/?${filter}`,
   addFavourite: (id: string) => `sponsorship/favourite/${id}`,
-  removeFavourite: (id: string) => `sponsorship/favourite/${id}`
+  removeFavourite: (id: string) => `sponsorship/favourite/${id}`,
+  addReport: (id: string) => `sponsorship/report/${id}`
 };
 
 export async function getSponsorships(
@@ -143,5 +148,15 @@ export async function approveOrDisable(id: string) {
     headers: {
       "Content-type": "application/json"
     }
+  });
+}
+
+export async function addReport(formData: AddReport, id: string) {
+  return await request<AddReport>(fetchKeys.addReport(id), {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: JSON.stringify(formData)
   });
 }

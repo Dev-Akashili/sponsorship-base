@@ -23,5 +23,6 @@ public class SponsorshipModel
     public bool IsOwner { get; set; } = false;
     public bool IsFavourite { get; set; } = false;
     public int FavouriteCount { get; set; }
+    public List<string>? Reports { get; set; } = new();
     public bool IsApproved { get; set; } = false;
 }

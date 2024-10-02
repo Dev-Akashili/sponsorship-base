@@ -161,7 +161,8 @@ export const columns: ColumnDef<Sponsorship>[] = [
         isOwner,
         isFavourite,
         favouriteCount,
-        isApproved
+        isApproved,
+        reports
       } = row.original;
       const jobBoardSlug = convertToSlug(jobBoard?.name ?? "");
 
@@ -207,6 +208,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
               isFavourite={isFavourite ?? false}
               favouriteCount={favouriteCount ?? 0}
               isApproved={isApproved}
+              reports={reports ?? []}
             />
           </div>
         </div>

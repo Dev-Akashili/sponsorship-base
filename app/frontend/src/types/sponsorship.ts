@@ -18,6 +18,7 @@ export interface Sponsorship {
   isOwner?: boolean;
   isFavourite?: boolean;
   favouriteCount?: number;
+  reports?: string[];
   isApproved: boolean;
 }
 
@@ -48,4 +49,8 @@ export interface AddOrEditSponsorship {
   jobBoard: string;
   newJobBoardName: string;
   newJobBoardLink: string;
+}
+
+export interface AddReport {
+  message: string;
 }

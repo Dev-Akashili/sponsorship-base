@@ -146,7 +146,8 @@ public class SponsorshipService(
             },
             IsOwner = user?.Id == x.Owner.Id,
             IsFavourite = x.Favourites != null && x.Favourites.Contains(user?.Id ?? ""),
-            FavouriteCount = x.Favourites != null ? x.Favourites.Count() : 0,
+            FavouriteCount = x.Favourites?.Count ?? 0,
+            Reports = roles.Contains("Admin") ? x.Reports : new(),
             IsApproved = x.IsApproved
         }).ToList();
 
@@ -252,7 +253,8 @@ public class SponsorshipService(
             JobBoard = jobBoard ?? new(),
             Owner = user,
             Favourites = new(),
-            IsApproved = roles.Contains("Admin")
+            IsApproved = roles.Contains("Admin"),
+            Reports = new()
         };
 
         db.Sponsorships.Add(entity);
@@ -389,13 +391,31 @@ public class SponsorshipService(
     public async Task ApproveOrDisable(string id)
     {
         var sponsorship = await db.Sponsorships.FirstOrDefaultAsync(x => x.Id == id);
-        if (sponsorship == null) throw new KeyNotFoundException("Sponsorship not found");
+        if (sponsorship == null)
+        {
+            throw new KeyNotFoundException("Sponsorship not found");
+        }
+
         sponsorship.IsApproved = !sponsorship.IsApproved;
+        
         if (sponsorship.Favourites != null)
         { 
             sponsorship.Favourites.Clear();
         }
 
+        await db.SaveChangesAsync();
+    }
+
+    public async Task AddReport(string id, AddReportModel model)
+    {
+        var sponsorship = await db.Sponsorships.FirstOrDefaultAsync(x => x.Id == id);
+        if (sponsorship == null)
+        {
+            throw new KeyNotFoundException("Sponsorship not found");
+        }
+
+        sponsorship.Reports?.Add(model.Message);
+        sponsorship.IsApproved = sponsorship?.Reports?.Count() < 10;
         await db.SaveChangesAsync();
     }
     
