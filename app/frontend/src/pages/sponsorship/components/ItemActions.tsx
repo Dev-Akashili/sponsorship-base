@@ -23,6 +23,7 @@ import { Form } from "@/components/ui/form";
 import { Spinner } from "@/components/core/Loader";
 import { SheetClose } from "@/components/ui/sheet";
 import { ROLES } from "@/constants/Auth.constants";
+import { useMutate } from "@/helpers/hooks/useMutate";
 
 interface ItemActionProps {
   id: string;
@@ -152,6 +153,7 @@ interface ReportPanelProps {
 }
 
 const ReportPanel = ({ id, isAdmin, children, reports }: ReportPanelProps) => {
+  const { mutate } = useMutate();
   const closeBtn = useRef<HTMLButtonElement>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -167,6 +169,7 @@ const ReportPanel = ({ id, isAdmin, children, reports }: ReportPanelProps) => {
     try {
       await addReport(values, id);
       setIsLoading(false);
+      mutate();
       toast.success("Your report has been sent!");
       closeBtn.current?.click();
     } catch (error) {
