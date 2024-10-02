@@ -53,7 +53,7 @@ export const UserActions = ({
       const request = await approveOrDisable(id);
       if (request.ok) {
         mutate();
-        toast.success(isApproved ? "Approved!" : "Disabled!");
+        toast.success(isApproved ? "Disabled!" : "Approved!");
       } else {
         toast.error(DEFAULT_ERROR_MESSAGE);
       }
