@@ -6,9 +6,8 @@ import {
   SheetTitle,
   SheetTrigger
 } from "../ui/sheet";
-import { User } from "@/types";
 import { Helmet } from "./Helmet";
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
 import { Button } from "../ui/button";
 import { LogoutButton } from "./UserMenu";
 import { Separator } from "../ui/separator";
@@ -19,13 +18,15 @@ import {
   MenuItems as SidebarItemProps
 } from "@/constants/Menu.constants";
 import { AUTH_ROUTES } from "@/pages/routes";
+import { AuthContext } from "@/context/Auth";
 
 interface SidebarProps {
-  user: User | null;
   menuButton: ReactNode;
 }
 
-export const Sidebar = ({ user, menuButton }: SidebarProps) => {
+export const Sidebar = ({ menuButton }: SidebarProps) => {
+  const { user } = useContext(AuthContext);
+
   return (
     <Sheet>
       <SheetTrigger asChild>{menuButton}</SheetTrigger>
@@ -49,7 +50,7 @@ export const Sidebar = ({ user, menuButton }: SidebarProps) => {
             ))}
           </div>
           {user ? (
-            <SidebarUserMenu user={user} />
+            <SidebarUserMenu email={user?.email} />
           ) : (
             <div className="flex justify-between space-x-2">
               <Link to={AUTH_ROUTES.login} className="w-[48%]">
@@ -98,9 +99,7 @@ const SidebarItem = ({ path, text, link, icon }: SidebarItemProps) => {
   );
 };
 
-const SidebarUserMenu = ({ user }: { user: User }) => {
-  const email = user.email;
-
+const SidebarUserMenu = ({ email }: { email: string }) => {
   return (
     <div className="flex flex-col space-y-4">
       <div className="flex items-center">

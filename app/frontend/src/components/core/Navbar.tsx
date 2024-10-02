@@ -1,14 +1,17 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Helmet } from "./Helmet";
-import { User } from "@/types";
 import { UserMenu } from "./UserMenu";
 import { Sidebar } from "./Sidebar";
 import { Menu } from "lucide-react";
 import { NAV_LINKS, NavLink as NavLinkProps } from "@/constants/Menu.constants";
 import { AUTH_ROUTES } from "@/pages/routes";
+import { useContext } from "react";
+import { AuthContext } from "@/context/Auth";
 
-export const Navbar = ({ user }: { user: User | null }) => {
+export const Navbar = () => {
+  const { user } = useContext(AuthContext);
+
   return (
     <div className="fixed top-0 left-0 right-0 h-20 px-8 shadow-md flex justify-between items-center z-10 bg-white">
       <Helmet />
@@ -23,7 +26,7 @@ export const Navbar = ({ user }: { user: User | null }) => {
         ))}
       </div>
       {user ? (
-        <UserMenu user={user} />
+        <UserMenu />
       ) : (
         <div className="flex space-x-2">
           <Link to={AUTH_ROUTES.login} className="hidden sm:block">
@@ -40,7 +43,6 @@ export const Navbar = ({ user }: { user: User | null }) => {
         </div>
       )}
       <Sidebar
-        user={user}
         menuButton={
           <Button
             variant={"ghost"}

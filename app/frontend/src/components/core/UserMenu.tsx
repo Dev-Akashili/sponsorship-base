@@ -7,7 +7,6 @@ import {
   DropdownMenuTrigger
 } from "../ui/dropdown-menu";
 import { LogOut } from "lucide-react";
-import { User } from "@/types";
 import { logout } from "@/api/identity";
 import { useContext } from "react";
 import { AuthContext } from "@/context/Auth";
@@ -18,7 +17,8 @@ import { Button } from "../ui/button";
 import { CircleUserRound } from "lucide-react";
 import { NAVBAR_USERMENU_ITEMS } from "@/constants/Menu.constants";
 
-export const UserMenu = ({ user }: { user: User | null }) => {
+export const UserMenu = () => {
+  const { user } = useContext(AuthContext);
   const email = user?.email ?? "";
 
   return (
