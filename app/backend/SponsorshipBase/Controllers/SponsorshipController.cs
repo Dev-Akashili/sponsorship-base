@@ -28,9 +28,10 @@ public class SponsorshipController(
         [FromQuery] string? sex,
         [FromQuery] string? sortBy = null,
         [FromQuery] string? order = "asc",
-        [FromQuery] int pageNumber = 1, 
+        [FromQuery] int pageNumber = 1,
         [FromQuery] int pageSize = 10,
-        [FromQuery] string? approval = "hide"
+        [FromQuery] string? approval = "hide",
+        [FromQuery] string? reported = "hide"
     )
     {
         var user = await userManager.GetUserAsync(User);
@@ -42,13 +43,14 @@ public class SponsorshipController(
             experience,
             industry,
             sex,
-            pageNumber, 
-            pageSize, 
+            pageNumber,
+            pageSize,
             "",
             user ?? null,
             sortBy,
             order,
-            approval
+            approval,
+            reported
         );
         return Ok(result);
     }
@@ -65,9 +67,10 @@ public class SponsorshipController(
         [FromQuery] string? sex,
         [FromQuery] string? sortBy = null,
         [FromQuery] string? order = "asc",
-        [FromQuery] int pageNumber = 1, 
+        [FromQuery] int pageNumber = 1,
         [FromQuery] int pageSize = 1,
-        [FromQuery] string approval = "hide"
+        [FromQuery] string approval = "hide",
+        [FromQuery] string? reported = "hide"
     )
     {
         try
@@ -87,15 +90,16 @@ public class SponsorshipController(
                     experience,
                     industry,
                     sex,
-                    pageNumber, 
-                    pageSize, 
+                    pageNumber,
+                    pageSize,
                     SponsorshipListOptions.UserList,
                     user,
                     sortBy,
                     order,
-                    approval
+                    approval,
+                    reported
                 );
-            
+
             return Ok(result);
         }
         catch (Exception e)
@@ -103,7 +107,7 @@ public class SponsorshipController(
             return HandleException(e, ErrorMessages.Default);
         }
     }
-    
+
     [Authorize]
     [HttpGet("favourite")]
     public async Task<ActionResult<PaginatedResponse<SponsorshipModel>>> GetUserFavouriteSponsorships(
@@ -116,9 +120,10 @@ public class SponsorshipController(
         [FromQuery] string? sex,
         [FromQuery] string? sortBy = null,
         [FromQuery] string? order = "asc",
-        [FromQuery] int pageNumber = 1, 
+        [FromQuery] int pageNumber = 1,
         [FromQuery] int pageSize = 1,
-        [FromQuery] string approval = "hide"
+        [FromQuery] string approval = "hide",
+        [FromQuery] string? reported = "hide"
     )
     {
         try
@@ -138,15 +143,16 @@ public class SponsorshipController(
                     experience,
                     industry,
                     sex,
-                    pageNumber, 
-                    pageSize, 
+                    pageNumber,
+                    pageSize,
                     SponsorshipListOptions.FavouriteList,
                     user,
                     sortBy,
                     order,
-                    approval
+                    approval,
+                    reported
                 );
-            
+
             return Ok(result);
         }
         catch (Exception e)
@@ -154,7 +160,7 @@ public class SponsorshipController(
             return HandleException(e, ErrorMessages.Default);
         }
     }
-    
+
     [HttpGet("{id}")]
     public async Task<ActionResult<Sponsorship>> Get(string id)
     {
@@ -264,13 +270,13 @@ public class SponsorshipController(
             return HandleException(e, ErrorMessages.Default);
         }
     }
-    
+
     [Authorize]
     [HttpDelete("favourite/{id}")]
     public async Task<ActionResult> RemoveFavourite(string id)
     {
         try
-        { 
+        {
             var user = await userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -325,14 +331,14 @@ public class SponsorshipController(
             return HandleException(e, ErrorMessages.Default);
         }
     }
-    
+
     // Helper methods
     private ActionResult HandleUserError(string message, string error)
     {
         logger.LogWarning(message);
         return NotFound(new { error = error });
     }
-    
+
     private ActionResult HandleException(Exception e, string message)
     {
         logger.LogError(e, "Error: {Message}", e.Message);

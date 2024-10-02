@@ -65,7 +65,7 @@ export function Table({
     </AuthInfoModal>
   );
 
-  const handleCheckChange = (checked: boolean | string) => {
+  const handleApprovalCheckChange = (checked: boolean | string) => {
     if (checked) {
       searchParams.set("approval", "show".toString());
     } else {
@@ -74,15 +74,35 @@ export function Table({
     navigate({ search: searchParams.toString() }, { replace: true });
   };
 
+  const handleReportedCheckChange = (reported: boolean | string) => {
+    if (reported) {
+      searchParams.set("reported", "show".toString());
+    } else {
+      searchParams.set("reported", "hide".toString());
+    }
+    navigate({ search: searchParams.toString() }, { replace: true });
+  };
+
   const adminOption = (
-    <div className="flex items-center space-x-2 mb-4 ml-auto">
-      <Checkbox
-        id="approval"
-        onCheckedChange={(checked) => handleCheckChange(checked)}
-      />
-      <label htmlFor="approval" className="text-sm font-medium">
-        Approval
-      </label>
+    <div className="flex space-x-2 mb-4 ml-auto">
+      <div className="flex items-center space-x-2">
+        <Checkbox
+          id="approval"
+          onCheckedChange={(checked) => handleApprovalCheckChange(checked)}
+        />
+        <label htmlFor="approval" className="text-sm font-medium">
+          Approval
+        </label>
+      </div>
+      <div className="flex items-center space-x-2">
+        <Checkbox
+          id="reported"
+          onCheckedChange={(reported) => handleReportedCheckChange(reported)}
+        />
+        <label htmlFor="reported" className="text-sm font-medium">
+          Reported
+        </label>
+      </div>
     </div>
   );
 

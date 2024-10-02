@@ -28,7 +28,8 @@ public class SponsorshipService(
         ApplicationUser? user,
         string? sortBy,
         string? order,
-        string? approval
+        string? approval,
+        string? reported
     )
     {
         var entity = db.Sponsorships
@@ -59,6 +60,11 @@ public class SponsorshipService(
         if (roles.Contains("Admin") && String.Equals(approval, "show"))
         {
             entity = entity.Where(x => !x.IsApproved);
+        }
+        
+        if (roles.Contains("Admin") && String.Equals(reported, "show"))
+        {
+            entity = entity.Where(x => x.Reports != null && x.Reports.Count > 0);
         }
 
         // Filtering
@@ -415,7 +421,7 @@ public class SponsorshipService(
         }
 
         sponsorship.Reports?.Add(model.Message);
-        sponsorship.IsApproved = sponsorship?.Reports?.Count() < 10;
+        sponsorship.IsApproved = sponsorship?.Reports?.Count() < 5;
         await db.SaveChangesAsync();
     }
     
