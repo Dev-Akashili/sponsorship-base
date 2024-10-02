@@ -4,4 +4,4 @@ SponsorshipBase is a platform for individuals in the UK and EU who secured jobs 
 
 ## Getting Started (Dev)
 
-Refer to the developer documentation at "" to run this repo.  
+Refer to the <a href="https://dev-akashili.github.io/sponsorship-base" target="_blank">documentation</a> to run this repo.  
