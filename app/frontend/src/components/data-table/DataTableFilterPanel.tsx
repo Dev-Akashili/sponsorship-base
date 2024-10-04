@@ -10,11 +10,12 @@ import {
   DataTableFilterSelectProps
 } from "./DataTableFilterSelect";
 import { Button } from "../ui/button";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ROUTES } from "@/pages/routes";
 import { ScrollArea } from "../ui/scroll-area";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { COUNTRIES_AND_CITIES } from "@/constants/Forms.constants";
+import { QueryContext } from "@/context/Query";
 
 interface DataTableFilterPanelProps {
   children: JSX.Element;
@@ -26,19 +27,28 @@ export const DataTableFilterPanel = ({
   options
 }: DataTableFilterPanelProps) => {
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const country = searchParams.get("country");
   const [city, setCity] = useState<string[]>([]);
+  const { query, resetQuery } = useContext(QueryContext);
+
+  const getCountryFromQuery = (query: string) => {
+    const params = new URLSearchParams(query);
+    return params.get("country");
+  };
 
   useEffect(() => {
+    const country = getCountryFromQuery(query);
+
     if (country) {
       setCity(
         COUNTRIES_AND_CITIES.find(
-          (item) => item.country.toLocaleLowerCase() === country
+          (item) =>
+            item.country.toLocaleLowerCase() === country.toLocaleLowerCase()
         )?.cities ?? []
       );
+    } else {
+      setCity([]);
     }
-  }, [country]);
+  }, [query]);
 
   return (
     <Sheet>
@@ -47,7 +57,7 @@ export const DataTableFilterPanel = ({
         <SheetHeader>
           <SheetTitle className="text-blue-600">Filters</SheetTitle>
         </SheetHeader>
-        <ScrollArea className="h-[70vh] mt-8 rounded-md border border-slate-400">
+        <ScrollArea className="h-[65vh] mt-8 rounded-md border border-slate-400">
           <div className="flex flex-col space-y-4 p-4">
             {options.map((item) => (
               <React.Fragment key={item.label}>
@@ -69,13 +79,25 @@ export const DataTableFilterPanel = ({
             ))}
           </div>
         </ScrollArea>
-        <Button
-          onClick={() => navigate(ROUTES.list)}
-          variant={"outline"}
-          className="mt-8 text-blue-600 hover:text-blue-500 border-blue-600"
-        >
-          Reset filters
-        </Button>
+        <div className="flex flex-col mt-8 space-y-2">
+          <Button
+            onClick={() => navigate(`${ROUTES.list}?${query}`)}
+            variant={"outline"}
+            className="text-blue-600 hover:text-blue-500 border-blue-600"
+          >
+            Apply filters
+          </Button>
+          <Button
+            onClick={() => {
+              resetQuery();
+              navigate(ROUTES.list);
+            }}
+            variant={"outline"}
+            className="text-blue-600 hover:text-blue-500 border-blue-600"
+          >
+            Reset filters
+          </Button>
+        </div>
       </SheetContent>
     </Sheet>
   );

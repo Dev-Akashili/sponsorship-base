@@ -17,6 +17,7 @@ import { ROLES } from "@/constants/Auth.constants";
 import { DataTableFilterPanel } from "@/components/data-table/DataTableFilterPanel";
 import { SPONSORSHIP_TABLE_FILTER_OPTIONS } from "@/constants/Tables.constants";
 import { ToggleProvider } from "@/context/Toggle";
+import { QueryProvider } from "@/context/Query";
 
 interface TableProps {
   data: PaginatedResponse<Sponsorship> | undefined;
@@ -109,30 +110,32 @@ export function Table({
 
   return (
     <ToggleProvider>
-      <PageTitle title={pageTitle} />
-      {!data ? (
-        <LoadingPage />
-      ) : (
-        <>
-          {data.count <= 0 && fetchCount <= 0 ? (
-            noContentPage ?? <></>
-          ) : (
-            <div className="h-full flex flex-col justify-center items-center my-40">
-              <DataTable
-                columns={columns}
-                count={data.count}
-                data={data.list}
-                Filter={filter}
-                actions={tableAction}
-                adminOptions={
-                  user?.roles.includes(ROLES.Admin) ? adminOption : null
-                }
-                link={ROUTES.list}
-              />
-            </div>
-          )}
-        </>
-      )}
+      <QueryProvider>
+        <PageTitle title={pageTitle} />
+        {!data ? (
+          <LoadingPage />
+        ) : (
+          <>
+            {data.count <= 0 && fetchCount <= 0 ? (
+              noContentPage ?? <></>
+            ) : (
+              <div className="h-full flex flex-col justify-center items-center my-40">
+                <DataTable
+                  columns={columns}
+                  count={data.count}
+                  data={data.list}
+                  Filter={filter}
+                  actions={tableAction}
+                  adminOptions={
+                    user?.roles.includes(ROLES.Admin) ? adminOption : null
+                  }
+                  link={ROUTES.list}
+                />
+              </div>
+            )}
+          </>
+        )}
+      </QueryProvider>
     </ToggleProvider>
   );
 }

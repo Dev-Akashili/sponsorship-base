@@ -1,4 +1,5 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { QueryContext } from "@/context/Query";
 import {
   Select,
   SelectContent,
@@ -6,7 +7,6 @@ import {
   SelectTrigger,
   SelectValue
 } from "../ui/select";
-import { useEffect, useState } from "react";
 
 export interface DataTableFilterSelectProps {
   label: string;
@@ -23,23 +23,29 @@ export const DataTableFilterSelect = ({
   options,
   disabled = false
 }: DataTableFilterSelectProps) => {
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
+  const { query, updateQuery } = useContext(QueryContext);
   const [value, setValue] = useState<string | undefined>(undefined);
 
   const handleSortChange = (value: string) => {
-    searchParams.set(param, value);
-    navigate({ search: searchParams.toString() }, { replace: true });
+    updateQuery(param, value);
   };
 
   useEffect(() => {
-    const current = searchParams.get(param);
-    if (current) {
-      setValue(current);
+    const paramsObj = query
+      .split("&")
+      .filter(Boolean)
+      .reduce((acc: Record<string, string>, paramString: string) => {
+        const [key, val] = paramString.split("=");
+        acc[key] = val;
+        return acc;
+      }, {});
+
+    if (paramsObj[param]) {
+      setValue(paramsObj[param]);
     } else {
       setValue("");
     }
-  }, [searchParams, param]);
+  }, [query, param]);
 
   return (
     <div className="flex flex-col space-y-1">
