@@ -34,6 +34,7 @@ export const Manage = () => {
       pageTitle={"Manage contribution"}
       data={data}
       fetchCount={fetchCount}
+      path={ROUTES.manage}
       noContentPage={
         <NoContent
           image={"construction"}

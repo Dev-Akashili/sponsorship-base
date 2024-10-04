@@ -14,37 +14,39 @@ import { AuthContext } from "@/context/Auth";
 import { AuthInfoModal } from "@/components/core/AuthInfoModal";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ROLES } from "@/constants/Auth.constants";
-import { DataTableFilterPanel } from "@/components/data-table/DataTableFilterPanel";
 import { SPONSORSHIP_TABLE_FILTER_OPTIONS } from "@/constants/Tables.constants";
 import { ToggleProvider } from "@/context/Toggle";
 import { QueryProvider } from "@/context/Query";
+import { FilterPanel } from "./filter";
 
 interface TableProps {
   data: PaginatedResponse<Sponsorship> | undefined;
   pageTitle: string;
   fetchCount?: number;
   noContentPage?: JSX.Element;
+  path: string;
 }
 
 export function Table({
   data,
   pageTitle,
   fetchCount = 0,
-  noContentPage
+  noContentPage,
+  path
 }: TableProps) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { user, isAuthenticated } = useContext(AuthContext);
 
   const filterPanel = (
-    <DataTableFilterPanel options={SPONSORSHIP_TABLE_FILTER_OPTIONS}>
+    <FilterPanel path={path} options={SPONSORSHIP_TABLE_FILTER_OPTIONS}>
       <Button
         variant={"outline"}
         className="text-blue-600 hover:text-blue-500 border-blue-600 w-[18%]"
       >
         <SlidersHorizontal className="mr-1" /> Filters
       </Button>
-    </DataTableFilterPanel>
+    </FilterPanel>
   );
   const filter = (
     <DataTableFilter

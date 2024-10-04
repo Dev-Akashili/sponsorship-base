@@ -34,6 +34,7 @@ export const Favourite = () => {
       pageTitle={"Favourites"}
       data={data}
       fetchCount={fetchCount}
+      path={ROUTES.favourite}
       noContentPage={
         <NoContent
           image={"fishing"}

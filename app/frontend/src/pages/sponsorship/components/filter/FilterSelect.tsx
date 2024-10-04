@@ -6,9 +6,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue
-} from "../ui/select";
+} from "@/components/ui/select";
 
-export interface DataTableFilterSelectProps {
+export interface FilterSelectProps {
   label: string;
   param: string;
   placeholder?: string;
@@ -16,13 +16,13 @@ export interface DataTableFilterSelectProps {
   disabled?: boolean;
 }
 
-export const DataTableFilterSelect = ({
+export const FilterSelect = ({
   label,
   param,
   placeholder,
   options,
   disabled = false
-}: DataTableFilterSelectProps) => {
+}: FilterSelectProps) => {
   const { query, updateQuery } = useContext(QueryContext);
   const [value, setValue] = useState<string | undefined>(undefined);
 

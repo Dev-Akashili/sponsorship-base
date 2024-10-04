@@ -4,6 +4,7 @@ import { PaginatedResponse } from "@/types";
 import { Sponsorship } from "@/types/sponsorship";
 import { useEffect, useState } from "react";
 import { Table } from "./components/Table";
+import { ROUTES } from "../routes";
 
 export const SponsorshipList = () => {
   const [data, setData] = useState<PaginatedResponse<Sponsorship> | undefined>(
@@ -23,5 +24,12 @@ export const SponsorshipList = () => {
     getData();
   }, [query]);
 
-  return <Table pageTitle={"Sponsorship List"} data={data} fetchCount={2} />;
+  return (
+    <Table
+      pageTitle={"Sponsorship List"}
+      data={data}
+      fetchCount={2}
+      path={ROUTES.list}
+    />
+  );
 };

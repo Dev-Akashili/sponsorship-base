@@ -4,28 +4,22 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger
-} from "../ui/sheet";
-import {
-  DataTableFilterSelect,
-  DataTableFilterSelectProps
-} from "./DataTableFilterSelect";
-import { Button } from "../ui/button";
+} from "@/components/ui/sheet";
+import { FilterSelect, FilterSelectProps } from ".";
+import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@/pages/routes";
-import { ScrollArea } from "../ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import React, { useContext, useEffect, useState } from "react";
 import { COUNTRIES_AND_CITIES } from "@/constants/Forms.constants";
 import { QueryContext } from "@/context/Query";
 
-interface DataTableFilterPanelProps {
+interface FilterPanelProps {
   children: JSX.Element;
-  options: DataTableFilterSelectProps[];
+  options: FilterSelectProps[];
+  path: string;
 }
 
-export const DataTableFilterPanel = ({
-  children,
-  options
-}: DataTableFilterPanelProps) => {
+export const FilterPanel = ({ children, options, path }: FilterPanelProps) => {
   const navigate = useNavigate();
   const [city, setCity] = useState<string[]>([]);
   const { query, resetQuery } = useContext(QueryContext);
@@ -62,13 +56,13 @@ export const DataTableFilterPanel = ({
             {options.map((item) => (
               <React.Fragment key={item.label}>
                 {item.label !== "City" ? (
-                  <DataTableFilterSelect
+                  <FilterSelect
                     label={item.label}
                     param={item.param}
                     options={item.options}
                   />
                 ) : (
-                  <DataTableFilterSelect
+                  <FilterSelect
                     label={item.label}
                     param={item.param}
                     options={city}
@@ -81,7 +75,7 @@ export const DataTableFilterPanel = ({
         </ScrollArea>
         <div className="flex flex-col mt-8 space-y-2">
           <Button
-            onClick={() => navigate(`${ROUTES.list}?${query}`)}
+            onClick={() => navigate(`${path}?${query}`)}
             variant={"outline"}
             className="text-blue-600 hover:text-blue-500 border-blue-600"
           >
@@ -90,7 +84,7 @@ export const DataTableFilterPanel = ({
           <Button
             onClick={() => {
               resetQuery();
-              navigate(ROUTES.list);
+              navigate(path);
             }}
             variant={"outline"}
             className="text-blue-600 hover:text-blue-500 border-blue-600"
