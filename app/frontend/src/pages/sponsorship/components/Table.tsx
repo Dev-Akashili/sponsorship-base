@@ -16,6 +16,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ROLES } from "@/constants/Auth.constants";
 import { DataTableFilterPanel } from "@/components/data-table/DataTableFilterPanel";
 import { SPONSORSHIP_TABLE_FILTER_OPTIONS } from "@/constants/Tables.constants";
+import { ToggleProvider } from "@/context/Toggle";
 
 interface TableProps {
   data: PaginatedResponse<Sponsorship> | undefined;
@@ -107,7 +108,7 @@ export function Table({
   );
 
   return (
-    <>
+    <ToggleProvider>
       <PageTitle title={pageTitle} />
       {!data ? (
         <LoadingPage />
@@ -132,6 +133,6 @@ export function Table({
           )}
         </>
       )}
-    </>
+    </ToggleProvider>
   );
 }

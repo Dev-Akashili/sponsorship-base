@@ -10,8 +10,18 @@ import { InfoTile } from "@/components/core/InfoTile";
 import { convertToSlug } from "@/utils";
 import { ExternalLink } from "lucide-react";
 import { UserActions, ItemActions } from ".";
+import { DataTableRowViewToggle } from "@/components/data-table/DataTableRowViewToggle";
+import { TableRowLayout } from "@/layout/TableRowLayout";
 
 export const columns: ColumnDef<Sponsorship>[] = [
+  {
+    id: "TOGGLE",
+    cell: ({ row }) => {
+      const { id } = row.original;
+
+      return <DataTableRowViewToggle toggleId={id} />;
+    }
+  },
   {
     id: "PROFILE",
     header: () => (
@@ -39,33 +49,39 @@ export const columns: ColumnDef<Sponsorship>[] = [
       const items = [sex, nationality, education, coq];
 
       return (
-        <div className="flex flex-col space-y-4">
-          <div className="flex flex-col space-y-2">
-            <div className="flex space-x-2">
-              {PROFILE_DESCRIPTION.slice(0, 2).map((item, index) => (
-                <InfoTile
-                  key={item.name}
-                  name={items[index]}
-                  icon={item.icon}
-                />
-              ))}
+        <TableRowLayout
+          id={id}
+          summary={<p className="text-center">Placeholder</p>}
+          expand={
+            <div className="flex flex-col space-y-4">
+              <div className="flex flex-col space-y-2">
+                <div className="flex space-x-2">
+                  {PROFILE_DESCRIPTION.slice(0, 2).map((item, index) => (
+                    <InfoTile
+                      key={item.name}
+                      name={items[index]}
+                      icon={item.icon}
+                    />
+                  ))}
+                </div>
+                <div className="flex space-x-2">
+                  {PROFILE_DESCRIPTION.slice(-2).map((item, index) => (
+                    <InfoTile
+                      key={item.name}
+                      name={items[index + (items.length - 2)]}
+                      icon={item.icon}
+                    />
+                  ))}
+                </div>
+              </div>
+              <UserActions
+                id={id}
+                isOwner={isOwner ?? false}
+                isApproved={isApproved}
+              />
             </div>
-            <div className="flex space-x-2">
-              {PROFILE_DESCRIPTION.slice(-2).map((item, index) => (
-                <InfoTile
-                  key={item.name}
-                  name={items[index + (items.length - 2)]}
-                  icon={item.icon}
-                />
-              ))}
-            </div>
-          </div>
-          <UserActions
-            id={id}
-            isOwner={isOwner ?? false}
-            isApproved={isApproved}
-          />
-        </div>
+          }
+        />
       );
     },
     enableHiding: false,
@@ -82,61 +98,83 @@ export const columns: ColumnDef<Sponsorship>[] = [
       );
     },
     cell: ({ row }) => {
-      const { company, country, city, jobTitle, experience, salary, currency } =
-        row.original;
+      const {
+        id,
+        company,
+        country,
+        city,
+        jobTitle,
+        experience,
+        salary,
+        currency
+      } = row.original;
       const companyLogoSlug = convertToSlug(company?.name ?? "");
       const countryLogoSlug = convertToSlug(country);
 
       return (
-        <div className="flex space-x-2">
-          <div className="flex flex-col space-y-2 border-r-2 pr-2">
-            <img
-              src={`../../${companyLogoSlug}.jpeg`}
-              alt={companyLogoSlug}
-              className="h-16 w-16"
-            />
-            <div className="flex space-x-1">
-              <p className="text-xs text-slate-500 font-semibold">{city}</p>
-              <img
-                src={`../../${countryLogoSlug}.png`}
-                alt={countryLogoSlug}
-                className="h-4 w-4"
-              />
-            </div>
-          </div>
-          <div className="flex flex-col space-y-2">
-            <p className="text-xs font-semibold text-slate-500">
-              {company?.name}
-            </p>
-            <InfoTile
-              name={jobTitle}
-              icon={
+        <TableRowLayout
+          id={id}
+          summary={<p className="text-center">Placeholder</p>}
+          expand={
+            <div className="flex space-x-2">
+              <div className="flex flex-col space-y-2 border-r-2 pr-2">
                 <img
-                  src="../../suitcase.png"
-                  alt="sitcase"
-                  className="h-4 w-4"
+                  src={`../../${companyLogoSlug}.jpeg`}
+                  alt={companyLogoSlug}
+                  className="h-16 w-16"
                 />
-              }
-            />
-            <InfoTile
-              name={experience}
-              icon={
-                <img src="../../level.png" alt="level" className="h-4 w-4" />
-              }
-            />
-            <InfoTile
-              name={
-                <>
-                  {salary}
-                  <span className="ml-1 font-semibold">{currency}</span>
-                </>
-              }
-              icon={
-                <img src="../../money.png" alt="money" className="h-4 w-4" />
-              }
-            />
-          </div>
-        </div>
+                <div className="flex space-x-1">
+                  <p className="text-xs text-slate-500 font-semibold">{city}</p>
+                  <img
+                    src={`../../${countryLogoSlug}.png`}
+                    alt={countryLogoSlug}
+                    className="h-4 w-4"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col space-y-2">
+                <p className="text-xs font-semibold text-slate-500">
+                  {company?.name}
+                </p>
+                <InfoTile
+                  name={jobTitle}
+                  icon={
+                    <img
+                      src="../../suitcase.png"
+                      alt="sitcase"
+                      className="h-4 w-4"
+                    />
+                  }
+                />
+                <InfoTile
+                  name={experience}
+                  icon={
+                    <img
+                      src="../../level.png"
+                      alt="level"
+                      className="h-4 w-4"
+                    />
+                  }
+                />
+                <InfoTile
+                  name={
+                    <>
+                      {salary}
+                      <span className="ml-1 font-semibold">{currency}</span>
+                    </>
+                  }
+                  icon={
+                    <img
+                      src="../../money.png"
+                      alt="money"
+                      className="h-4 w-4"
+                    />
+                  }
+                />
+              </div>
+            </div>
+          }
+        />
       );
     },
     enableHiding: false,
@@ -178,40 +216,46 @@ export const columns: ColumnDef<Sponsorship>[] = [
       );
 
       return (
-        <div className="flex flex-col justify-center items-center">
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <InfoTile
-                name={`${month}, ${year}`}
-                icon={
-                  <img
-                    src="../../calendar.png"
-                    alt="calendar"
-                    className="h-4 w-4"
+        <TableRowLayout
+          id={id}
+          summary={<p className="text-center">Placeholder</p>}
+          expand={
+            <div className="flex flex-col justify-center items-center">
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <InfoTile
+                    name={`${month}, ${year}`}
+                    icon={
+                      <img
+                        src="../../calendar.png"
+                        alt="calendar"
+                        className="h-4 w-4"
+                      />
+                    }
                   />
-                }
-              />
-              <InfoTile
-                name={website}
-                icon={
-                  <img
-                    src={`../../${jobBoardSlug}.jpeg`}
-                    alt={jobBoardSlug}
-                    className="h-4 w-4"
+                  <InfoTile
+                    name={website}
+                    icon={
+                      <img
+                        src={`../../${jobBoardSlug}.jpeg`}
+                        alt={jobBoardSlug}
+                        className="h-4 w-4"
+                      />
+                    }
                   />
-                }
-              />
+                </div>
+                <ItemActions
+                  id={id}
+                  isOwner={isOwner ?? false}
+                  isFavourite={isFavourite ?? false}
+                  favouriteCount={favouriteCount ?? 0}
+                  isApproved={isApproved}
+                  reports={reports ?? []}
+                />
+              </div>
             </div>
-            <ItemActions
-              id={id}
-              isOwner={isOwner ?? false}
-              isFavourite={isFavourite ?? false}
-              favouriteCount={favouriteCount ?? 0}
-              isApproved={isApproved}
-              reports={reports ?? []}
-            />
-          </div>
-        </div>
+          }
+        />
       );
     },
     enableHiding: false,
