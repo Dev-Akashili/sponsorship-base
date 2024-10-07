@@ -54,8 +54,10 @@ export function DataTable<TData, TValue>({
   useEffect(() => {
     if (shared) {
       setId(shared);
+    } else {
+      setId("");
     }
-  }, [shared]);
+  }, [shared, searchParams]);
 
   return (
     <div className="flex flex-col p-4 bg-white rounded-md">
