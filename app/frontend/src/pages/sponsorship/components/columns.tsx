@@ -1,17 +1,16 @@
 import {
-  COMPANY_DESCRIPTION,
-  PROFILE_DESCRIPTION,
-  SPONSORSHIP_DETAILS_DESCRIPTION
+  COMPANY_COLUMN,
+  PROFILE_COLUMN,
+  SPONSORSHIP_COLUMN
 } from "@/constants/Tables.constants";
 import { Sponsorship } from "@/types/sponsorship";
 import { ColumnDef } from "@tanstack/react-table";
-import { DataTableColumnHeader } from "@/components/data-table/DataTableColumnHeader";
-import { InfoTile } from "@/components/core/InfoTile";
 import { convertToSlug } from "@/utils";
-import { ExternalLink } from "lucide-react";
+import { CalendarDays, ExternalLink } from "lucide-react";
 import { UserActions, ItemActions } from ".";
 import { DataTableRowViewToggle } from "@/components/data-table/DataTableRowViewToggle";
 import { TableRowLayout } from "@/layout/TableRowLayout";
+import { InfoTile } from ".";
 
 export const columns: ColumnDef<Sponsorship>[] = [
   {
@@ -25,10 +24,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
   {
     id: "PROFILE",
     header: () => (
-      <DataTableColumnHeader
-        name="PROFILE"
-        descriptions={PROFILE_DESCRIPTION}
-      />
+      <p className="text-lg font-bold text-blue-600 text-center">PROFILE</p>
     ),
     cell: ({ row }) => {
       const {
@@ -38,7 +34,8 @@ export const columns: ColumnDef<Sponsorship>[] = [
         education,
         countryOfQualification,
         isOwner,
-        isApproved
+        isApproved,
+        createdAt
       } = row.original;
 
       const coq =
@@ -51,28 +48,36 @@ export const columns: ColumnDef<Sponsorship>[] = [
       return (
         <TableRowLayout
           id={id}
-          summary={<p className="text-center">Placeholder</p>}
+          summary={
+            <div className="flex flex-col justify-center space-y-3">
+              <div className="flex space-x-1 items-center">
+                <img src="../../sex.png" alt="sex" className="size-4" />
+                <p>{sex}</p>
+                <p>|</p>
+                <img
+                  src="../../passport.png"
+                  alt="passport"
+                  className="size-3"
+                />
+                <p>{nationality}</p>
+              </div>
+              <p className="italic text-slate-500 text-[10px]">
+                Added: {new Date(createdAt).toLocaleDateString("en-GB")}
+              </p>
+            </div>
+          }
           expand={
-            <div className="flex flex-col space-y-4">
-              <div className="flex flex-col space-y-2">
-                <div className="flex space-x-2">
-                  {PROFILE_DESCRIPTION.slice(0, 2).map((item, index) => (
-                    <InfoTile
-                      key={item.name}
-                      name={items[index]}
-                      icon={item.icon}
-                    />
-                  ))}
-                </div>
-                <div className="flex space-x-2">
-                  {PROFILE_DESCRIPTION.slice(-2).map((item, index) => (
-                    <InfoTile
-                      key={item.name}
-                      name={items[index + (items.length - 2)]}
-                      icon={item.icon}
-                    />
-                  ))}
-                </div>
+            <div className="flex flex-col items-center min-h-96 mt-5">
+              <img src="../../profile.png" alt="profile" className="size-16" />
+              <div className="flex flex-col items-center space-y-2 mt-8">
+                {PROFILE_COLUMN.map((item, index) => (
+                  <InfoTile
+                    key={index}
+                    name={item.name}
+                    item={items[index]}
+                    image={item.image}
+                  />
+                ))}
               </div>
               <UserActions
                 id={id}
@@ -91,10 +96,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
     id: "COMPANY",
     header: () => {
       return (
-        <DataTableColumnHeader
-          name="COMPANY"
-          descriptions={COMPANY_DESCRIPTION}
-        />
+        <p className="text-lg font-bold text-blue-600 text-center">COMPANY</p>
       );
     },
     cell: ({ row }) => {
@@ -110,67 +112,53 @@ export const columns: ColumnDef<Sponsorship>[] = [
       } = row.original;
       const companyLogoSlug = convertToSlug(company?.name ?? "");
       const countryLogoSlug = convertToSlug(country);
+      const items = [
+        company?.name,
+        city,
+        jobTitle,
+        experience,
+        `${currency} ${salary}`
+      ];
 
       return (
         <TableRowLayout
           id={id}
-          summary={<p className="text-center">Placeholder</p>}
-          expand={
-            <div className="flex space-x-2">
-              <div className="flex flex-col space-y-2 border-r-2 pr-2">
-                <img
-                  src={`../../${companyLogoSlug}.jpeg`}
-                  alt={companyLogoSlug}
-                  className="h-16 w-16"
-                />
+          summary={
+            <div className="flex flex-col space-y-1 items-center">
+              <div className="flex space-x-1">
                 <div className="flex space-x-1">
-                  <p className="text-xs text-slate-500 font-semibold">{city}</p>
                   <img
-                    src={`../../${countryLogoSlug}.png`}
-                    alt={countryLogoSlug}
-                    className="h-4 w-4"
+                    src={`../../${companyLogoSlug}.jpeg`}
+                    className="size-5"
                   />
+                  <p>{company?.name}</p>
                 </div>
+                <p>|</p>
+                <p>{jobTitle}</p>
               </div>
-              <div className="flex flex-col space-y-2">
-                <p className="text-xs font-semibold text-slate-500">
-                  {company?.name}
-                </p>
-                <InfoTile
-                  name={jobTitle}
-                  icon={
-                    <img
-                      src="../../suitcase.png"
-                      alt="sitcase"
-                      className="h-4 w-4"
-                    />
-                  }
-                />
-                <InfoTile
-                  name={experience}
-                  icon={
-                    <img
-                      src="../../level.png"
-                      alt="level"
-                      className="h-4 w-4"
-                    />
-                  }
-                />
-                <InfoTile
-                  name={
-                    <>
-                      {salary}
-                      <span className="ml-1 font-semibold">{currency}</span>
-                    </>
-                  }
-                  icon={
-                    <img
-                      src="../../money.png"
-                      alt="money"
-                      className="h-4 w-4"
-                    />
-                  }
-                />
+              <div className="flex space-x-1">
+                <p>{country},</p>
+                <img src={`../../${countryLogoSlug}.png`} className="h-5 w-5" />
+              </div>
+            </div>
+          }
+          expand={
+            <div className="flex flex-col items-center min-h-96 mt-5">
+              <img
+                src={`../../${companyLogoSlug}.jpeg`}
+                alt={companyLogoSlug}
+                className="size-20 border"
+              />
+              <div className="flex flex-col items-center space-y-2 mt-8">
+                {COMPANY_COLUMN.map((item, index) => (
+                  <InfoTile
+                    key={index}
+                    name={item.name}
+                    item={items[index]}
+                    image={item.image}
+                    icon={item.name === "Location" ? countryLogoSlug : ""}
+                  />
+                ))}
               </div>
             </div>
           }
@@ -184,10 +172,9 @@ export const columns: ColumnDef<Sponsorship>[] = [
     id: "SPONSORSHIP",
     header: () => {
       return (
-        <DataTableColumnHeader
-          name="SPONSORSHIP DETAILS"
-          descriptions={SPONSORSHIP_DETAILS_DESCRIPTION}
-        />
+        <p className="text-lg font-bold text-blue-600 text-center">
+          SPONSORSHIP
+        </p>
       );
     },
     cell: ({ row }) => {
@@ -210,40 +197,55 @@ export const columns: ColumnDef<Sponsorship>[] = [
           target="_blank"
           className="flex text-slate-500 font-semibold underline cursor-pointer"
         >
+          <img
+            src={`../../${jobBoardSlug}.jpeg`}
+            alt={`${jobBoardSlug}`}
+            className="size-3 my-auto mr-1"
+          />
           {jobBoard?.name}
           <ExternalLink className="size-3 my-auto ml-1" />
         </a>
       );
 
+      const items = [`${month}, ${year}`, website];
+
       return (
         <TableRowLayout
           id={id}
-          summary={<p className="text-center">Placeholder</p>}
+          summary={
+            <div className="flex flex-col space-y-2">
+              <div className="flex space-x-1">
+                <CalendarDays className="size-4" />
+                <p>{`${month}, ${year}`}</p>
+              </div>
+              <ItemActions
+                id={id}
+                isOwner={isOwner ?? false}
+                isFavourite={isFavourite ?? false}
+                favouriteCount={favouriteCount ?? 0}
+                isApproved={isApproved}
+                reports={reports ?? []}
+              />
+            </div>
+          }
           expand={
-            <div className="flex flex-col justify-center items-center">
-              <div className="space-y-4">
-                <div className="space-y-2">
+            <div className="flex flex-col items-center min-h-96 mt-5">
+              <img
+                src="../../contract.png"
+                alt="contract"
+                className="size-16"
+              />
+              <div className="flex flex-col items-center space-y-2 mt-8">
+                {SPONSORSHIP_COLUMN.map((item, index) => (
                   <InfoTile
-                    name={`${month}, ${year}`}
-                    icon={
-                      <img
-                        src="../../calendar.png"
-                        alt="calendar"
-                        className="h-4 w-4"
-                      />
-                    }
+                    key={index}
+                    name={item.name}
+                    item={items[index]}
+                    image={item.image}
                   />
-                  <InfoTile
-                    name={website}
-                    icon={
-                      <img
-                        src={`../../${jobBoardSlug}.jpeg`}
-                        alt={jobBoardSlug}
-                        className="h-4 w-4"
-                      />
-                    }
-                  />
-                </div>
+                ))}
+              </div>
+              <div className="mt-auto mb-8">
                 <ItemActions
                   id={id}
                   isOwner={isOwner ?? false}

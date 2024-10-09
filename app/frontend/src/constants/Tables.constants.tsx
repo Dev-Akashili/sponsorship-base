@@ -1,68 +1,65 @@
-import { DataTableFilterSelectProps } from "@/components/data-table/DataTableFilterSelect";
-import { ReactNode } from "react";
 import {
   EXPERIENCE,
   SEX,
   INDUSTRIES,
   COUNTRIES_AND_CITIES
 } from "./Forms.constants";
+import { FilterSelectProps } from "@/pages/sponsorship/components/filter";
 
-interface TableDescription {
-  name: string;
-  icon: ReactNode;
-}
-export const PROFILE_DESCRIPTION: TableDescription[] = [
+export const PROFILE_COLUMN = [
   {
     name: "Sex",
-    icon: <img src="../../sex.png" alt="sex" className="h-4 w-4" />
+    image: "sex"
   },
   {
     name: "Nationality",
-    icon: <img src="../../passport.png" alt="passport" className="h-4 w-4" />
+    image: "passport"
   },
   {
     name: "Education",
-    icon: <img src="../../education.png" alt="education" className="h-4 w-4 " />
+    image: "education"
   },
   {
     name: "Place of Education",
-    icon: (
-      <img src="../../certificate.png" alt="certificate" className="h-4 w-4 " />
-    )
+    image: "certificate"
   }
 ];
 
-export const COMPANY_DESCRIPTION: TableDescription[] = [
+export const COMPANY_COLUMN = [
   {
-    name: "Job Title",
-    icon: <img src="../../suitcase.png" alt="suitcase" className="h-4 w-4 " />
-  },
-  {
-    name: "Job Level",
-    icon: <img src="../../level.png" alt="level" className="h-4 w-4 " />
-  },
-  {
-    name: "Salary",
-    icon: <img src="../../money.png" alt="money" className="h-4 w-4 " />
+    name: "Company",
+    image: "company"
   },
   {
     name: "Location",
-    icon: <img src="../../flag.png" alt="flag" className="h-4 w-4 " />
+    image: "location"
+  },
+  {
+    name: "Job Title",
+    image: "suitcase"
+  },
+  {
+    name: "Job Level",
+    image: "level"
+  },
+  {
+    name: "Salary",
+    image: "money"
   }
 ];
 
-export const SPONSORSHIP_DETAILS_DESCRIPTION: TableDescription[] = [
+export const SPONSORSHIP_COLUMN = [
   {
     name: "Date of Sponsorship",
-    icon: <img src="../../calendar.png" alt="calendar" className="h-4 w-4 " />
+    image: "calendar"
   },
   {
     name: "Job Board Website",
-    icon: <img src="../../website.png" alt="website" className="h-4 w-4 " />
+    image: "website"
   }
 ];
 
-export const SPONSORSHIP_TABLE_FILTER_OPTIONS: DataTableFilterSelectProps[] = [
+export const SPONSORSHIP_TABLE_FILTER_OPTIONS: FilterSelectProps[] = [
   {
     label: "Sort By",
     param: "sortBy",

@@ -67,40 +67,32 @@ export const UserActions = ({
   return (
     <>
       {(isOwner || user?.roles.includes(ROLES.Admin)) && (
-        <div className="flex space-x-2 mt-4 h-5">
-          <div
+        <div className="flex space-x-2 mt-auto mb-8">
+          <Edit
             onClick={() => navigate(`${ROUTES.edit}/?id=${id}`)}
-            className="flex space-x-2 justify-center items-center py-1 px-2 rounded sponsorship-base text-white hover:cursor-pointer"
-          >
-            <Edit className="size-3" /> <p className="text-[9px]">Edit</p>
-          </div>
+            className="ize-6 p-1 text-slate-500 hover:text-blue-600 hover:cursor-pointer hover:bg-slate-200 hover:rounded"
+          />
+
           <DeleteModal
             text={"this"}
             handleDelete={handleDelete}
             deleting={deleting}
           >
-            <div className="flex space-x-2 justify-center items-center py-1 px-2 rounded bg-red-500 hover:bg-red-400 text-white hover:cursor-pointer">
-              <Trash className="size-3" /> <p className="text-[9px]">Delete</p>
-            </div>
+            <Trash className="size-6 p-1 text-slate-500 hover:text-red-500 hover:cursor-pointer hover:bg-slate-200 hover:rounded" />
           </DeleteModal>
           {user?.roles.includes(ROLES.Admin) ? (
             loading ? (
               <Spinner size="sm" />
             ) : isApproved ? (
-              <div
+              <Ban
                 onClick={handleApprove}
-                className="flex space-x-2 justify-center items-center py-1 px-2 rounded bg-orange-500 hover:bg-orange-400 text-white hover:cursor-pointer"
-              >
-                <Ban className="size-3" /> <p className="text-[9px]">Disable</p>
-              </div>
+                className="size-6 p-1 text-slate-500 hover:text-orange-500 hover:text-red-500 hover:cursor-pointer hover:bg-slate-200 hover:rounded"
+              />
             ) : (
-              <div
+              <CircleCheck
                 onClick={handleApprove}
-                className="flex space-x-2 justify-center items-center py-1 px-2 rounded bg-green-500 hover:bg-green-400 text-white hover:cursor-pointer"
-              >
-                <CircleCheck className="size-3" />{" "}
-                <p className="text-[9px]">Approve</p>
-              </div>
+                className="size-6 p-1 text-slate-500 hover:text-green-500 hover:cursor-pointer hover:bg-slate-200 hover:rounded"
+              />
             )
           ) : null}
         </div>
