@@ -59,7 +59,8 @@ export async function getSponsorship(id: string): Promise<Sponsorship> {
       month: "",
       year: "",
       jobBoard: undefined,
-      isApproved: false
+      isApproved: false,
+      createdAt: new Date()
     };
   }
 }

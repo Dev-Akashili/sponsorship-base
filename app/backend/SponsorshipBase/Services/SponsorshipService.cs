@@ -154,7 +154,8 @@ public class SponsorshipService(
             IsFavourite = x.Favourites != null && x.Favourites.Contains(user?.Id ?? ""),
             FavouriteCount = x.Favourites?.Count ?? 0,
             Reports = roles.Contains("Admin") ? x.Reports : new(),
-            IsApproved = x.IsApproved
+            IsApproved = x.IsApproved,
+            CreatedAt = x.CreatedAt
         }).ToList();
 
         var result = new PaginatedResponse<SponsorshipModel>

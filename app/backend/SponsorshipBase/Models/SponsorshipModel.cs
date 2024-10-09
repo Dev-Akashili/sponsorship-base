@@ -25,4 +25,5 @@ public class SponsorshipModel
     public int FavouriteCount { get; set; }
     public List<string>? Reports { get; set; } = new();
     public bool IsApproved { get; set; } = false;
+    public DateTime CreatedAt { get; set; }
 }

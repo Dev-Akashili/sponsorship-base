@@ -20,6 +20,7 @@ export interface Sponsorship {
   favouriteCount?: number;
   reports?: string[];
   isApproved: boolean;
+  createdAt: Date
 }
 
 export interface Company {
