@@ -3,7 +3,7 @@ import { PageTitle } from "@/components/core/PageTitle";
 import { DataTable } from "@/components/data-table";
 import { PaginatedResponse } from "@/types";
 import { columns } from "./columns";
-import { DataTableFilter } from "@/components/data-table/DataTableFilter";
+import { DataTableSearch } from "@/components/data-table/DataTableSearch";
 import { Button } from "@/components/ui/button";
 import { CopyPlus, SlidersHorizontal } from "lucide-react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
@@ -42,28 +42,28 @@ export function Table({
     <FilterPanel path={path} options={SPONSORSHIP_TABLE_FILTER_OPTIONS}>
       <Button
         variant={"outline"}
-        className="text-blue-600 hover:text-blue-500 border-blue-600 w-[18%]"
+        className="text-blue-600 hover:text-blue-500 border-blue-600 w-28 m-2"
       >
         <SlidersHorizontal className="mr-1" /> Filters
       </Button>
     </FilterPanel>
   );
-  const filter = (
-    <DataTableFilter
-      actions={filterPanel}
+
+  const search = (
+    <DataTableSearch
       placeholder={"Search by company, country, city, job title..."}
     />
   );
 
   const tableAction = isAuthenticated ? (
     <Link to={ROUTES.add}>
-      <Button className="sponsorship-base h-full" size={"sm"}>
+      <Button className="sponsorship-base h-[40px] w-48 m-2" size={"sm"}>
         <CopyPlus className="size-4 mr-2" /> Add a contribution
       </Button>
     </Link>
   ) : (
     <AuthInfoModal>
-      <Button className="sponsorship-base h-[40px]" size={"sm"}>
+      <Button className="sponsorship-base h-[40px] w-48 m-2" size={"sm"}>
         <CopyPlus className="size-4 mr-2" /> Add a contribution
       </Button>
     </AuthInfoModal>
@@ -88,7 +88,7 @@ export function Table({
   };
 
   const adminOption = (
-    <div className="flex space-x-2 mb-4 ml-auto">
+    <div className="flex space-x-2 mt-2 mb-4 ml-auto mr-2">
       <div className="flex items-center space-x-2">
         <Checkbox
           id="approval"
@@ -126,7 +126,8 @@ export function Table({
                   columns={columns}
                   count={data.count}
                   data={data.list}
-                  Filter={filter}
+                  Search={search}
+                  Filter={filterPanel}
                   actions={tableAction}
                   adminOptions={
                     user?.roles.includes(ROLES.Admin) ? adminOption : null

@@ -24,6 +24,7 @@ import { useEffect, useState } from "react";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  Search?: JSX.Element;
   Filter?: JSX.Element;
   actions?: JSX.Element | JSX.Element[];
   adminOptions?: JSX.Element | JSX.Element[] | null;
@@ -34,6 +35,7 @@ interface DataTableProps<TData, TValue> {
 export function DataTable<TData, TValue>({
   columns,
   data,
+  Search,
   Filter,
   actions,
   adminOptions,
@@ -62,7 +64,8 @@ export function DataTable<TData, TValue>({
   return (
     <div className="flex flex-col p-4 bg-white rounded-md">
       <div className="flex flex-col">
-        <div className="flex justify-between mt-4 mb-8">
+        <div className="flex flex-wrap justify-between space-4">
+          {Search}
           {Filter}
           {actions}
         </div>

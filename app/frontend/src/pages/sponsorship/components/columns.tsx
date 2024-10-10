@@ -49,7 +49,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
         <TableRowLayout
           id={id}
           summary={
-            <div className="flex flex-col justify-center space-y-3">
+            <div className="flex flex-col justify-center space-y-3 mx-6">
               <div className="flex space-x-1 items-center">
                 <img src="../../sex.png" alt="sex" className="size-4" />
                 <p>{sex}</p>
@@ -69,7 +69,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
           expand={
             <div className="flex flex-col items-center min-h-96 mt-5">
               <img src="../../profile.png" alt="profile" className="size-16" />
-              <div className="flex flex-col items-center space-y-2 mt-8">
+              <div className="flex flex-col items-center space-y-3 mt-8">
                 {PROFILE_COLUMN.map((item, index) => (
                   <InfoTile
                     key={index}
@@ -147,9 +147,9 @@ export const columns: ColumnDef<Sponsorship>[] = [
               <img
                 src={`../../${companyLogoSlug}.jpeg`}
                 alt={companyLogoSlug}
-                className="size-20 border"
+                className="size-16 border"
               />
-              <div className="flex flex-col items-center space-y-2 mt-8">
+              <div className="flex flex-col items-center space-y-3 mt-8">
                 {COMPANY_COLUMN.map((item, index) => (
                   <InfoTile
                     key={index}
@@ -213,7 +213,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
         <TableRowLayout
           id={id}
           summary={
-            <div className="flex flex-col space-y-2">
+            <div className="flex flex-col space-y-2 mx-6">
               <div className="flex space-x-1">
                 <CalendarDays className="size-4" />
                 <p>{`${month}, ${year}`}</p>
@@ -235,7 +235,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
                 alt="contract"
                 className="size-16"
               />
-              <div className="flex flex-col items-center space-y-2 mt-8">
+              <div className="flex flex-col items-center space-y-3 mt-8">
                 {SPONSORSHIP_COLUMN.map((item, index) => (
                   <InfoTile
                     key={index}

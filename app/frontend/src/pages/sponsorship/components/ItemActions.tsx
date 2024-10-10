@@ -98,7 +98,7 @@ export const ItemActions = ({
         <Button ref={btnRef} className="hidden"></Button>
       </AuthInfoModal>
       {isApproved ? (
-        <div className="flex space-x-1">
+        <div className="flex space-x-2">
           <div className="flex">
             {favCount > 0 && (
               <p className="text-sm text-slate-500 my-auto">{favCount}</p>
