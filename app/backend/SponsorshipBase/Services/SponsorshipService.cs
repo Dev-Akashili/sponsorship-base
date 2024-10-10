@@ -248,6 +248,7 @@ public class SponsorshipService(
             Company = company,
             Country = model.Country,
             City = model.City,
+            Industry = model.Industry,
             JobTitle = model.JobTitle,
             Experience = model.Experience,
             Salary = model.Salary,
@@ -341,6 +342,7 @@ public class SponsorshipService(
         }
 
         // User update
+        sponsorship.Industry = model.Industry;
         sponsorship.MinimumSalary = ConvertSalary(sponsorship.Salary);
         sponsorship.JobTitle = model.JobTitle;
         sponsorship.Experience = model.Experience;

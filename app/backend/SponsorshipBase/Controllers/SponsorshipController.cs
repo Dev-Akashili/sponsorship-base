@@ -210,7 +210,7 @@ public class SponsorshipController(
             }
 
             var result = await sponsorshipService.Edit(model, user, id);
-            return CreatedAtAction(nameof(Edit), new { id = result.Id }, result);
+            return CreatedAtAction(nameof(Edit), new { id = result.Id }, model);
         }
         catch (KeyNotFoundException e)
         {
