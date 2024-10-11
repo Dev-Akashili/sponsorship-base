@@ -16,21 +16,16 @@ export const sponsorshipFormSchema = z
     year: z.string().min(1, "Year is required"),
     jobBoard: z.string().min(1, "Job board is required"),
     newJobBoardName: z.string().optional(),
-    newJobBoardLink: z.string().optional()
-  }).superRefine((data, ctx) => {
+    newJobBoardLink: z.string().optional(),
+    companyCareerPage: z.string().optional()
+  })
+  .superRefine((data, ctx) => {
     if (data.jobBoard === "Other") {
       if (!data.newJobBoardName) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: "Name is required",
-          path: ["newJobBoardName"],
-        });
-      }
-      if (!data.newJobBoardLink) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Link is required",
-          path: ["newJobBoardLink"],
+          path: ["newJobBoardName"]
         });
       }
     }

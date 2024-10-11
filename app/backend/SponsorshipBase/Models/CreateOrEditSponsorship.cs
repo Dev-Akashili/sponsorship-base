@@ -19,4 +19,5 @@ public class CreateOrEditSponsorship
     public string JobBoard { get; set; } = string.Empty;
     public string NewJobBoardName { get; set; } = string.Empty;
     public string NewJobBoardLink { get; set; } = string.Empty;
+    public string CompanyCareerPage { get; set; } = string.Empty;
 }

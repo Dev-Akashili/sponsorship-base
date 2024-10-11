@@ -215,7 +215,7 @@ public class SponsorshipService(
 
         if (jobBoard == null)
         {
-            if (String.Equals(model.JobBoard , "Other"))
+            if (String.Equals(model.JobBoard, "Other"))
             {
                 jobBoard = new JobBoard
                 {
@@ -237,7 +237,11 @@ public class SponsorshipService(
 
         if (company == null)
         {
-            company = new Company { Name = model.Company };
+            company = new Company
+            {
+                Name = model.Company,
+                CareerPage = model.CompanyCareerPage
+            };
             db.Companies.Add(company);
         }
 
@@ -312,6 +316,11 @@ public class SponsorshipService(
                 db.Companies.Remove(company);
             }
             
+            if (!string.IsNullOrEmpty(model.CompanyCareerPage))
+            {
+                sponsorship.Company.CareerPage = model.CompanyCareerPage;
+            }
+            
             if (!String.Equals(model.JobBoard, sponsorship.JobBoard.Name))
             {
                 var jobBoard = await db.JobBoards
@@ -335,9 +344,12 @@ public class SponsorshipService(
                 else
                 {
                     sponsorship.JobBoard = updateJobBoard;
-                }
 
-                db.Remove(jobBoard);
+                    if (!string.IsNullOrEmpty(model.NewJobBoardLink))
+                    {
+                        sponsorship.JobBoard.Link = model.NewJobBoardLink;
+                    }
+                }
             }
         }
 

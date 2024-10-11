@@ -68,7 +68,8 @@ export const AddOrEdit = () => {
           year: result.year || "",
           jobBoard: result.jobBoard?.name || "",
           newJobBoardName: "",
-          newJobBoardLink: ""
+          newJobBoardLink: "",
+          companyCareerPage: ""
         });
         if (result.country) {
           setCityDisabled(false);
@@ -104,7 +105,8 @@ export const AddOrEdit = () => {
         year: "",
         jobBoard: "",
         newJobBoardName: "",
-        newJobBoardLink: ""
+        newJobBoardLink: "",
+        companyCareerPage: ""
       });
       setPageLoaded(true);
     }
@@ -127,7 +129,8 @@ export const AddOrEdit = () => {
       year: data ? data.year : "",
       jobBoard: data ? data.jobBoard?.name : "",
       newJobBoardName: "",
-      newJobBoardLink: ""
+      newJobBoardLink: "",
+      companyCareerPage: ""
     }
   });
 
@@ -200,7 +203,7 @@ export const AddOrEdit = () => {
                 form={form}
                 name="company"
                 label="Company"
-                disabled={isEdit ? !user?.roles.includes(ROLES.Admin) : false}
+                disabled={isEdit && !user?.roles.includes(ROLES.Admin)}
               />
               <div className="flex justify-between">
                 <FormSelect
@@ -305,28 +308,31 @@ export const AddOrEdit = () => {
                 name="jobBoard"
                 options={JOB_BOARDS}
                 onChange={handleJobBoardChange}
-                disabled={isEdit ? !user?.roles.includes(ROLES.Admin) : false}
+                disabled={isEdit && !user?.roles.includes(ROLES.Admin)}
               />
               {showNewJobBoard && (
                 <>
                   <p className="mt-4 text-slate-700 text-sm font-medium">
                     If 'Other' please specify
                   </p>
-                  <div className="flex justify-between">
-                    <FormInput
-                      form={form}
-                      label="Name"
-                      name="newJobBoardName"
-                      width={"48%"}
-                    />
-                    <FormInput
-                      form={form}
-                      label="Link to website"
-                      name="newJobBoardLink"
-                      width={"48%"}
-                    />
-                  </div>
+                  <FormInput form={form} label="Name" name="newJobBoardName" />
                 </>
+              )}
+              {user?.roles.includes(ROLES.Admin) && (
+                <div className="flex justify-between">
+                  <FormInput
+                    form={form}
+                    label="Job board link"
+                    name="newJobBoardLink"
+                    width={"48%"}
+                  />
+                  <FormInput
+                    form={form}
+                    label="Company career page"
+                    name="companyCareerPage"
+                    width={"48%"}
+                  />
+                </div>
               )}
               <Button
                 type="submit"
