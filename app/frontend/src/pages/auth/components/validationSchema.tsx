@@ -50,7 +50,10 @@ export const registerFormSchema = z
       .regex(/[A-Z]/, {
         message: "Passwords must have at least one uppercase ('A'-'Z')."
       }),
-    confirm: z.string().min(1, "Confirm Password is required")
+    confirm: z.string().min(1, "Confirm Password is required"),
+    accept: z.boolean().refine((val) => val === true, {
+      message: "You must accept the terms and conditions"
+    })
   })
   .refine((data) => data.password === data.confirm, {
     path: ["confirm"],

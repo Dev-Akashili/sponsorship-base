@@ -6,7 +6,7 @@ import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { FormLayout } from "@/layout/FormLayout";
 import { Link, useNavigate } from "react-router-dom";
-import { AUTH_ROUTES } from "@/pages/routes";
+import { AUTH_ROUTES, ROUTES } from "@/pages/routes";
 import { FormInput } from "@/components/forms/FormInput";
 import { useState } from "react";
 import { ResponseMessage } from "@/types";
@@ -21,6 +21,7 @@ import { FormSelect } from "@/components/forms/FormSelect";
 import { toast } from "react-toastify";
 import { COUNTRIES, SEX } from "@/constants/Forms.constants";
 import { DEFAULT_ERROR_MESSAGE } from "@/constants/Messages.constants";
+import { FormCheckbox } from "@/components/forms/FormCheckbox";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -37,7 +38,8 @@ export const Register = () => {
     defaultValues: {
       email: "",
       password: "",
-      confirm: ""
+      confirm: "",
+      accept: false
     }
   });
 
@@ -97,6 +99,31 @@ export const Register = () => {
     </div>
   );
 
+  const acceptance = (
+    <p>
+      I accept the{" "}
+      <span>
+        <a
+          href={ROUTES.privacy}
+          target="_blank"
+          className="text-blue-600 underline"
+        >
+          privacy policy
+        </a>
+      </span>{" "}
+      and{" "}
+      <span>
+        <a
+          href={ROUTES.terms}
+          target="_blank"
+          className="text-blue-600 underline"
+        >
+          terms and conditions
+        </a>
+      </span>
+    </p>
+  );
+
   return (
     <FormLayout title="Create a new account">
       {alert && (
@@ -138,6 +165,7 @@ export const Register = () => {
             label="Confirm Password"
             type="password"
           />
+          <FormCheckbox form={form} name="accept" label={acceptance} />
           <Button type="submit" className="sponsorship-base mt-4 w-full">
             {isLoading ? <Spinner /> : "Submit"}
           </Button>
