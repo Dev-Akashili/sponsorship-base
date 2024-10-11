@@ -9,7 +9,9 @@ export const ROUTES = {
   edit: `${basePath}/edit`,
   settings: `${basePath}/settings`,
   about: `${basePath}/about`,
-  contact: `${basePath}/contact`
+  contact: `${basePath}/contact`,
+  privacy: `${basePath}/privacy-policy`,
+  terms: `${basePath}/terms-and-conditions`
 };
 
 const authBasePath = "/auth";

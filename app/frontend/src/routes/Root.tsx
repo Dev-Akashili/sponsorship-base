@@ -1,14 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import { DefaultLayout } from "@/layout/DefaultLayout";
-import { IndexPage } from "@/pages/home/IndexPage";
 import { ROUTES } from "@/pages/routes";
 import { NotFound } from "@/pages/error/NotFound";
 import { AddOrEdit } from "@/pages/contribution/AddOrEdit";
-import { About } from "@/pages/about/About";
 import { Contact } from "@/pages/contact/Contact";
 import { AuthRedirect, AuthRoute } from "./Custom";
 import { Manage, SponsorshipList, Favourite } from "@/pages/sponsorship";
 import { Settings } from "@/pages/settings/Settings";
+import { About, IndexPage, PrivacyPolicy, TermsAndConditions } from "@/pages";
 
 export const Root = () => {
   return (
@@ -70,6 +69,10 @@ export const Root = () => {
         <Route path={ROUTES.about} element={<About />} />
 
         <Route path={ROUTES.contact} element={<Contact />} />
+
+        <Route path={ROUTES.privacy} element={<PrivacyPolicy />} />
+
+        <Route path={ROUTES.terms} element={<TermsAndConditions />} />
 
         <Route path={"*"} element={<NotFound />} />
       </Route>
