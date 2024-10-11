@@ -23,6 +23,21 @@ public class DataSeeder(ApplicationDbContext db)
                 {
                     Name = "Indeed",
                     Link = "https://indeed.com"
+                },
+                new JobBoard
+                {
+                    Name = "Reed",
+                    Link = "https://www.reed.co.uk"
+                },
+                new JobBoard
+                {
+                    Name = "Xing",
+                    Link = "https://xing.com"
+                },
+                new JobBoard
+                {
+                    Name = "Company",
+                    Link = ""
                 }
             };
 

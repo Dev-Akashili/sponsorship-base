@@ -1,6 +1,22 @@
 export const SEX = ["Male", "Female"];
 
-export const INDUSTRIES = ["Tech", "Finance", "Healthcare"];
+export const INDUSTRIES = [
+  "Business",
+  "Consulting",
+  "Education & Training",
+  "Engineering",
+  "Entertainment",
+  "Finance",
+  "Healthcare & Medical",
+  "Human Resources",
+  "Legal Services",
+  "Marketing",
+  "Nonprofit",
+  "Public Administration",
+  "Research",
+  "Software & Technology",
+  "Sports & Recreation"
+];
 
 export const EXPERIENCE = [
   "Intern",
@@ -31,7 +47,7 @@ export const SALARIES = [
   "100,000+"
 ];
 
-export const CURRENCIES = ["GBP", "EUR", "CHF"];
+export const CURRENCIES = ["GBP", "EUR", "CHF", "DKK", "SEK"];
 
 export const EDUCATION = [
   "High School",
@@ -67,6 +83,7 @@ export const JOB_BOARDS = [
   "Reed",
   "Xing",
   "Company website/career page",
+  "Refferal",
   "Other"
 ];
 
@@ -269,6 +286,21 @@ export const COUNTRIES = [
 ];
 
 export const COUNTRIES_AND_CITIES = [
+  {
+    country: "Denmark",
+    cities: [
+      "Copenhagen",
+      "Aarhus",
+      "Odense",
+      "Aalborg",
+      "Esbjerg",
+      "Randers",
+      "Kolding",
+      "Horsens",
+      "Vejle",
+      "Roskilde"
+    ]
+  },
   {
     country: "France",
     cities: [
