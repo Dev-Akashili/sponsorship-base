@@ -64,7 +64,7 @@ export function DataTable<TData, TValue>({
   return (
     <div className="flex flex-col p-4 bg-white rounded-md">
       <div className="flex flex-col">
-        <div className="flex flex-wrap justify-between space-4">
+        <div className="flex flex-wrap justify-between space-4 mb-4">
           {Search}
           {Filter}
           {actions}

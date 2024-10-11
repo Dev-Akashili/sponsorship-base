@@ -129,7 +129,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
                 <div className="flex space-x-1">
                   <img
                     src={`../../${companyLogoSlug}.jpeg`}
-                    className="size-5"
+                    className="size-5 border"
                   />
                   <p>{company?.name}</p>
                 </div>
@@ -180,6 +180,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
     cell: ({ row }) => {
       const {
         id,
+        company,
         month,
         year,
         jobBoard,
@@ -190,19 +191,24 @@ export const columns: ColumnDef<Sponsorship>[] = [
         reports
       } = row.original;
       const jobBoardSlug = convertToSlug(jobBoard?.name ?? "");
+      const isJobBoardCompanyPage = jobBoard?.name === "Company";
 
       const website = (
         <a
-          href={jobBoard?.link}
+          href={isJobBoardCompanyPage ? company?.careerPage : jobBoard?.link}
           target="_blank"
-          className="flex text-slate-500 font-semibold underline cursor-pointer"
+          className={`flex ${
+            isJobBoardCompanyPage ? "text-blue-600" : "text-slate-600"
+          } font-semibold underline cursor-pointer`}
         >
-          <img
-            src={`../../${jobBoardSlug}.jpeg`}
-            alt={`${jobBoardSlug}`}
-            className="size-3 my-auto mr-1"
-          />
-          {jobBoard?.name}
+          {jobBoard?.name !== "Company" && (
+            <img
+              src={`../../${jobBoardSlug}.jpeg`}
+              alt={`${jobBoardSlug}`}
+              className="size-3 my-auto mr-1 border"
+            />
+          )}
+          {isJobBoardCompanyPage ? "Career Page" : jobBoard?.name}
           <ExternalLink className="size-3 my-auto ml-1" />
         </a>
       );

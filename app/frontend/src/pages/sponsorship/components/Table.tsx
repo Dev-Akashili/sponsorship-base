@@ -88,7 +88,7 @@ export function Table({
   };
 
   const adminOption = (
-    <div className="flex space-x-2 mt-2 mb-4 ml-auto mr-2">
+    <div className="flex space-x-2 mb-4 ml-auto mr-2">
       <div className="flex items-center space-x-2">
         <Checkbox
           id="approval"

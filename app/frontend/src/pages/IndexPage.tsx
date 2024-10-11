@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { ROUTES } from "../routes";
+import { ROUTES } from "./routes";
 import { PageTitle } from "@/components/core/PageTitle";
 
 export const IndexPage = () => {
@@ -21,12 +21,12 @@ export const IndexPage = () => {
           </p>
           <div className="text-center">
             <Link to={ROUTES.list}>
-              <Button className="mx-2 sponsorship-base">
+              <Button size={"lg"} className="mx-2 sponsorship-base">
                 View Sponsorship list
               </Button>
             </Link>
             <Link to={ROUTES.add}>
-              <Button className="mx-2 sponsorship-base">
+              <Button size={"lg"} className="mx-2 sponsorship-base">
                 Add Your Sponsored Job
               </Button>
             </Link>

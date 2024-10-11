@@ -10,5 +10,9 @@ export const TOAST_OPTIONS: ToastOptions = {
   pauseOnHover: false,
   pauseOnFocusLoss: false,
   theme: "colored",
-  transition: Bounce
+  transition: Bounce,
+  style: {
+    fontSize: "14px",
+    fontWeight: "bold"
+  }
 };

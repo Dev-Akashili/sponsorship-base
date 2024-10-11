@@ -29,23 +29,10 @@ export const Contact = () => {
     setIsLoading(false);
   }
 
-  const content = (
-    <div className="flex flex-col space-y-2 font-semibold text-sm mt-3 mb-6 text-slate-500 p-3 bg-white rounded-lg">
-      <p>Need to get in touch?</p>
-      <p>Fill the form below or</p>
-      <p>
-        send an email to{" "}
-        <span>
-          <a className="text-blue-600 underline">example@email.com</a>
-        </span>
-      </p>
-    </div>
-  );
-
   return (
     <>
       <PageTitle title={"Contact Us"} />
-      <FormLayout size="lg" title="Get In Touch" content={content}>
+      <FormLayout size="lg" title="Contact Us">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             {" "}

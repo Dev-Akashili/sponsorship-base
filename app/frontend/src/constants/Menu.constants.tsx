@@ -1,11 +1,11 @@
 import {
-  List,
   Mail,
   Star,
   Table,
   UserCog,
   CopyPlus,
-  CircleHelp
+  CircleHelp,
+  NotebookText
 } from "lucide-react";
 import { ROUTES } from "@/pages/routes";
 
@@ -38,7 +38,7 @@ export const SIDEBAR_ITEMS: MenuItems[] = [
     path: "list",
     text: "Sponsorsip list",
     link: ROUTES.list,
-    icon: <List />
+    icon: <NotebookText />
   },
   {
     path: "add",

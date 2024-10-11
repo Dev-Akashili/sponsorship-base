@@ -4,10 +4,9 @@ import { PageLayout } from "@/layout/PageLayout";
 import { Link } from "react-router-dom";
 
 export const NotFound = () => {
-
   return (
     <>
-    <PageTitle title={"Not Found"} />
+      <PageTitle title={"Not Found"} />
       <PageLayout>
         <div className="m-auto text-center">
           <h1 className="text-9xl text-blue-600">404</h1>
@@ -15,7 +14,7 @@ export const NotFound = () => {
             Sorry, the page you're looking for cannot be found
           </p>
           <Link to={"/"}>
-            <Button className="sponsorship-base mt-6">
+            <Button size={"lg"} className="sponsorship-base mt-6">
               Go back to homepage
             </Button>
           </Link>

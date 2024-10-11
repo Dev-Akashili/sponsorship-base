@@ -1,26 +1,30 @@
-import { BookText, Github, Linkedin, ShieldAlert, Twitter } from "lucide-react";
+import { ROUTES } from "@/pages/routes";
+import { BookText, Mail, ShieldAlert } from "lucide-react";
 
 export const Footer = () => {
   return (
-    <div className="w-full h-36 bg-blue-600 flex justify-center">
-      <div className="m-auto text-center">
-        <div className="flex gap-4 justify-center">
-          <Github className="h-5 w-5 text-slate-200" />
-          <Linkedin className="h-5 w-5 text-slate-200" />
-          <Twitter className="h-5 w-5 text-slate-200" />
+    <div className="h-36 bg-blue-600">
+      <div className="mx-10 flex justify-between">
+        <div className="flex flex-col gap-2 mt-8">
+          <p className="text-lg text-white font-semibold">SponsorshipBase</p>
+          <p className="text-sm text-white ">
+            © {new Date().getFullYear()} SponsorshipBase. All rights reserved
+          </p>
         </div>
-        <p className="mt-4 text-sm text-white ">
-          © SponsorshipBase {new Date().getFullYear()}
-        </p>
-        <div className="mt-4 flex items-center gap-1 justify-center">
-          <div className="flex space-x-1 text-xs text-white cursor-pointer hover:underline">
-            <BookText className="size-4" />
-            <p>Terms and Conditions</p>
-          </div>
-          <p className="text-white">|</p>
-          <div className="flex space-x-1 text-xs text-white cursor-pointer hover:underline">
-            <ShieldAlert className="size-4" />
-            <p>Privacy Policy</p>
+        <div className="flex flex-col mt-8">
+          <div className="flex gap-6">
+            <div className="flex items-center space-x-1 text-sm text-white cursor-pointer hover:underline">
+              <BookText className="size-4" />
+              <a href={ROUTES.terms}>Terms and Conditions</a>
+            </div>
+            <div className="flex items-center space-x-1 text-sm text-white cursor-pointer hover:underline">
+              <ShieldAlert className="size-4" />
+              <a href={ROUTES.privacy}>Privacy Policy</a>
+            </div>
+            <div className="flex items-center space-x-1 text-sm text-white cursor-pointer hover:underline">
+              <Mail className="size-4" />
+              <a href={ROUTES.contact}>Contact</a>
+            </div>
           </div>
         </div>
       </div>
