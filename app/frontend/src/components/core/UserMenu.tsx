@@ -26,7 +26,7 @@ export const UserMenu = () => {
       <DropdownMenuTrigger asChild>
         <Button
           variant="outline"
-          className="hover:bg-slate-300 border-2 border-slate-600 hidden sm:flex items-center justify-center"
+          className="hover:bg-slate-300 border-2 dark:border border-slate-600 dark:border-white dark:text-white hidden sm:flex items-center justify-center"
         >
           <p>{email.length > 25 ? email?.substring(0, 25) + "..." : email}</p>
           <CircleUserRound className="h-16 w-6 ml-2" />
@@ -81,7 +81,7 @@ export const LogoutButton = ({ sidebar = false }: { sidebar?: boolean }) => {
   return sidebar ? (
     <Button
       variant={"ghost"}
-      className="w-full hover:text-blue-600"
+      className="w-full hover:text-blue-600 dark:text-white"
       onClick={handleSignOut}
     >
       <div className="mr-auto flex justify-center items-center">

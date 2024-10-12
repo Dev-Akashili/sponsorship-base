@@ -166,11 +166,11 @@ export const Register = () => {
             type="password"
           />
           <FormCheckbox form={form} name="accept" label={acceptance} />
-          <Button type="submit" className="sponsorship-base mt-4 w-full">
+          <Button type="submit" className="sponsorship-base dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white mt-4 w-full">
             {isLoading ? <Spinner /> : "Submit"}
           </Button>
           <div className="flex mt-4 justify-center">
-            <p className="text-sm text-slate-600">Already have an account?</p>
+            <p className="text-sm text-slate-600 dark:text-white">Already have an account?</p>
             <Link to={AUTH_ROUTES.login}>
               <p className="ml-2 text-sm text-blue-700 underline cursor-pointer">
                 Login

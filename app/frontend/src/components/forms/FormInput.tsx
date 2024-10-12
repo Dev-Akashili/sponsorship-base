@@ -37,14 +37,14 @@ export const FormInput = ({
       name={name}
       render={({ field }) => (
         <FormItem className="mt-2" style={{ width: width }}>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel className="dark:text-white">{label}</FormLabel>
           <FormControl>
             {type === "password" ? (
               <PasswordInput form={field} />
             ) : type === "textarea" ? (
               <Textarea
                 placeholder={placeholder}
-                className="resize-none"
+                className="resize-none dark:text-white"
                 rows={6}
                 {...field}
               />
@@ -53,6 +53,7 @@ export const FormInput = ({
                 placeholder={placeholder}
                 type={type ? type : "text"}
                 disabled={disabled}
+                className="dark:text-white"
                 {...field}
               />
             )}
@@ -69,13 +70,17 @@ const PasswordInput = ({ form }: { form: any }) => {
 
   return (
     <div className="flex">
-      <Input type={show ? "text" : "password"} {...form} />
+      <Input
+        type={show ? "text" : "password"}
+        {...form}
+        className="dark:text-white"
+      />
       <Button
         type="button"
         variant={"outline"}
         size={"icon"}
         onClick={() => setShow(!show)}
-        className="ml-2"
+        className="dark:text-white ml-2"
       >
         {show ? <Eye /> : <EyeOff />}
       </Button>

@@ -59,13 +59,13 @@ export const Contact = () => {
               placeholder="Leave a message for us."
             />
             <Button
-              className="sponsorship-base w-full mt-6 mb-4"
+              className="sponsorship-base dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white w-full mt-6 mb-4"
               type="submit"
               disabled={isLoading}
             >
               {isLoading ? <Spinner /> : "Send"}
             </Button>
-            <p className="text-sm text-slate-500 text-center">
+            <p className="text-sm text-slate-500 dark:text-white text-center">
               We'll be in touch shortly.
             </p>
           </form>

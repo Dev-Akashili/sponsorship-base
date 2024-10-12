@@ -31,7 +31,7 @@ export const FormCheckbox = ({ form, name, label }: FormCheckboxProps) => {
                 }}
               />
             </FormControl>
-            <FormLabel className="text-sm font-normal">{label}</FormLabel>
+            <FormLabel className="text-sm font-normal dark:text-white">{label}</FormLabel>
           </FormItem>
           <FormMessage />
         </FormItem>

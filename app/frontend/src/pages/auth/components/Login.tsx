@@ -86,7 +86,7 @@ export const Login = () => {
 
   const sendEmailVerificationLink = (
     <div
-      className="mt-2 underline cursor-pointer hover:text-blue-500 inline-block"
+      className="mt-2 underline cursor-pointer hover:text-blue-500 dark:hover:text-white inline-block"
       onClick={async () => {
         setIsLoading(true);
         try {
@@ -141,12 +141,14 @@ export const Login = () => {
           <Button
             type="submit"
             disabled={isLoading}
-            className="sponsorship-base mt-4 w-full"
+            className="sponsorship-base dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white mt-4 w-full"
           >
             {isLoading ? <Spinner /> : "Submit"}
           </Button>
           <div className="flex mt-4 justify-center">
-            <p className="text-sm text-slate-600">Don't have an account?</p>
+            <p className="text-sm text-slate-600 dark:text-white">
+              Don't have an account?
+            </p>
             <Link to={AUTH_ROUTES.register}>
               <p className="ml-2 text-sm text-blue-700 underline cursor-pointer">
                 Register

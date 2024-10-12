@@ -70,7 +70,7 @@ export const UserActions = ({
         <div className="flex space-x-2 mt-auto mb-8">
           <Edit
             onClick={() => navigate(`${ROUTES.edit}/?id=${id}`)}
-            className="ize-6 p-1 text-slate-500 hover:text-blue-600 hover:cursor-pointer hover:bg-slate-200 hover:rounded"
+            className="ize-6 p-1 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-600 hover:cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-600 hover:rounded"
           />
 
           <DeleteModal
@@ -78,7 +78,7 @@ export const UserActions = ({
             handleDelete={handleDelete}
             deleting={deleting}
           >
-            <Trash className="size-6 p-1 text-slate-500 hover:text-red-500 hover:cursor-pointer hover:bg-slate-200 hover:rounded" />
+            <Trash className="size-6 p-1 text-slate-500 dark:text-slate-400 hover:text-red-500 dark:hover:text-red-500 hover:cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-600 hover:rounded" />
           </DeleteModal>
           {user?.roles.includes(ROLES.Admin) ? (
             loading ? (
@@ -86,12 +86,12 @@ export const UserActions = ({
             ) : isApproved ? (
               <Ban
                 onClick={handleApprove}
-                className="size-6 p-1 text-slate-500 hover:text-orange-500 hover:text-red-500 hover:cursor-pointer hover:bg-slate-200 hover:rounded"
+                className="size-6 p-1 text-slate-500 dark:text-slate-400 hover:text-orange-500 dark:hover:text-orange-500 hover:text-red-500 hover:cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-600 hover:rounded"
               />
             ) : (
               <CircleCheck
                 onClick={handleApprove}
-                className="size-6 p-1 text-slate-500 hover:text-green-500 hover:cursor-pointer hover:bg-slate-200 hover:rounded"
+                className="size-6 p-1 text-slate-500 dark:text-slate-400 hover:text-green-500 dark:hover:text-green-500 hover:cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-600 hover:rounded"
               />
             )
           ) : null}

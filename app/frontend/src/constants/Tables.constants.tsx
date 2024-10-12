@@ -4,58 +4,70 @@ import {
   INDUSTRIES,
   COUNTRIES_AND_CITIES
 } from "./Forms.constants";
+import {
+  FaPoundSign,
+  FaRegBuilding,
+  FaSuitcase,
+  FaPassport,
+  FaGraduationCap,
+  FaRegCalendarAlt,
+  FaGlobe
+} from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
+import { GrUserWorker } from "react-icons/gr";
+import { PiCertificateBold, PiGenderIntersexBold } from "react-icons/pi";
 import { FilterSelectProps } from "@/pages/sponsorship/components/filter";
 
 export const PROFILE_COLUMN = [
   {
     name: "Sex",
-    image: "sex"
+    image: <PiGenderIntersexBold />
   },
   {
     name: "Nationality",
-    image: "passport"
+    image: <FaPassport />
   },
   {
     name: "Education",
-    image: "education"
+    image: <FaGraduationCap />
   },
   {
     name: "Place of Education",
-    image: "certificate"
+    image: <PiCertificateBold />
   }
 ];
 
 export const COMPANY_COLUMN = [
   {
     name: "Company",
-    image: "company"
+    image: <FaRegBuilding />
   },
   {
     name: "Location",
-    image: "location"
+    image: <FaLocationDot />
   },
   {
     name: "Job Title",
-    image: "suitcase"
+    image: <FaSuitcase />
   },
   {
     name: "Job Level",
-    image: "level"
+    image: <GrUserWorker />
   },
   {
     name: "Salary",
-    image: "money"
+    image: <FaPoundSign />
   }
 ];
 
 export const SPONSORSHIP_COLUMN = [
   {
     name: "Date of Sponsorship",
-    image: "calendar"
+    image: <FaRegCalendarAlt />
   },
   {
     name: "Job Board Website",
-    image: "website"
+    image: <FaGlobe />
   }
 ];
 

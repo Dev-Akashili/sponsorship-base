@@ -102,12 +102,12 @@ const VerifyEmailForm = () => {
           <Button
             type="submit"
             disabled={isLoading}
-            className="sponsorship-base mt-4 w-full"
+            className="sponsorship-base dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white mt-4 w-full"
           >
             {isLoading ? <Spinner /> : "Submit"}
           </Button>
           <div className="flex mt-4 justify-center">
-            <p className="text-sm text-slate-600">Return back to</p>
+            <p className="text-sm text-slate-600n dark:text-white">Return back to</p>
             <Link to={AUTH_ROUTES.login}>
               <p className="ml-2 text-sm text-blue-700 underline cursor-pointer">
                 Login

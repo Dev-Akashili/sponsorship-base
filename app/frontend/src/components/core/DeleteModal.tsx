@@ -30,7 +30,7 @@ export const DeleteModal = ({
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>
+          <AlertDialogTitle className="dark:text-white">
             {`${DEFAULT_DELETE_QUESTION} ${text}`}
           </AlertDialogTitle>
           <AlertDialogDescription>
@@ -38,10 +38,12 @@ export const DeleteModal = ({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel className="dark:border dark:border-white dark:text-white">
+            Cancel
+          </AlertDialogCancel>
           <AlertDialogAction
             onClick={handleDelete}
-            className="bg-red-500 hover:bg-red-400"
+            className="bg-red-500 hover:bg-red-400 dark:bg-red-600 dark:bg-red-500 dark:text-white"
             disabled={deleting}
           >
             {deleting ? <Spinner size={"sm"} /> : "Delete"}

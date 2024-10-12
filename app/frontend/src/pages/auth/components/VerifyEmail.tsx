@@ -66,7 +66,7 @@ export const VerifyEmail = () => {
 
   const sendEmailVerificationLink = (
     <div
-      className="mt-2 underline cursor-pointer hover:text-blue-500 inline-block"
+      className="mt-2 underline cursor-pointer hover:text-blue-500 dark:hover:text-white inline-block"
       onClick={async () => {
         setAlert(false);
         try {
@@ -101,7 +101,7 @@ export const VerifyEmail = () => {
 
   const homeLink = (
     <Link to={AUTH_ROUTES.login}>
-      <div className="mt-2 underline cursor-pointer hover:text-blue-500 inline-block">
+      <div className="mt-2 underline cursor-pointer hover:text-blue-500 dark:hover:text-white inline-block">
         Click here to go back to login.
       </div>
     </Link>

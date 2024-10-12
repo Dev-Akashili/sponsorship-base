@@ -31,7 +31,7 @@ export const DataTableSearch = ({ placeholder }: DataTableSearchProps) => {
   }, [location.search]);
 
   return (
-    <div className="min-w-[350px] w-[450px] h-full relative m-2">
+    <div className="min-w-[350px] w-[450px] h-full relative m-2 dark:border dark:rounded-md">
       <span className="absolute inset-y-0 left-0 flex items-center pl-3">
         <Search className="w-5 h-5 text-slate-500" />
       </span>

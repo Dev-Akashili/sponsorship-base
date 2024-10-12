@@ -194,7 +194,7 @@ export const AddOrEdit = () => {
         <LoadingPage />
       ) : (
         <FormLayout size="lg">
-          <p className="text-slate-600 mb-4">
+          <p className="text-slate-600 dark:text-white mb-4">
             Contribute by adding details about your sponsorship
           </p>
           <Form {...form}>
@@ -283,7 +283,7 @@ export const AddOrEdit = () => {
                   disabled={isEdit}
                 />
               </div>
-              <p className="mt-4 text-slate-700 text-sm font-medium">
+              <p className="mt-4 text-slate-700 dark:text-white text-sm font-medium">
                 Date of sponsorship
               </p>
               <div className="flex justify-between">
@@ -337,7 +337,7 @@ export const AddOrEdit = () => {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="sponsorship-base mt-6 w-full"
+                className="sponsorship-base dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white mt-6 w-full"
               >
                 {isLoading ? <Spinner /> : isEdit ? "Update" : "Submit"}
               </Button>

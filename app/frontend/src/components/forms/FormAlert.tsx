@@ -20,10 +20,10 @@ export const FormAlert = ({
     <Alert
       className={
         type === "error"
-          ? "bg-red-200"
+          ? "bg-red-200 dark:bg-red-500"
           : type === "success"
-          ? "bg-green-300"
-          : "bg-blue-200"
+          ? "bg-green-300 dark:bg-green-700"
+          : "bg-blue-200 dark:bg-blue-500"
       }
     >
       <AlertTitle>

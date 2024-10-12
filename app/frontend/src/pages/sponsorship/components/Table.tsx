@@ -42,7 +42,7 @@ export function Table({
     <FilterPanel path={path} options={SPONSORSHIP_TABLE_FILTER_OPTIONS}>
       <Button
         variant={"outline"}
-        className="text-blue-600 hover:text-blue-500 border-blue-600 w-28 m-2"
+        className="text-blue-600 hover:text-blue-500 dark:text-white border-blue-600 dark:border-white w-28 m-2"
       >
         <SlidersHorizontal className="mr-1" /> Filters
       </Button>
@@ -57,13 +57,19 @@ export function Table({
 
   const tableAction = isAuthenticated ? (
     <Link to={ROUTES.add}>
-      <Button className="sponsorship-base h-[40px] w-48 m-2" size={"sm"}>
+      <Button
+        className="sponsorship-base dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white h-[40px] w-48 m-2"
+        size={"sm"}
+      >
         <CopyPlus className="size-4 mr-2" /> Add a contribution
       </Button>
     </Link>
   ) : (
     <AuthInfoModal>
-      <Button className="sponsorship-base h-[40px] w-48 m-2" size={"sm"}>
+      <Button
+        className="sponsorship-base dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white h-[40px] w-48 m-2"
+        size={"sm"}
+      >
         <CopyPlus className="size-4 mr-2" /> Add a contribution
       </Button>
     </AuthInfoModal>

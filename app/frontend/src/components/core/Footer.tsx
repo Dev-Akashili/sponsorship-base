@@ -3,7 +3,7 @@ import { BookText, Mail, ShieldAlert } from "lucide-react";
 
 export const Footer = () => {
   return (
-    <div className="h-36 bg-blue-600">
+    <div className="h-36 bg-blue-600 dark:bg-blue-800">
       <div className="mx-10 flex justify-between">
         <div className="flex flex-col gap-2 mt-8">
           <p className="text-lg text-white font-semibold">SponsorshipBase</p>

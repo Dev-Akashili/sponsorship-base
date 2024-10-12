@@ -77,7 +77,7 @@ export const FilterPanel = ({ children, options, path }: FilterPanelProps) => {
           <Button
             onClick={() => navigate(`${path}?${query}`)}
             variant={"outline"}
-            className="text-blue-600 hover:text-blue-500 border-blue-600"
+            className="text-blue-600 hover:text-blue-500 border-blue-600 dark:border-blue-600 dark:hover:text-blue-500"
           >
             Apply filters
           </Button>
@@ -87,7 +87,7 @@ export const FilterPanel = ({ children, options, path }: FilterPanelProps) => {
               navigate(path);
             }}
             variant={"outline"}
-            className="text-blue-600 hover:text-blue-500 border-blue-600"
+            className="text-blue-600 hover:text-blue-500 border-blue-600 dark:border-blue-600 dark:hover:text-blue-500"
           >
             Reset filters
           </Button>

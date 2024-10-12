@@ -53,7 +53,9 @@ export const DataTablePagination = ({ count }: DataTablePaginationProps) => {
     <div className="flex w-full flex-col-reverse items-center justify-end gap-4 overflow-auto p-1 sm:flex-row sm:gap-8">
       <div className="flex flex-col-reverse items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
         <div className="flex items-center space-x-2">
-          <p className="whitespace-nowrap text-sm font-medium">Items per page</p>
+          <p className="whitespace-nowrap text-sm font-medium">
+            Items per page
+          </p>
           <Select
             onValueChange={(value) => {
               changePageSize(Number(value));
@@ -77,7 +79,7 @@ export const DataTablePagination = ({ count }: DataTablePaginationProps) => {
         <div className="flex items-center space-x-2">
           <Button
             aria-label="Go to first page"
-            className="sponsorship-base size-8 p-0 flex"
+            className="sponsorship-base size-8 p-0 flex dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white"
             onClick={() => navigateToPage(1)}
             disabled={canNotGoToPreviousPage()}
           >
@@ -85,7 +87,7 @@ export const DataTablePagination = ({ count }: DataTablePaginationProps) => {
           </Button>
           <Button
             aria-label="Go to previous page"
-            className="sponsorship-base size-8 p-0 flex"
+            className="sponsorship-base size-8 p-0 flex dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white"
             onClick={() => navigateToPage(currentPage - 1)}
             disabled={canNotGoToPreviousPage()}
           >
@@ -93,7 +95,7 @@ export const DataTablePagination = ({ count }: DataTablePaginationProps) => {
           </Button>
           <Button
             aria-label="Go to next page"
-            className="sponsorship-base size-8 p-0 flex"
+            className="sponsorship-base size-8 p-0 flex dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white"
             onClick={() => navigateToPage(currentPage + 1)}
             disabled={canNotGoToNextPage()}
           >
@@ -101,7 +103,7 @@ export const DataTablePagination = ({ count }: DataTablePaginationProps) => {
           </Button>
           <Button
             aria-label="Go to last page"
-            className="sponsorship-base size-8 p-0 flex"
+            className="sponsorship-base size-8 p-0 flex dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white"
             onClick={() => navigateToPage(numberOfPages)}
             disabled={canNotGoToNextPage()}
           >

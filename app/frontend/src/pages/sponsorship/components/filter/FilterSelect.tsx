@@ -49,7 +49,9 @@ export const FilterSelect = ({
 
   return (
     <div className="flex flex-col space-y-1">
-      <p className="text-sm text-slate-600">{label}</p>
+      <p className="text-sm text-slate-600 dark:text-white dark:font-semibold">
+        {label}
+      </p>
       <Select
         onValueChange={(value) => {
           handleSortChange(value);
@@ -57,7 +59,7 @@ export const FilterSelect = ({
         value={value}
         disabled={disabled}
       >
-        <SelectTrigger>
+        <SelectTrigger className="dark:border dark:text-white">
           <SelectValue
             placeholder={
               placeholder ? placeholder : value ? value : "Choose an option"

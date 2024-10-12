@@ -5,7 +5,7 @@ export const PrivacyPolicy = () => {
   return (
     <>
       <PageTitle title={"Privacy Policy"} />
-      <div className="flex flex-col space-y-4 mt-32 mb-40 px-40">
+      <div className="flex flex-col space-y-4 mt-32 mb-40 px-40 dark:text-white">
         <h1 className="text-3xl text-blue-600 text-center font-semibold">
           Privacy Policy
         </h1>
@@ -143,7 +143,7 @@ export const PrivacyPolicy = () => {
             If you have any questions regarding this Privacy Policy, please
             contact us by clicking{" "}
             <span>
-              <a href={ROUTES.contact} className="text-blue-600 underline">
+              <a href={ROUTES.contact} className="text-blue-600 dark:text-blue-500 underline">
                 here
               </a>
             </span>

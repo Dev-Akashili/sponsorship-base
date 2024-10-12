@@ -12,8 +12,10 @@ export const NoContent = ({ image, text, link }: NoContentProps) => {
     <PageLayout>
       <div className="flex flex-col space-y-6 items-center">
         <img src={`../../${image}.png`} alt={image} className="size-30" />
-        <p className="text-slate-500">Nothing to see here yet</p>
-        <p className="text-slate-500">
+        <p className="text-slate-500 dark:text-white">
+          Nothing to see here yet
+        </p>
+        <p className="text-slate-500 dark:text-white">
           {text}{" "}
           <span className="text-blue-600 underline">
             <Link to={link}>here</Link>

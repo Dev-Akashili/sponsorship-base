@@ -12,7 +12,7 @@ export const Helmet = ({ sidebar = false }: { sidebar?: boolean }) => {
         <h1
           className={`${sidebar ? "text-blue-600" : "text-gray-800"} ${
             sidebar ? "text-xl" : "text-2xl"
-          } font-semibold ${sidebar ? "block" : "hidden sm:block"}`}
+          } font-semibold ${sidebar ? "block" : "hidden sm:block"} dark:text-white`}
         >
           SponsorshipBase
         </h1>

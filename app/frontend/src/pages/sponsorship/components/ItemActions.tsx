@@ -105,14 +105,14 @@ export const ItemActions = ({
             )}
             <Star
               onClick={handleFavouriteChange}
-              className={`size-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded ${
-                isFav ? "text-yellow-400" : ""
+              className={`size-6 p-1 text-slate-500 dark:text-slate-400 hover:cursor-pointer hover:bg-slate-300 dark:hover:bg-slate-600 hover:rounded ${
+                isFav ? "text-yellow-400 dark:text-yellow-400" : ""
               }`}
             />
           </div>
           <Share
             onClick={() => copysShareLink(id)}
-            className="ize-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded"
+            className="ize-6 p-1 text-slate-500 dark:text-slate-400 hover:cursor-pointer hover:bg-slate-300 dark:hover:bg-slate-600 hover:rounded"
           />
           {!isOwner && (
             <div className="flex">
@@ -123,15 +123,15 @@ export const ItemActions = ({
               )}
               <FlagTriangleRight
                 onClick={() => reportBtnRef.current?.click()}
-                className="ize-6 p-1 text-slate-500 hover:cursor-pointer hover:bg-slate-300 hover:rounded"
+                className="ize-6 p-1 text-slate-500 dark:text-slate-400 hover:cursor-pointer hover:bg-slate-300 dark:hover:bg-slate-600 hover:rounded"
               />
             </div>
           )}
         </div>
       ) : (
         <div className="flex justify-center items-center space-x-1 text-slate-500 italic">
-          <Clock className="size-4" />
-          <p className="text-xs">Pending approval</p>
+          <Clock className="size-4 dark:text-slate-400" />
+          <p className="text-xs dark:text-slate-400">Pending approval</p>
         </div>
       )}
       <ReportPanel
@@ -185,7 +185,9 @@ const ReportPanel = ({ id, isAdmin, children, reports }: ReportPanelProps) => {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isAdmin ? "Reports" : "Report"}</DialogTitle>
+          <DialogTitle className="dark:text-white">
+            {isAdmin ? "Reports" : "Report"}
+          </DialogTitle>
           <DialogDescription>
             {!isAdmin && "Please let us know what the issue is:"}
           </DialogDescription>
@@ -200,7 +202,7 @@ const ReportPanel = ({ id, isAdmin, children, reports }: ReportPanelProps) => {
                 type="textarea"
               />
               <Button
-                className="sponsorship-base mt-4"
+                className="sponsorship-base dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white mt-4"
                 type="submit"
                 disabled={isLoading}
               >
@@ -210,13 +212,13 @@ const ReportPanel = ({ id, isAdmin, children, reports }: ReportPanelProps) => {
             </form>
           </Form>
         ) : (
-          <>
+          <ol>
             {reports.map((report, index) => (
-              <p key={index}>
+              <li key={index} className="dark:text-white">
                 {index + 1}. {report}
-              </p>
+              </li>
             ))}
-          </>
+          </ol>
         )}
       </DialogContent>
     </Dialog>

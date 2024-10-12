@@ -6,10 +6,12 @@ import {
 import { Sponsorship } from "@/types/sponsorship";
 import { ColumnDef } from "@tanstack/react-table";
 import { convertToSlug } from "@/utils";
-import { CalendarDays, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { UserActions, ItemActions } from ".";
 import { DataTableRowViewToggle } from "@/components/data-table/DataTableRowViewToggle";
 import { TableRowLayout } from "@/layout/TableRowLayout";
+import { FaPassport, FaRegCalendarAlt } from "react-icons/fa";
+import { PiGenderIntersexBold } from "react-icons/pi";
 import { InfoTile } from ".";
 
 export const columns: ColumnDef<Sponsorship>[] = [
@@ -51,14 +53,10 @@ export const columns: ColumnDef<Sponsorship>[] = [
           summary={
             <div className="flex flex-col justify-center space-y-3 mx-6">
               <div className="flex space-x-1 items-center">
-                <img src="../../sex.png" alt="sex" className="size-4" />
+                <PiGenderIntersexBold />
                 <p>{sex}</p>
                 <p>|</p>
-                <img
-                  src="../../passport.png"
-                  alt="passport"
-                  className="size-3"
-                />
+                <FaPassport />
                 <p>{nationality}</p>
               </div>
               <p className="italic text-slate-500 text-[10px]">
@@ -111,7 +109,11 @@ export const columns: ColumnDef<Sponsorship>[] = [
         currency
       } = row.original;
       const companyLogoSlug = convertToSlug(company?.name ?? "");
-      const countryLogoSlug = convertToSlug(country);
+      const countryLogoSlug =
+        convertToSlug(country) === "united-kingdom"
+          ? "great-britain"
+          : convertToSlug(country);
+
       const items = [
         company?.name,
         city,
@@ -137,8 +139,11 @@ export const columns: ColumnDef<Sponsorship>[] = [
                 <p>{jobTitle}</p>
               </div>
               <div className="flex space-x-1">
-                <p>{country},</p>
-                <img src={`../../${countryLogoSlug}.png`} className="h-5 w-5" />
+                <p>{city},</p>
+                <img
+                  src={`https://img.icons8.com/color/48/${countryLogoSlug}.png`}
+                  className="h-5 w-5"
+                />
               </div>
             </div>
           }
@@ -221,7 +226,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
           summary={
             <div className="flex flex-col space-y-2 mx-6">
               <div className="flex space-x-1">
-                <CalendarDays className="size-4" />
+                <FaRegCalendarAlt />
                 <p>{`${month}, ${year}`}</p>
               </div>
               <ItemActions

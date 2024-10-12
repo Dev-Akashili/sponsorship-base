@@ -42,7 +42,7 @@ export const FormSelect = ({
       name={name}
       render={({ field }) => (
         <FormItem className="mt-2" style={{ width: width }}>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel className="dark:text-white">{label}</FormLabel>
           <Select
             value={field.value || ""}
             onValueChange={(value) => {
@@ -54,7 +54,7 @@ export const FormSelect = ({
             disabled={disabled}
           >
             <FormControl>
-              <SelectTrigger>
+              <SelectTrigger className="dark:text-white">
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
             </FormControl>

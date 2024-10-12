@@ -99,11 +99,11 @@ export const Settings = () => {
       <PageTitle title={"Settings"} />
       <div className="h-full flex justify-center align-center my-32">
         <div className="flex flex-col mx-auto w-[400px]">
-          <p className="text-2xl text-center text-slate-500 font-semibold">
+          <p className="text-2xl text-center text-slate-500 dark:text-white font-semibold">
             Profile Settings
           </p>
-          <div className="mt-10 px-6 py-4 bg-white rounded-lg">
-            <p className="text-xl mr-auto mb-4 text-slate-500 font-semibold">
+          <div className="mt-10 px-6 py-4 bg-white dark:bg-black rounded-lg">
+            <p className="text-xl mr-auto mb-4 text-slate-500 dark:text-white font-semibold">
               Change Password
             </p>
             {alert && (
@@ -136,13 +136,13 @@ export const Settings = () => {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="sponsorship-base mt-6 w-32"
+                  className="sponsorship-base dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white mt-6 w-32"
                 >
                   {isLoading ? <Spinner /> : "Update"}
                 </Button>
               </form>
             </Form>
-            <p className="text-lg mr-auto mt-8 text-slate-500 font-semibold">
+            <p className="text-lg mr-auto mt-8 text-slate-500 dark:text-white font-semibold">
               Delete Account
             </p>
             <DeleteModal
@@ -150,7 +150,7 @@ export const Settings = () => {
               handleDelete={handleDelete}
               text={"this account"}
             >
-              <Button variant={"destructive"} className="my-4 w-32">
+              <Button variant={"destructive"} className="my-4 w-32 dark:bg-red-600 dark:bg-red-500">
                 Delete account
               </Button>
             </DeleteModal>

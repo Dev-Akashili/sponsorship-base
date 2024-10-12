@@ -85,8 +85,8 @@ const SidebarItem = ({ path, text, link, icon }: SidebarItemProps) => {
       <SheetClose asChild className="w-full">
         <Button
           variant={"ghost"}
-          className={`w-full hover:text-blue-600 ${
-            isCurrentPath ? "bg-slate-100 text-blue-600" : ""
+          className={`w-full hover:text-blue-600 dark:text-white ${
+            isCurrentPath ? "bg-slate-100 dark:bg-slate-700 text-blue-600" : ""
           }`}
         >
           <div className="mr-auto flex justify-center items-center">
@@ -104,7 +104,7 @@ const SidebarUserMenu = ({ email }: { email: string }) => {
     <div className="flex flex-col space-y-4">
       <div className="flex items-center">
         <img src="../../user.png" alt="user" className="h-12 w-12" />
-        <p className="ml-4 text-slate-600 font-semibold">
+        <p className="ml-4 text-slate-600 dark:text-slate-300 font-semibold">
           {email.length > 20 ? email?.substring(0, 20) + "..." : email}
         </p>
       </div>
