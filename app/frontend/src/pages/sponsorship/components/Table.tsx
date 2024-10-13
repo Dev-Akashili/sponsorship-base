@@ -15,8 +15,6 @@ import { AuthInfoModal } from "@/components/core/AuthInfoModal";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ROLES } from "@/constants/Auth.constants";
 import { SPONSORSHIP_TABLE_FILTER_OPTIONS } from "@/constants/Tables.constants";
-import { ToggleProvider } from "@/context/Toggle";
-import { QueryProvider } from "@/context/Query";
 import { FilterPanel } from "./filter";
 
 interface TableProps {
@@ -117,34 +115,33 @@ export function Table({
   );
 
   return (
-    <ToggleProvider>
-      <QueryProvider>
-        <PageTitle title={pageTitle} />
-        {!data ? (
-          <LoadingPage />
-        ) : (
-          <>
-            {data.count <= 0 && fetchCount <= 0 ? (
-              noContentPage ?? <></>
-            ) : (
-              <div className="flex flex-col justify-center items-center mt-20 mb-52">
-                <DataTable
-                  columns={columns}
-                  count={data.count}
-                  data={data.list}
-                  Search={search}
-                  Filter={filterPanel}
-                  actions={tableAction}
-                  adminOptions={
-                    user?.roles.includes(ROLES.Admin) ? adminOption : null
-                  }
-                  link={ROUTES.list}
-                />
-              </div>
-            )}
-          </>
-        )}
-      </QueryProvider>
-    </ToggleProvider>
+    <>
+      <PageTitle title={pageTitle} />
+      {!data ? (
+        <LoadingPage />
+      ) : (
+        <>
+          {data.count <= 0 && fetchCount <= 0 ? (
+            noContentPage ?? <></>
+          ) : (
+            <div className="flex flex-col justify-center items-center mt-20 mb-52">
+              <DataTable
+                columns={columns}
+                count={data.count}
+                data={data.list}
+                Search={search}
+                Filter={filterPanel}
+                actions={tableAction}
+                adminOptions={
+                  user?.roles.includes(ROLES.Admin) ? adminOption : null
+                }
+                link={ROUTES.list}
+                paginated
+              />
+            </div>
+          )}
+        </>
+      )}
+    </>
   );
 }

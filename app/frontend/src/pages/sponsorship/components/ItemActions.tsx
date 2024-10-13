@@ -24,6 +24,7 @@ import { Spinner } from "@/components/core/Loader";
 import { SheetClose } from "@/components/ui/sheet";
 import { ROLES } from "@/constants/Auth.constants";
 import { useMutate } from "@/helpers/hooks/useMutate";
+import { useLocation } from "react-router-dom";
 
 interface ItemActionProps {
   id: string;
@@ -48,6 +49,7 @@ export const ItemActions = ({
   const btnRef = useRef<HTMLButtonElement>(null);
   const reportBtnRef = useRef<HTMLButtonElement>(null);
   const url = import.meta.env.VITE_CLIENT_LOCAL_URL;
+  const location = useLocation();
 
   useEffect(() => {
     setIsFav(isFavourite);
@@ -104,14 +106,16 @@ export const ItemActions = ({
               <p className="text-sm text-slate-500 my-auto">{favCount}</p>
             )}
             <Star
-              onClick={handleFavouriteChange}
+              onClick={() =>
+                location.pathname !== "/" && handleFavouriteChange()
+              }
               className={`size-6 p-1 text-slate-500 dark:text-slate-400 hover:cursor-pointer hover:bg-slate-300 dark:hover:bg-slate-600 hover:rounded ${
                 isFav ? "text-yellow-400 dark:text-yellow-400" : ""
               }`}
             />
           </div>
           <Share
-            onClick={() => copysShareLink(id)}
+            onClick={() => location.pathname !== "/" && copysShareLink(id)}
             className="ize-6 p-1 text-slate-500 dark:text-slate-400 hover:cursor-pointer hover:bg-slate-300 dark:hover:bg-slate-600 hover:rounded"
           />
           {!isOwner && (
@@ -122,7 +126,9 @@ export const ItemActions = ({
                 </p>
               )}
               <FlagTriangleRight
-                onClick={() => reportBtnRef.current?.click()}
+                onClick={() =>
+                  location.pathname !== "/" && reportBtnRef.current?.click()
+                }
                 className="ize-6 p-1 text-slate-500 dark:text-slate-400 hover:cursor-pointer hover:bg-slate-300 dark:hover:bg-slate-600 hover:rounded"
               />
             </div>

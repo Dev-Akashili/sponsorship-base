@@ -30,6 +30,7 @@ interface DataTableProps<TData, TValue> {
   adminOptions?: JSX.Element | JSX.Element[] | null;
   count: number;
   link?: string;
+  paginated: boolean;
 }
 
 export function DataTable<TData, TValue>({
@@ -40,7 +41,8 @@ export function DataTable<TData, TValue>({
   actions,
   adminOptions,
   count,
-  link
+  link,
+  paginated = true
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
@@ -121,9 +123,11 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-center space-x-2 py-4">
-        <DataTablePagination count={count} />
-      </div>
+      {paginated && (
+        <div className="flex items-center justify-center space-x-2 py-4">
+          <DataTablePagination count={count} />
+        </div>
+      )}
       {id && (
         <Button
           onClick={() => {
