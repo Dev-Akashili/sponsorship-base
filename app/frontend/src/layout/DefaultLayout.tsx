@@ -6,7 +6,7 @@ export const DefaultLayout = () => {
   return (
     <>
       <Navbar />
-      <div className="bg-slate-100 dark:bg-zinc-900 overflow-auto">
+      <div className="mt-20 bg-slate-100 dark:bg-zinc-900 overflow-auto">
         <Outlet />
       </div>
       <Footer />

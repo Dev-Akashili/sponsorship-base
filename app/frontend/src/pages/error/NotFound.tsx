@@ -8,7 +8,7 @@ export const NotFound = () => {
     <>
       <PageTitle title={"Not Found"} />
       <PageLayout>
-        <div className="m-auto text-center">
+        <div className="mb-24 text-center">
           <h1 className="text-9xl text-blue-600 dark:text-blue-800">404</h1>
           <p className="text-slate-600 dark:text-white text-xl mt-4">
             Sorry, the page you're looking for cannot be found

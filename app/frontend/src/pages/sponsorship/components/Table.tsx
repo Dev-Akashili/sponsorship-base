@@ -127,7 +127,7 @@ export function Table({
             {data.count <= 0 && fetchCount <= 0 ? (
               noContentPage ?? <></>
             ) : (
-              <div className="h-full flex flex-col justify-center items-center my-40">
+              <div className="flex flex-col justify-center items-center mt-20 mb-52">
                 <DataTable
                   columns={columns}
                   count={data.count}

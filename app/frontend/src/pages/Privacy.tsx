@@ -5,7 +5,7 @@ export const PrivacyPolicy = () => {
   return (
     <>
       <PageTitle title={"Privacy Policy"} />
-      <div className="flex flex-col space-y-4 mt-32 mb-40 px-40 dark:text-white">
+      <div className="flex flex-col space-y-4 mt-14 mb-40 px-40 dark:text-white">
         <h1 className="text-3xl text-blue-600 text-center font-semibold">
           Privacy Policy
         </h1>

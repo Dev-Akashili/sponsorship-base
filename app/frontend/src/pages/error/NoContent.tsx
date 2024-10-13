@@ -10,7 +10,7 @@ interface NoContentProps {
 export const NoContent = ({ image, text, link }: NoContentProps) => {
   return (
     <PageLayout>
-      <div className="flex flex-col space-y-6 items-center">
+      <div className="flex flex-col space-y-6 items-center mb-24">
         <img src={`../../${image}.png`} alt={image} className="size-30" />
         <p className="text-slate-500 dark:text-white">
           Nothing to see here yet

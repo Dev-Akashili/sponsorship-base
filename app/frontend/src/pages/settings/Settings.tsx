@@ -97,7 +97,7 @@ export const Settings = () => {
   return (
     <>
       <PageTitle title={"Settings"} />
-      <div className="h-full flex justify-center align-center my-32">
+      <div className="flex justify-center align-center mt-14 mb-52">
         <div className="flex flex-col mx-auto w-[400px]">
           <p className="text-2xl text-center text-slate-500 dark:text-white font-semibold">
             Profile Settings

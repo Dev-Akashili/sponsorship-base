@@ -14,7 +14,7 @@ export const FormLayout = ({
   children
 }: FormLayoutProps) => {
   return (
-    <div className="h-full flex justify-center align-center my-40">
+    <div className="flex justify-center align-center mt-14 mb-52">
       <div className={`${size === "lg" ? "w-110" : "w-96"} m-auto`}>
         {title && (
           <>
@@ -24,7 +24,9 @@ export const FormLayout = ({
             {content}
           </>
         )}
-        <div className=" p-6 m-auto rounded-lg bg-white dark:bg-black">{children}</div>
+        <div className=" p-6 m-auto rounded-lg bg-white dark:bg-black">
+          {children}
+        </div>
       </div>
     </div>
   );
