@@ -28,6 +28,12 @@ export const DataTablePagination = ({ count }: DataTablePaginationProps) => {
   const pageSize = Number(searchParams.get("pageSize") ?? defaultPageSize);
   const numberOfPages = Math.max(Math.ceil(count / pageSize), 1);
 
+  if (currentPage === 0 || pageSize === 0) {
+    searchParams.set("pageNumber", "1");
+    searchParams.set("pageSize", defaultPageSize.toString());
+    navigate({ search: searchParams.toString() }, { replace: true });
+  }
+
   if (currentPage > numberOfPages) {
     searchParams.set("pageNumber", Math.ceil(count / pageSize).toString());
     navigate({ search: searchParams.toString() }, { replace: true });
