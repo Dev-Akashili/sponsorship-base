@@ -19,7 +19,7 @@ export const TermsAndConditions = () => {
         </p>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">1. Use of the Website</h2>
+          <h2 className="text-lg font-semibold dark:text-blue-600">1. Use of the Website</h2>
           <ol className="list-disc pl-6">
             <li>
               You must be at least 18 years old to register and contribute to
@@ -44,7 +44,7 @@ export const TermsAndConditions = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">2. Contributions</h2>
+          <h2 className="text-lg font-semibold dark:text-blue-600">2. Contributions</h2>
           <p>When contributing job-related information, you agree:</p>
           <ol className="list-disc pl-6">
             <li>
@@ -64,7 +64,7 @@ export const TermsAndConditions = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">3. Intellectual Property</h2>
+          <h2 className="text-lg font-semibold dark:text-blue-600">3. Intellectual Property</h2>
           <p>
             The content on SponsorshipBase is protected by intellectual property
             laws. You may not reproduce, distribute, or create derivative works
@@ -73,7 +73,7 @@ export const TermsAndConditions = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">4. Account Responsibility</h2>
+          <h2 className="text-lg font-semibold dark:text-blue-600">4. Account Responsibility</h2>
           <p>
             You are responsible for maintaining the confidentiality of your
             account credentials. Any activities that occur under your account
@@ -83,7 +83,7 @@ export const TermsAndConditions = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">5. Prohibited Activities</h2>
+          <h2 className="text-lg font-semibold dark:text-blue-600">5. Prohibited Activities</h2>
           <p>You agree not to:</p>
           <ol className="list-disc pl-6">
             <li>Use the website for any illegal activities.</li>
@@ -95,7 +95,7 @@ export const TermsAndConditions = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">6. Reporting and Moderation</h2>
+          <h2 className="text-lg font-semibold dark:text-blue-600">6. Reporting and Moderation</h2>
           <p>
             Users can report any inappropriate content they encounter.
             SponsorshipBase reserves the right to remove or block content and
@@ -104,7 +104,7 @@ export const TermsAndConditions = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">7. Disclaimer of Warranties</h2>
+          <h2 className="text-lg font-semibold dark:text-blue-600">7. Disclaimer of Warranties</h2>
           <p>
             SponsorshipBase is provided "as is" without any warranties or
             guarantees. We do not guarantee the accuracy, completeness, or
@@ -113,7 +113,7 @@ export const TermsAndConditions = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">8. Limitation of Liability</h2>
+          <h2 className="text-lg font-semibold dark:text-blue-600">8. Limitation of Liability</h2>
           <p>
             SponsorshipBase is not liable for any damages arising from your use
             of the website or reliance on any information provided.
@@ -121,7 +121,7 @@ export const TermsAndConditions = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">9. Changes to the Terms</h2>
+          <h2 className="text-lg font-semibold dark:text-blue-600">9. Changes to the Terms</h2>
           <p>
             We reserve the right to modify these Terms and Conditions at any
             time. Changes will be posted, and your continued use of the website
@@ -130,7 +130,7 @@ export const TermsAndConditions = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">Contact Us</h2>
+          <h2 className="text-lg font-semibold dark:text-blue-600">Contact Us</h2>
           <p>
             If you have any questions regarding this Privacy Policy, please
             contact us by clicking{" "}

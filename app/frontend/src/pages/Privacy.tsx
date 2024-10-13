@@ -19,7 +19,9 @@ export const PrivacyPolicy = () => {
         </p>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">1. Information We Collect</h2>
+          <h2 className="text-lg font-semibold dark:text-blue-600">
+            1. Information We Collect
+          </h2>
           <p>
             When you register on SponsorshipBase, we collect the following
             information:
@@ -46,7 +48,7 @@ export const PrivacyPolicy = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">
+          <h2 className="text-lg font-semibold dark:text-blue-600">
             2. How We Use Your Information
           </h2>
           <p>The information you provide helps us:</p>
@@ -61,7 +63,7 @@ export const PrivacyPolicy = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">
+          <h2 className="text-lg font-semibold dark:text-blue-600">
             3. Data Storage and Security
           </h2>
           <p>
@@ -76,7 +78,9 @@ export const PrivacyPolicy = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">4. Sharing Your Data</h2>
+          <h2 className="text-lg font-semibold dark:text-blue-600">
+            4. Sharing Your Data
+          </h2>
           <p>
             We do not share, sell, or distribute your personal information to
             third parties except when required by law. We may share generic
@@ -87,7 +91,9 @@ export const PrivacyPolicy = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">5. Data Retention</h2>
+          <h2 className="text-lg font-semibold dark:text-blue-600">
+            5. Data Retention
+          </h2>
           <p>
             We retain your personal information as long as your account is
             active or as necessary to provide you with our services. You can
@@ -97,7 +103,9 @@ export const PrivacyPolicy = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">6. Your Rights</h2>
+          <h2 className="text-lg font-semibold dark:text-blue-600">
+            6. Your Rights
+          </h2>
           <p>As a user, you have the right to:</p>
           <ol className="list-disc pl-6">
             <li>Access, edit, or delete your personal data.</li>
@@ -110,7 +118,9 @@ export const PrivacyPolicy = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">7. Cookies</h2>
+          <h2 className="text-lg font-semibold dark:text-blue-600">
+            7. Cookies
+          </h2>
           <p>
             SponsorshipBase may use cookies to enhance user experience. You can
             choose to disable cookies through your browser settings.
@@ -118,7 +128,9 @@ export const PrivacyPolicy = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">8. Third-Party Websites</h2>
+          <h2 className="text-lg font-semibold dark:text-blue-600">
+            8. Third-Party Websites
+          </h2>
           <p>
             Our website may contain links to third-party websites. We have no
             control over the content, privacy policies, or practices of any
@@ -127,7 +139,7 @@ export const PrivacyPolicy = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">
+          <h2 className="text-lg font-semibold dark:text-blue-600">
             9. Changes to this Privacy Policy
           </h2>
           <p>
@@ -138,12 +150,17 @@ export const PrivacyPolicy = () => {
         </div>
 
         <div className="flex flex-col space-y-2">
-          <h2 className="text-lg font-semibold">Contact Us</h2>
+          <h2 className="text-lg font-semibold dark:text-blue-600">
+            Contact Us
+          </h2>
           <p>
             If you have any questions regarding this Privacy Policy, please
             contact us by clicking{" "}
             <span>
-              <a href={ROUTES.contact} className="text-blue-600 dark:text-blue-500 underline">
+              <a
+                href={ROUTES.contact}
+                className="text-blue-600 dark:text-blue-500 underline"
+              >
                 here
               </a>
             </span>

@@ -43,14 +43,16 @@ export const AuthInfoModal = ({ children }: AuthInfoModalProps) => {
         <DialogFooter>
           <Link to={AUTH_ROUTES.login} className="w-[50%]">
             <Button
-              className="text-blue-600 hover:text-blue-500 border border-blue-600 w-full"
               variant={"ghost"}
+              className="text-blue-600 dark:text-blue-800 hover:text-blue-500 border border-blue-600 dark:border-blue-800 w-full"
             >
               Login
             </Button>
           </Link>
           <Link to={AUTH_ROUTES.register} className="w-[50%]">
-            <Button className="sponsorship-base w-full">Register</Button>
+            <Button className="sponsorship-base dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white w-full">
+              Register
+            </Button>
           </Link>
         </DialogFooter>
       </DialogContent>
@@ -61,6 +63,6 @@ export const AuthInfoModal = ({ children }: AuthInfoModalProps) => {
 const InfoTile = ({ text }: { text: string }) => (
   <div className="flex items-center space-x-2">
     <CircleCheck className="size-4 text-white bg-blue-600 rounded-full" />
-    <p className="text-sm">{text}</p>
+    <p className="text-sm dark:text-white">{text}</p>
   </div>
 );

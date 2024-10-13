@@ -4,7 +4,6 @@ import {
   Table,
   UserCog,
   CopyPlus,
-  CircleHelp,
   NotebookText
 } from "lucide-react";
 import { ROUTES } from "@/pages/routes";
@@ -22,8 +21,7 @@ export const NAV_LINKS: NavLink[] = [
     link: ROUTES.list
   },
   { path: "add", text: "Contribute", link: ROUTES.add },
-  { path: "contact", text: "Contact", link: ROUTES.contact },
-  { path: "about", text: "About", link: ROUTES.about }
+  { path: "contact", text: "Contact", link: ROUTES.contact }
 ];
 
 export interface MenuItems {
@@ -46,13 +44,7 @@ export const SIDEBAR_ITEMS: MenuItems[] = [
     link: ROUTES.add,
     icon: <CopyPlus />
   },
-  { path: "contact", text: "Contact", link: ROUTES.contact, icon: <Mail /> },
-  {
-    path: "about",
-    text: "About",
-    link: ROUTES.about,
-    icon: <CircleHelp />
-  }
+  { path: "contact", text: "Contact", link: ROUTES.contact, icon: <Mail /> }
 ];
 
 export const SIDEBAR_USERMENU_ITEMS: MenuItems[] = [

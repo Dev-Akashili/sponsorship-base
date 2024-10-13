@@ -40,52 +40,50 @@ export const Navbar = () => {
           />
         ))}
       </div>
-      {user ? (
-        <div className="flex space-x-2">
-          <Button
-            size={"icon"}
-            variant={"ghost"}
-            className="border border-black dark:border-white dark:text-white mr-2"
-            onClick={() => toggleDarkMode()}
-          >
-            {darkMode ? <Moon /> : <Sun />}
-          </Button>
+      <div className="flex space-x-2">
+        <Button
+          size={"icon"}
+          variant={"ghost"}
+          className={`border ${
+            user ? "border-black" : "border-blue-600"
+          } dark:border-white ${
+            user ? "text-black hover:text-black" : "text-blue-600 hover:text-blue-500"
+          } dark:text-white  mr-2`}
+          onClick={() => toggleDarkMode()}
+        >
+          {darkMode ? <Moon /> : <Sun />}
+        </Button>
+        {user ? (
           <UserMenu />
-        </div>
-      ) : (
-        <div className="flex space-x-2">
-          <Button
-            size={"icon"}
-            variant={"ghost"}
-            className="border border-blue-600 dark:border-white text-blue-600 dark:text-white hover:text-blue-500 mr-2"
-            onClick={() => toggleDarkMode()}
-          >
-            {darkMode ? <Moon /> : <Sun />}
-          </Button>
-          <Link to={AUTH_ROUTES.login} className="hidden sm:block">
+        ) : (
+          <div className="flex space-x-2">
+            <Link to={AUTH_ROUTES.login} className="hidden sm:block">
+              <Button
+                className="text-blue-600 dark:text-white hover:text-blue-500 border border-blue-600 dark:border-white "
+                variant={"ghost"}
+              >
+                Login
+              </Button>
+            </Link>
+            <Link to={AUTH_ROUTES.register} className="hidden sm:block">
+              <Button className="sponsorship-base dark:bg-blue-700 dark:hover:bg-blue-600 dark:text-white">
+                Register
+              </Button>
+            </Link>
+          </div>
+        )}
+        <Sidebar
+          menuButton={
             <Button
-              className="text-blue-600 dark:text-white hover:text-blue-500 border border-blue-600 dark:border-white "
               variant={"ghost"}
+              size={"icon"}
+              className="block sm:hidden bg-slate-100 border dark:border-white dark:bg-black dark:text-white"
             >
-              Login
+              <Menu className=" h-8 w-8 m-auto" />
             </Button>
-          </Link>
-          <Link to={AUTH_ROUTES.register} className="hidden sm:block">
-            <Button className="sponsorship-base dark:bg-blue-700 dark:hover:bg-blue-600 dark:text-white">Register</Button>
-          </Link>
-        </div>
-      )}
-      <Sidebar
-        menuButton={
-          <Button
-            variant={"ghost"}
-            size={"icon"}
-            className="block sm:hidden bg-slate-100 dark:border dark:border-white dark:bg-black dark:text-white"
-          >
-            <Menu className=" h-8 w-8 m-auto" />
-          </Button>
-        }
-      />
+          }
+        />
+      </div>
     </div>
   );
 };
@@ -97,8 +95,10 @@ const NavLink = ({ path, text, link }: NavLinkProps) => {
   return (
     <Link to={link}>
       <p
-        className={`text-md font-semibold dark:text-white hover:text-blue-600 dark:hover:text-blue-600 hover:underline hover:cursor-pointer ${
-          isCurrentPath ? "text-blue-600 dark:text-blue-600 underline" : ""
+        className={`text-md font-semibold hover:text-blue-600 dark:hover:text-blue-600 hover:underline hover:cursor-pointer ${
+          isCurrentPath
+            ? "text-blue-600 dark:text-blue-600 underline"
+            : "dark:text-white"
         }`}
       >
         {text}
