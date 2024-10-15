@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Ban, CircleCheck, Edit, Trash } from "lucide-react";
 import { AuthContext } from "@/context/Auth";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "@/pages/routes";
 import { approveOrDisable, deleteSponsorship } from "@/api/sponsorship";
 import { toast } from "react-toastify";
@@ -23,10 +23,12 @@ export const UserActions = ({
   isApproved
 }: UserActionsProps) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { user } = useContext(AuthContext);
   const { mutate } = useMutate();
   const [deleting, setDeleting] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const isIndexPage = location.pathname === "/";
 
   const handleDelete = async () => {
     setDeleting(true);
@@ -66,7 +68,7 @@ export const UserActions = ({
 
   return (
     <>
-      {(isOwner || user?.roles.includes(ROLES.Admin)) && (
+      {(isOwner || (user?.roles.includes(ROLES.Admin) && !isIndexPage)) && (
         <div className="flex space-x-2 mt-auto mb-8">
           <Edit
             onClick={() => navigate(`${ROUTES.edit}/?id=${id}`)}
