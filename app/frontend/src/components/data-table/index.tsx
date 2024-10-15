@@ -66,10 +66,12 @@ export function DataTable<TData, TValue>({
   return (
     <div className="flex flex-col p-4 bg-white rounded-md dark:bg-black dark:text-white">
       <div className="flex flex-col">
-        <div className="flex flex-wrap justify-between space-4 mb-4">
+        <div className="flex flex-wrap justify-between mb-4">
           {Search}
-          {Filter}
-          {actions}
+          <div className="flex justify-between space-4 w-full lg:w-auto">
+            {Filter}
+            {actions}
+          </div>
         </div>
         {adminOptions}
       </div>

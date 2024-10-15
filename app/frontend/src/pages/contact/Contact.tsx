@@ -16,8 +16,7 @@ export const Contact = () => {
   const form = useForm<z.infer<typeof contactFormSchema>>({
     resolver: zodResolver(contactFormSchema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
+      name: "",
       email: "",
       message: ""
     }
@@ -35,21 +34,7 @@ export const Contact = () => {
       <FormLayout size="lg" title="Contact Us">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            {" "}
-            <div className="flex justify-between">
-              <FormInput
-                form={form}
-                name="firstName"
-                label="First name (optional)"
-                width={"49%"}
-              />
-              <FormInput
-                form={form}
-                name="lastName"
-                label="Last name (optional)"
-                width={"49%"}
-              />
-            </div>
+            <FormInput form={form} name="name" label="Name" width={"380px"} />
             <FormInput form={form} name="email" label="Email" />
             <FormInput
               form={form}

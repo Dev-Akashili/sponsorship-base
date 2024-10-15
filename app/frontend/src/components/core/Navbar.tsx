@@ -44,11 +44,11 @@ export const Navbar = () => {
         <Button
           size={"icon"}
           variant={"ghost"}
-          className={`border ${
-            user ? "border-black" : "border-blue-600"
-          } dark:border-white ${
-            user ? "text-black hover:text-black" : "text-blue-600 hover:text-blue-500"
-          } dark:text-white  mr-2`}
+          className={` dark:border-white ${
+            user
+              ? "text-black hover:text-black"
+              : "text-blue-600 hover:text-blue-500"
+          } dark:text-white mr-1`}
           onClick={() => toggleDarkMode()}
         >
           {darkMode ? <Moon /> : <Sun />}

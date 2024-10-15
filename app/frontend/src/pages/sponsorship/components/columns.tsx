@@ -226,7 +226,7 @@ export const columns: ColumnDef<Sponsorship>[] = [
           summary={
             <div className="flex flex-col space-y-2 mx-6">
               <div className="flex space-x-1">
-                <FaRegCalendarAlt />
+                <FaRegCalendarAlt className="my-auto" />
                 <p>{`${month}, ${year}`}</p>
               </div>
               <ItemActions

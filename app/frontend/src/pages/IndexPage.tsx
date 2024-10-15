@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ROUTES } from "./routes";
 import { PageTitle } from "@/components/core/PageTitle";
-import { FaGithub } from "react-icons/fa";
 import { DataTable } from "@/components/data-table";
 import { columns } from "./sponsorship/components/columns";
 import { DUMMY_DATA } from "@/constants/Home.constants";
@@ -12,7 +11,7 @@ export const IndexPage = () => {
   return (
     <>
       <PageTitle title={"Add Description Later"} />
-      <div className="flex flex-col justify-center items-center mb-40">
+      <div className="flex flex-col justify-center items-center mb-32">
         <div className="mx-auto mt-20 mb-40 w-9/12">
           <h1 className="text-8xl text-center text-slate-800 dark:text-white font-semibold">
             A{" "}
@@ -63,30 +62,14 @@ export const IndexPage = () => {
             count={0}
           />
         </ScrollArea>
-        <div className="flex space-x-4 mt-20">
-          <a href={ROUTES.about}>
-            <Button
-              size={"lg"}
-              className="sponsorship-base dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white"
-            >
-              Learn more about
-            </Button>
-          </a>
-          <a
-            target="_blank"
-            href={"https://github.com/Dev-Akashili/sponsorship-base"}
+        <a href={ROUTES.about} className="mt-16">
+          <Button
+            size={"lg"}
+            className="sponsorship-base dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white"
           >
-            <Button
-              size={"lg"}
-              variant={"outline"}
-              className="bg-gray-100 hover:bg-slate-200 border-2 border-black dark:border-white dark:text-white"
-            >
-              Suggest changes on{" "}
-              <span className="font-semibold ml-1">GitHub</span>{" "}
-              <FaGithub className="ml-2 size-5 dark:text-white" />
-            </Button>
-          </a>
-        </div>
+            Learn more about
+          </Button>
+        </a>
       </div>
     </>
   );

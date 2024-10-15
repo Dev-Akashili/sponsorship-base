@@ -1,7 +1,8 @@
 import { ROUTES } from "@/pages/routes";
-import { BookText, Info, Mail, ShieldAlert } from "lucide-react";
-import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaInfoCircle, FaInstagram, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import { IoDocumentText, IoMail } from "react-icons/io5";
+import { BsShieldFillExclamation } from "react-icons/bs";
 
 export const Footer = () => {
   return (
@@ -16,24 +17,23 @@ export const Footer = () => {
         <div className="flex flex-col space-y-4 mt-8">
           <div className="flex gap-6">
             <div className="flex items-center space-x-1 text-sm text-white cursor-pointer hover:underline">
-              <BookText className="size-4" />
+              <IoDocumentText className="size-4" />
               <a href={ROUTES.terms}>Terms and Conditions</a>
             </div>
             <div className="flex items-center space-x-1 text-sm text-white cursor-pointer hover:underline">
-              <ShieldAlert className="size-4" />
+              <BsShieldFillExclamation className="size-4" />
               <a href={ROUTES.privacy}>Privacy Policy</a>
             </div>
             <div className="flex items-center space-x-1 text-sm text-white cursor-pointer hover:underline">
-              <Mail className="size-4" />
+              <IoMail className="size-4" />
               <a href={ROUTES.contact}>Contact</a>
             </div>
             <div className="flex items-center space-x-1 text-sm text-white cursor-pointer hover:underline">
-              <Info className="size-4" />
+              <FaInfoCircle className="size-4" />
               <a href={ROUTES.about}>About</a>
             </div>
           </div>
           <div className="flex space-x-4 ml-auto">
-            <FaGithub className="size-5 text-white" />
             <FaLinkedin className="size-5 text-white" />
             <FaXTwitter className="size-5 text-white" />
             <FaInstagram className="size-5 text-white" />

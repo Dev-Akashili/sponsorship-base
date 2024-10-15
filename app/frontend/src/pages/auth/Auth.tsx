@@ -5,6 +5,7 @@ import { Register } from "./components/Register";
 import { VerifyEmail } from "./components/VerifyEmail";
 import { ResetPassword } from "./components/ResetPassword";
 import { formatPageTitle } from "@/utils";
+import { PageTitle } from "@/components/core/PageTitle";
 
 export const Auth = () => {
   const [searchParams] = useSearchParams();
@@ -12,7 +13,6 @@ export const Auth = () => {
 
   useEffect(() => {
     setPage(searchParams.get("page"));
-    document.title = `SponsorshipBase – ${formatPageTitle(page ?? "")}`;
   }, [page, searchParams]);
 
   const getPage = () => {
@@ -31,5 +31,10 @@ export const Auth = () => {
     }
   };
 
-  return <>{getPage()}</>;
+  return (
+    <>
+      <PageTitle title={formatPageTitle(page ?? "")} />
+      {getPage()}
+    </>
+  );
 };
