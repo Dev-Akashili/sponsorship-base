@@ -56,8 +56,8 @@ export const Sidebar = ({ menuButton }: SidebarProps) => {
               <Link to={AUTH_ROUTES.login} className="w-[48%]">
                 <SheetClose asChild>
                   <Button
-                    className="text-blue-600 hover:text-blue-500 border border-blue-600 w-full"
                     variant={"ghost"}
+                    className="text-blue-600 hover:text-blue-500 border border-blue-600 dark:border-blue-600 dark:hover:text-blue-500 w-full"
                   >
                     Login
                   </Button>
@@ -65,7 +65,9 @@ export const Sidebar = ({ menuButton }: SidebarProps) => {
               </Link>
               <Link to={AUTH_ROUTES.register} className="w-[48%]">
                 <SheetClose asChild>
-                  <Button className="sponsorship-base w-full">Register</Button>
+                  <Button className="sponsorship-base dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white w-full">
+                    Register
+                  </Button>
                 </SheetClose>
               </Link>
             </div>
