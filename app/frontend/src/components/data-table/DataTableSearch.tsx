@@ -16,7 +16,7 @@ export const DataTableSearch = ({ placeholder }: DataTableSearchProps) => {
     const value = event.target.value;
     setInputValue(value);
     const searchParams = new URLSearchParams(location.search);
-    if (value) {
+    if (value && value.length >= 2) {
       searchParams.set("filter", value);
     } else {
       searchParams.delete("filter");
