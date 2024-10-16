@@ -158,8 +158,9 @@ const ResetPasswordForm = ({ codeId, code, email }: ResetPasswordFormProps) => {
         toast.success("Password has successfully been changed");
       } else {
         const response = await request.json();
+        console.log(response.name)
         setResponse({
-          name: response.name,
+          name: "error",
           message:
             response.message === "expired"
               ? "Link has expired"
