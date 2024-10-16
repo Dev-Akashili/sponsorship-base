@@ -12,47 +12,45 @@ export const IndexPage = () => {
     <>
       <PageTitle title={"Add Description Later"} />
       <div className="flex flex-col justify-center items-center mb-32">
-        <div className="mx-auto mt-20 mb-40 w-9/12">
+        <div className=" flex flex-col mx-auto mt-20 mb-40">
           <h1 className="text-8xl text-center text-slate-800 dark:text-white font-semibold">
-            A{" "}
-            <span className="text-blue-600 dark:text-blue-700">directory</span>{" "}
-            of{" "}
-            <span className="text-blue-600 dark:text-blue-700">
-              visa sponsorsed
-            </span>{" "}
-            jobs
+            <span className="text-blue-600 dark:text-blue-700">Navigating</span>{" "}
+            your
           </h1>
-          <p className="mx-auto my-10 text-center text-slate-600 dark:text-white text-xl w-[70%]">
-            Looking for a job that offers visa sponsorship can be daunting! This
-            platform is built to help provide information from people that have
-            pulled it off and serve as a guide.
+          <h1 className="text-8xl text-center text-slate-800 dark:text-white font-semibold">
+            <span className="text-blue-600 dark:text-blue-700">
+              visa sponsored job
+            </span>
+          </h1>
+          <h1 className="text-8xl text-center text-slate-800 dark:text-white font-semibold">
+            journey
+          </h1>
+          <p className="mx-auto my-10 text-center text-slate-600 dark:text-white text-xl">
+            Share and receive insight on companies that offer visa sponsorship
+            and jobs they sponsor for
           </p>
-          <div className="text-center">
+          <div className="flex items-center mx-auto">
             <Link to={ROUTES.list}>
-              <Button
-                size={"lg"}
-                className="mx-2 sponsorship-base dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white"
-              >
+              <Button className="mx-2 sponsorship-base dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white">
                 View Sponsorship list
               </Button>
             </Link>
             <Link to={ROUTES.add}>
-              <Button
-                size={"lg"}
-                className="mx-2 sponsorship-base dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white"
-              >
+              <Button className="mx-2 sponsorship-base dark:bg-blue-800 dark:hover:bg-blue-700 dark:text-white">
                 Add Your Sponsored Job
               </Button>
             </Link>
           </div>
         </div>
+
         <h1 className="text-4xl text-blue-600 font-semibold">
-          Get Empowered With Information
+          Better Guide In Your Search for Opportunities
         </h1>
         <p className="mx-auto mt-4 mb-20 text-center text-slate-600 dark:text-white text-xl w-[70%]">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s.
+          Looking for a job that offers visa sponsorship can be daunting!{" "}
+          <span className="font-semibold">SponsorshipBase</span> is a platform
+          built to provide information from people that have pulled it off and
+          serve as a guide.
         </p>
         <ScrollArea className="h-[450px] border rounded-md">
           <DataTable
