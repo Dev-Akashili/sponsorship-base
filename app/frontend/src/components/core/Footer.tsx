@@ -11,7 +11,8 @@ export const Footer = () => {
         <div className="flex flex-col gap-2 mt-8">
           <p className="text-lg text-white font-semibold">SponsorshipBase</p>
           <p className="text-sm text-white ">
-            © SponsorshipBase {new Date().getFullYear()}
+            Copyright © {new Date().getFullYear()} SponsorshipBase - All Rights
+            Reserved.
           </p>
         </div>
         <div className="flex flex-col space-y-4 mt-8">

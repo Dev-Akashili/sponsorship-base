@@ -10,20 +10,18 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 export const IndexPage = () => {
   return (
     <>
-      <PageTitle title={"Add Description Later"} />
+      <PageTitle title={"Guided search for visa sponsored jobs"} />
       <div className="flex flex-col justify-center items-center mb-32">
-        <div className=" flex flex-col mx-auto mt-20 mb-40">
+        <div className=" flex flex-col mx-auto mt-32 mb-40">
           <h1 className="text-8xl text-center text-slate-800 dark:text-white font-semibold">
-            <span className="text-blue-600 dark:text-blue-700">Navigating</span>{" "}
-            your
+            Guided{" "}
+            <span className="text-blue-600 dark:text-blue-700">search</span> for
           </h1>
           <h1 className="text-8xl text-center text-slate-800 dark:text-white font-semibold">
             <span className="text-blue-600 dark:text-blue-700">
-              visa sponsored job
-            </span>
-          </h1>
-          <h1 className="text-8xl text-center text-slate-800 dark:text-white font-semibold">
-            journey
+              visa sponsored
+            </span>{" "}
+            jobs
           </h1>
           <p className="mx-auto my-10 text-center text-slate-600 dark:text-white text-xl">
             Share and receive insight on companies that offer visa sponsorship
