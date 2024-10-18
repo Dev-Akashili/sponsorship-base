@@ -8,7 +8,7 @@ export const DUMMY_DATA: Sponsorship[] = [
     company: {
       name: "Google",
       logo: "",
-      careerPage: ""
+      careerPage: "https://www.google.com/about/careers/applications/"
     },
     country: "United Kingdom",
     city: "London",
@@ -30,7 +30,7 @@ export const DUMMY_DATA: Sponsorship[] = [
     favouriteCount: 5,
     reports: [],
     isApproved: true,
-    createdAt: new Date("2024-10-11T11:19:45.039264Z")
+    createdAt: new Date("2024-10-12T11:19:45.039264Z")
   },
   {
     id: "2",
@@ -61,7 +61,7 @@ export const DUMMY_DATA: Sponsorship[] = [
     favouriteCount: 2,
     reports: [],
     isApproved: true,
-    createdAt: new Date("2024-10-11T11:19:45.039264Z")
+    createdAt: new Date("2024-09-18T11:19:45.039264Z")
   },
   {
     id: "3",
@@ -70,7 +70,7 @@ export const DUMMY_DATA: Sponsorship[] = [
     company: {
       name: "Microsoft",
       logo: "",
-      careerPage: ""
+      careerPage: "https://careers.microsoft.com/v2/global/en/home.html"
     },
     country: "Spain",
     city: "Barcelona",
@@ -92,7 +92,7 @@ export const DUMMY_DATA: Sponsorship[] = [
     favouriteCount: 28,
     reports: [],
     isApproved: true,
-    createdAt: new Date("2024-10-11T11:19:45.039264Z")
+    createdAt: new Date("2024-06-21T11:19:45.039264Z")
   },
   {
     id: "4",
@@ -101,7 +101,7 @@ export const DUMMY_DATA: Sponsorship[] = [
     company: {
       name: "Meta",
       logo: "",
-      careerPage: ""
+      careerPage: "https://www.metacareers.com/jobs/"
     },
     country: "United Kingdom",
     city: "London",
@@ -123,7 +123,7 @@ export const DUMMY_DATA: Sponsorship[] = [
     favouriteCount: 22,
     reports: [],
     isApproved: true,
-    createdAt: new Date("2024-10-11T11:19:45.039264Z")
+    createdAt: new Date("2024-03-04T11:19:45.039264Z")
   },
   {
     id: "5",
@@ -154,7 +154,7 @@ export const DUMMY_DATA: Sponsorship[] = [
     favouriteCount: 9,
     reports: [],
     isApproved: true,
-    createdAt: new Date("2024-10-11T11:19:45.039264Z")
+    createdAt: new Date("2024-05-16T11:19:45.039264Z")
   },
   {
     id: "6",
@@ -163,7 +163,7 @@ export const DUMMY_DATA: Sponsorship[] = [
     company: {
       name: "NHS",
       logo: "",
-      careerPage: ""
+      careerPage: "https://www.jobs.nhs.uk/candidate"
     },
     country: "United Kingdom",
     city: "Liverpool",
@@ -185,7 +185,7 @@ export const DUMMY_DATA: Sponsorship[] = [
     favouriteCount: 76,
     reports: [],
     isApproved: true,
-    createdAt: new Date("2024-10-11T11:19:45.039264Z")
+    createdAt: new Date("2024-01-19T11:19:45.039264Z")
   },
   {
     id: "7",
@@ -216,7 +216,7 @@ export const DUMMY_DATA: Sponsorship[] = [
     favouriteCount: 14,
     reports: [],
     isApproved: true,
-    createdAt: new Date("2024-10-11T11:19:45.039264Z")
+    createdAt: new Date("2024-07-02T11:19:45.039264Z")
   },
   {
     id: "8",
@@ -247,6 +247,6 @@ export const DUMMY_DATA: Sponsorship[] = [
     favouriteCount: 0,
     reports: [],
     isApproved: true,
-    createdAt: new Date("2024-10-11T11:19:45.039264Z")
+    createdAt: new Date("2024-06-13T11:19:45.039264Z")
   }
 ];
