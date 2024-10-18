@@ -27,10 +27,10 @@ public class EmailService : IEmailService
         var code = await GenerateVerificationCode();
         
         // Get EmailJS Credentials from config
-        var serviceId = _config["EmailJS:ServiceId"] ?? throw new KeyNotFoundException("Service Id not valid");
+        var serviceId = _config["EmailJS:SBServiceId"] ?? throw new KeyNotFoundException("Service Id not valid");
         var registerTemplateId = _config["EmailJS:RegisterTemplateId"] ?? throw new KeyNotFoundException("Template Id not valid");
         var resetTemplateId = _config["EmailJS:ResetTemplateId"] ?? throw new KeyNotFoundException("Template Id not valid");
-        var key = _config["EmailJS:Key"] ?? throw new KeyNotFoundException("Private Id not valid");
+        var key = _config["EmailJS:SBKey"] ?? throw new KeyNotFoundException("Private Id not valid");
         
         var email = new
         {
@@ -48,6 +48,98 @@ public class EmailService : IEmailService
         HttpResponseMessage response = await _client.PostAsJsonAsync("https://api.emailjs.com/api/v1.0/email/send", email);
 
         response.EnsureSuccessStatusCode();
+    }
+
+    public async Task SendCreatedEmail(
+        string id,
+        string email, 
+        string sex,
+        string nationality,
+        string company,
+        string country,
+        string city,
+        string jobTitle
+    )
+    {
+        // Get EmailJS Credentials from config
+        var serviceId = _config["EmailJS:CHServiceId"] ?? throw new KeyNotFoundException("Service Id not valid");
+        var createdTemplateId = _config["EmailJS:CreatedTemplateId"] ?? throw new KeyNotFoundException("Template Id not valid");
+        var key = _config["EmailJS:CHKey"] ?? throw new KeyNotFoundException("Private Id not valid");
+
+        var newEmail = new
+        {
+            service_id = serviceId,
+            template_id = createdTemplateId,
+            user_id = key,
+            template_params = new
+            {
+                id,
+                email,
+                sex,
+                nationality,
+                company,
+                country,
+                city,
+                jobTitle
+            }
+        };
+        
+        await _client.PostAsJsonAsync("https://api.emailjs.com/api/v1.0/email/send", newEmail);
+    }
+    
+    public async Task SendEditedEmail(
+        string id,
+        string email, 
+        string sex,
+        string nationality,
+        string company,
+        string country,
+        string city,
+        string oldJobTitle,
+        string newJobTitle,
+        string oldIndustry,
+        string newIndustry,
+        string oldExperience,
+        string newExperience,
+        string oldMonth,
+        string newMonth,
+        string oldYear,
+        string newYear
+    )
+    {
+        // Get EmailJS Credentials from config
+        var serviceId = _config["EmailJS:CHServiceId"] ?? throw new KeyNotFoundException("Service Id not valid");
+        var createdTemplateId = _config["EmailJS:EditedTemplateId"] ?? throw new KeyNotFoundException("Template Id not valid");
+        var key = _config["EmailJS:CHKey"] ?? throw new KeyNotFoundException("Private Id not valid");
+
+        var newEmail = new
+        {
+            service_id = serviceId,
+            template_id = createdTemplateId,
+            user_id = key,
+            template_params = new
+            {
+                id,
+                email,
+                sex,
+                nationality,
+                company,
+                country,
+                city,
+                oldJobTitle,
+                newJobTitle,
+                oldIndustry,
+                newIndustry,
+                oldExperience,
+                newExperience,
+                oldMonth,
+                newMonth,
+                oldYear,
+                newYear
+            }
+        };
+        
+        await _client.PostAsJsonAsync("https://api.emailjs.com/api/v1.0/email/send", newEmail);
     }
 
     private async Task<VerificationCode> GenerateVerificationCode()

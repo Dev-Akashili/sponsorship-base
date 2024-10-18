@@ -6,12 +6,14 @@ using SponsorshipBase.Data;
 using SponsorshipBase.Data.Entities;
 using SponsorshipBase.Data.Entities.Identity;
 using SponsorshipBase.Models;
+using SponsorshipBase.Services.Contracts;
 
 namespace SponsorshipBase.Services;
 
 public class SponsorshipService(
     ApplicationDbContext db, 
-    UserManager<ApplicationUser> userManager
+    UserManager<ApplicationUser> userManager,
+    IEmailService emailService
 )
 {
     public async Task<PaginatedResponse<SponsorshipModel>> List(
@@ -271,6 +273,18 @@ public class SponsorshipService(
 
         db.Sponsorships.Add(entity);
         await db.SaveChangesAsync();
+
+        await emailService.SendCreatedEmail(
+            entity.Id,
+            user.Email ?? "",
+            entity.Sex,
+            entity.Nationality,
+            entity.Company.Name,
+            entity.Country,
+            entity.City,
+            entity.JobTitle
+        );
+        
         return entity;
     }
 
@@ -351,6 +365,29 @@ public class SponsorshipService(
                     }
                 }
             }
+        }
+        
+        if (!roles.Contains("Admin"))
+        {
+            await emailService.SendEditedEmail(
+                sponsorship.Id,
+                user.Email ?? "",
+                sponsorship.Sex,
+                sponsorship.Nationality,
+                sponsorship.Company.Name,
+                sponsorship.Country,
+                sponsorship.City,
+                sponsorship.JobTitle,
+                model.JobTitle,
+                sponsorship.Industry,
+                model.Industry,
+                sponsorship.Experience,
+                model.Experience,
+                sponsorship.Month,
+                model.Month,
+                sponsorship.Year,
+                model.Year
+            );
         }
 
         // User update
