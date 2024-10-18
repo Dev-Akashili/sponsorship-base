@@ -198,27 +198,41 @@ export const columns: ColumnDef<Sponsorship>[] = [
       const jobBoardSlug = convertToSlug(jobBoard?.name ?? "");
       const isJobBoardCompanyPage = jobBoard?.name === "Company";
 
-      const website = (
+      const careerPage = (
         <a
-          href={isJobBoardCompanyPage ? company?.careerPage : jobBoard?.link}
+          href={company?.careerPage}
           target="_blank"
-          className={`flex ${
-            isJobBoardCompanyPage ? "text-blue-600" : "text-slate-600"
-          } font-semibold underline cursor-pointer`}
+          className="flex text-blue-600 font-semibold underline"
         >
-          {jobBoard?.name !== "Company" && (
-            <img
-              src={`../../${jobBoardSlug}.jpeg`}
-              alt={`${jobBoardSlug}`}
-              className="size-3 my-auto mr-1 border"
-            />
-          )}
-          {isJobBoardCompanyPage ? "Career Page" : jobBoard?.name}
+          Click here
           <ExternalLink className="size-3 my-auto ml-1" />
         </a>
       );
 
-      const items = [`${month}, ${year}`, website];
+      const website = (
+        <a
+          href={isJobBoardCompanyPage ? company?.careerPage : jobBoard?.link}
+          target={"_blank"}
+          className={`flex text-slate-600 font-semibold ${
+            !isJobBoardCompanyPage && "underline cursor-pointer"
+          }`}
+        >
+          {!isJobBoardCompanyPage && (
+            <>
+              <img
+                src={`../../${jobBoardSlug}.jpeg`}
+                alt={`${jobBoardSlug}`}
+                className="size-3 my-auto mr-1 border"
+              />
+              {jobBoard?.name}
+              <ExternalLink className="size-3 my-auto ml-1" />
+            </>
+          )}
+          {isJobBoardCompanyPage && "Career page"}
+        </a>
+      );
+
+      const items = [`${month}, ${year}`, careerPage, website];
 
       return (
         <TableRowLayout

@@ -17,6 +17,7 @@ import { FaLocationDot } from "react-icons/fa6";
 import { GrUserWorker } from "react-icons/gr";
 import { PiCertificateBold, PiGenderIntersexBold } from "react-icons/pi";
 import { FilterSelectProps } from "@/pages/sponsorship/components/filter";
+import { MdComputer } from "react-icons/md";
 
 export const PROFILE_COLUMN = [
   {
@@ -65,9 +66,10 @@ export const SPONSORSHIP_COLUMN = [
     name: "Date of Sponsorship",
     image: <FaRegCalendarAlt />
   },
+  { name: "Career page", image: <FaGlobe /> },
   {
-    name: "Job Board Website",
-    image: <FaGlobe />
+    name: "Job found on",
+    image: <MdComputer />
   }
 ];
 
